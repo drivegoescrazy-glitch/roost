@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class ChickensMod implements ModInitializer {
 	public static final String MOD_ID = "chickens";
 	public static final String NAME = "Chickens";
-	public static final String VERSION = "7.0.6";
+	public static final String VERSION = "7.0.7";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
 	@Override

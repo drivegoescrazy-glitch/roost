@@ -76,6 +76,7 @@ public final class RoostCompat {
 			Object type = roostGet.invoke(null, sample);
 			Object data = type == null ? null : dataChickenOf.invoke(null, type);
 			Object drop = data == null ? null : createDropStack.invoke(data);
+			logModelCoverage();
 			if (drop instanceof ItemStack stack && !stack.isEmpty()) {
 				ChickensMod.LOGGER.info("Roost round-trip check passed for {} -> {}",
 						sample, net.minecraft.registry.Registries.ITEM.getId(stack.getItem()));
@@ -84,6 +85,26 @@ public final class RoostCompat {
 			}
 		} catch (Throwable throwable) {
 			ChickensMod.LOGGER.warn("Roost round-trip check failed", throwable);
+		}
+	}
+
+	/** Reports how many kinds Roost can draw with their own chicken model. */
+	private static void logModelCoverage() {
+		try {
+			Class<?> textures = Class.forName("com.timwoodcreates.roost.RoostTextures");
+			Method modelIndex = textures.getMethod("modelIndex", String.class);
+			int unknown = (Integer) modelIndex.invoke(null, "unknownchicken");
+			int missing = 0;
+			for (ChickensRegistryItem item : ChickensRegistry.getItems()) {
+				if ((Integer) modelIndex.invoke(null, textureName(item)) == unknown) {
+					missing++;
+				}
+			}
+			int total = ChickensRegistry.getItems().size();
+			ChickensMod.LOGGER.info("Roost item models resolved for {}/{} chicken kinds",
+					total - missing, total);
+		} catch (Throwable throwable) {
+			ChickensMod.LOGGER.warn("Could not check Roost item models", throwable);
 		}
 	}
 
@@ -112,7 +133,10 @@ public final class RoostCompat {
 		String path = item.getTexture().getPath();
 		int slash = path.lastIndexOf('/');
 		String file = slash >= 0 ? path.substring(slash + 1) : path;
-		return file.endsWith(".png") ? file.substring(0, file.length() - 4) : file;
+		String base = file.endsWith(".png") ? file.substring(0, file.length() - 4) : file;
+		// Roost names its chicken models and textures without underscores
+		// (white_chicken -> whitechicken), and we ship both lookups for them.
+		return base.replace("_", "");
 	}
 
 	/**

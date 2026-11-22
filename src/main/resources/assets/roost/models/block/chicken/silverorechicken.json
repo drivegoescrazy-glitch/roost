@@ -1,0 +1,6 @@
+{
+  "parent": "roost:block/roost_chicken",
+  "textures": {
+    "chicken": "roost:block/chicken/silverorechicken"
+  }
+}

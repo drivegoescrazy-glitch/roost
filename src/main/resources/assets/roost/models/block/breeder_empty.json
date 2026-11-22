@@ -1,6 +1,6 @@
 {
   "parent": "roost:block/breeder_privacy",
   "textures": {
-    "side": "roost:blocks/curtain_empty"
+    "side": "roost:block/curtain_empty"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "roost:items/chicken/vanilla"
+    "layer0": "roost:item/chicken/vanilla"
   }
 }

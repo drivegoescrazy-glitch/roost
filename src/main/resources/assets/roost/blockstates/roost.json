@@ -1,796 +1,5967 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "particle": "roost:blocks/plain_face",
-      "wood": "roost:blocks/plain_face",
-      "front": "roost:blocks/curtain_side",
-      "hay_side": "roost:blocks/hay_side",
-      "hay": "roost:blocks/hay_floor",
-      "chicken": "roost:blocks/chicken/vanilla"
+  "multipart": [
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "roost:block/roost_box"
+      }
     },
-    "model": "roost:roost"
-  },
-  "variants": {
-    "facing": {
-      "north": {
-        "y": 0
+    {
+      "when": {
+        "facing": "east"
       },
-      "east": {
+      "apply": {
+        "model": "roost:block/roost_box",
         "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
       },
-      "south": {
+      "apply": {
+        "model": "roost:block/roost_box",
         "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
       },
-      "west": {
+      "apply": {
+        "model": "roost:block/roost_box",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "1"
+      },
+      "apply": {
+        "model": "roost:block/chicken/advancedprocessorchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "1"
+      },
+      "apply": {
+        "model": "roost:block/chicken/advancedprocessorchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "1"
+      },
+      "apply": {
+        "model": "roost:block/chicken/advancedprocessorchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "1"
+      },
+      "apply": {
+        "model": "roost:block/chicken/advancedprocessorchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "2"
+      },
+      "apply": {
+        "model": "roost:block/chicken/aluminumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "2"
+      },
+      "apply": {
+        "model": "roost:block/chicken/aluminumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "2"
+      },
+      "apply": {
+        "model": "roost:block/chicken/aluminumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "2"
+      },
+      "apply": {
+        "model": "roost:block/chicken/aluminumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "3"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amberchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "3"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amberchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "3"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amberchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "3"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amberchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "4"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amethystchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "4"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amethystchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "4"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amethystchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "4"
+      },
+      "apply": {
+        "model": "roost:block/chicken/amethystchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "5"
+      },
+      "apply": {
+        "model": "roost:block/chicken/arditechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "5"
+      },
+      "apply": {
+        "model": "roost:block/chicken/arditechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "5"
+      },
+      "apply": {
+        "model": "roost:block/chicken/arditechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "5"
+      },
+      "apply": {
+        "model": "roost:block/chicken/arditechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "6"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basalzrodchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "6"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basalzrodchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "6"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basalzrodchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "6"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basalzrodchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "7"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basicprocessorchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "7"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basicprocessorchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "7"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basicprocessorchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "7"
+      },
+      "apply": {
+        "model": "roost:block/chicken/basicprocessorchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "8"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "8"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "8"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "8"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "9"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackquartzchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "9"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackquartzchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "9"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackquartzchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "9"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blackquartzchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "10"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blazechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "10"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blazechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "10"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blazechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "10"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blazechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "11"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blitzrodchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "11"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blitzrodchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "11"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blitzrodchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "11"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blitzrodchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "12"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blizzrodchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "12"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blizzrodchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "12"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blizzrodchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "12"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blizzrodchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "13"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bloodslime"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "13"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bloodslime",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "13"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bloodslime",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "13"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bloodslime",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "14"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bluechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "14"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bluechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "14"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bluechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "14"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bluechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "15"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blueslime"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "15"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blueslime",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "15"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blueslime",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "15"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blueslime",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "16"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blutoniumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "16"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blutoniumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "16"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blutoniumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "16"
+      },
+      "apply": {
+        "model": "roost:block/chicken/blutoniumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "17"
+      },
+      "apply": {
+        "model": "roost:block/chicken/boopbeepchick"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "17"
+      },
+      "apply": {
+        "model": "roost:block/chicken/boopbeepchick",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "17"
+      },
+      "apply": {
+        "model": "roost:block/chicken/boopbeepchick",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "17"
+      },
+      "apply": {
+        "model": "roost:block/chicken/boopbeepchick",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "18"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brasschicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "18"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brasschicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "18"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brasschicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "18"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brasschicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "19"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bronzechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "19"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bronzechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "19"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bronzechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "19"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bronzechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "20"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brownchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "20"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brownchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "20"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brownchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "20"
+      },
+      "apply": {
+        "model": "roost:block/chicken/brownchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "21"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bulletchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "21"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bulletchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "21"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bulletchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "21"
+      },
+      "apply": {
+        "model": "roost:block/chicken/bulletchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "22"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cablechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "22"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cablechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "22"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cablechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "22"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cablechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "23"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chickenosto"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "23"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chickenosto",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "23"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chickenosto",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "23"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chickenosto",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "24"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chromechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "24"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chromechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "24"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chromechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "24"
+      },
+      "apply": {
+        "model": "roost:block/chicken/chromechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "25"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cinnabarchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "25"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cinnabarchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "25"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cinnabarchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "25"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cinnabarchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "26"
+      },
+      "apply": {
+        "model": "roost:block/chicken/claychicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "26"
+      },
+      "apply": {
+        "model": "roost:block/chicken/claychicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "26"
+      },
+      "apply": {
+        "model": "roost:block/chicken/claychicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "26"
+      },
+      "apply": {
+        "model": "roost:block/chicken/claychicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "27"
+      },
+      "apply": {
+        "model": "roost:block/chicken/coalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "27"
+      },
+      "apply": {
+        "model": "roost:block/chicken/coalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "27"
+      },
+      "apply": {
+        "model": "roost:block/chicken/coalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "27"
+      },
+      "apply": {
+        "model": "roost:block/chicken/coalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "28"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cobaltchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "28"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cobaltchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "28"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cobaltchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "28"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cobaltchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "29"
+      },
+      "apply": {
+        "model": "roost:block/chicken/conductiveironchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "29"
+      },
+      "apply": {
+        "model": "roost:block/chicken/conductiveironchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "29"
+      },
+      "apply": {
+        "model": "roost:block/chicken/conductiveironchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "29"
+      },
+      "apply": {
+        "model": "roost:block/chicken/conductiveironchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "30"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constantanchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "30"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constantanchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "30"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constantanchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "30"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constantanchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "31"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constructioncorechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "31"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constructioncorechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "31"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constructioncorechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "31"
+      },
+      "apply": {
+        "model": "roost:block/chicken/constructioncorechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "32"
+      },
+      "apply": {
+        "model": "roost:block/chicken/copperchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "32"
+      },
+      "apply": {
+        "model": "roost:block/chicken/copperchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "32"
+      },
+      "apply": {
+        "model": "roost:block/chicken/copperchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "32"
+      },
+      "apply": {
+        "model": "roost:block/chicken/copperchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "33"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cupronickelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "33"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cupronickelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "33"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cupronickelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "33"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cupronickelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "34"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "34"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "34"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "34"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "35"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanitechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "35"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanitechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "35"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanitechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "35"
+      },
+      "apply": {
+        "model": "roost:block/chicken/cyanitechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "36"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darkgemchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "36"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darkgemchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "36"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darkgemchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "36"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darkgemchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "37"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darksteelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "37"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darksteelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "37"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darksteelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "37"
+      },
+      "apply": {
+        "model": "roost:block/chicken/darksteelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "38"
+      },
+      "apply": {
+        "model": "roost:block/chicken/demonmetalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "38"
+      },
+      "apply": {
+        "model": "roost:block/chicken/demonmetalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "38"
+      },
+      "apply": {
+        "model": "roost:block/chicken/demonmetalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "38"
+      },
+      "apply": {
+        "model": "roost:block/chicken/demonmetalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "39"
+      },
+      "apply": {
+        "model": "roost:block/chicken/destructioncorechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "39"
+      },
+      "apply": {
+        "model": "roost:block/chicken/destructioncorechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "39"
+      },
+      "apply": {
+        "model": "roost:block/chicken/destructioncorechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "39"
+      },
+      "apply": {
+        "model": "roost:block/chicken/destructioncorechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "40"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamantinecrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "40"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamantinecrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "40"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamantinecrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "40"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamantinecrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "41"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamondchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "41"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamondchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "41"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamondchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "41"
+      },
+      "apply": {
+        "model": "roost:block/chicken/diamondchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "42"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumawakenedchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "42"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumawakenedchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "42"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumawakenedchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "42"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumawakenedchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "43"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "43"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "43"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "43"
+      },
+      "apply": {
+        "model": "roost:block/chicken/draconiumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "44"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electricalsteelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "44"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electricalsteelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "44"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electricalsteelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "44"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electricalsteelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "45"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electrumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "45"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electrumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "45"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electrumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "45"
+      },
+      "apply": {
+        "model": "roost:block/chicken/electrumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "46"
+      },
+      "apply": {
+        "model": "roost:block/chicken/elementiumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "46"
+      },
+      "apply": {
+        "model": "roost:block/chicken/elementiumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "46"
+      },
+      "apply": {
+        "model": "roost:block/chicken/elementiumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "46"
+      },
+      "apply": {
+        "model": "roost:block/chicken/elementiumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "47"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeradiccrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "47"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeradiccrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "47"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeradiccrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "47"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeradiccrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "48"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeraldchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "48"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeraldchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "48"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeraldchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "48"
+      },
+      "apply": {
+        "model": "roost:block/chicken/emeraldchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "49"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "49"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "49"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "49"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "50"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderiumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "50"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderiumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "50"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderiumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "50"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enderiumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "51"
+      },
+      "apply": {
+        "model": "roost:block/chicken/energeticalloychicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "51"
+      },
+      "apply": {
+        "model": "roost:block/chicken/energeticalloychicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "51"
+      },
+      "apply": {
+        "model": "roost:block/chicken/energeticalloychicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "51"
+      },
+      "apply": {
+        "model": "roost:block/chicken/energeticalloychicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "52"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enoricrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "52"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enoricrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "52"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enoricrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "52"
+      },
+      "apply": {
+        "model": "roost:block/chicken/enoricrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "53"
+      },
+      "apply": {
+        "model": "roost:block/chicken/flintchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "53"
+      },
+      "apply": {
+        "model": "roost:block/chicken/flintchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "53"
+      },
+      "apply": {
+        "model": "roost:block/chicken/flintchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "53"
+      },
+      "apply": {
+        "model": "roost:block/chicken/flintchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "54"
+      },
+      "apply": {
+        "model": "roost:block/chicken/funwaychick"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "54"
+      },
+      "apply": {
+        "model": "roost:block/chicken/funwaychick",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "54"
+      },
+      "apply": {
+        "model": "roost:block/chicken/funwaychick",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "54"
+      },
+      "apply": {
+        "model": "roost:block/chicken/funwaychick",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "55"
+      },
+      "apply": {
+        "model": "roost:block/chicken/garnetchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "55"
+      },
+      "apply": {
+        "model": "roost:block/chicken/garnetchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "55"
+      },
+      "apply": {
+        "model": "roost:block/chicken/garnetchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "55"
+      },
+      "apply": {
+        "model": "roost:block/chicken/garnetchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "56"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ghastchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "56"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ghastchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "56"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ghastchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "56"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ghastchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "57"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glasschicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "57"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glasschicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "57"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glasschicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "57"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glasschicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "58"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glowstonechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "58"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glowstonechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "58"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glowstonechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "58"
+      },
+      "apply": {
+        "model": "roost:block/chicken/glowstonechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "59"
+      },
+      "apply": {
+        "model": "roost:block/chicken/goldchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "59"
+      },
+      "apply": {
+        "model": "roost:block/chicken/goldchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "59"
+      },
+      "apply": {
+        "model": "roost:block/chicken/goldchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "59"
+      },
+      "apply": {
+        "model": "roost:block/chicken/goldchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "60"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graphitechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "60"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graphitechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "60"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graphitechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "60"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graphitechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "61"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graychicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "61"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graychicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "61"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graychicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "61"
+      },
+      "apply": {
+        "model": "roost:block/chicken/graychicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "62"
+      },
+      "apply": {
+        "model": "roost:block/chicken/greenchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "62"
+      },
+      "apply": {
+        "model": "roost:block/chicken/greenchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "62"
+      },
+      "apply": {
+        "model": "roost:block/chicken/greenchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "62"
+      },
+      "apply": {
+        "model": "roost:block/chicken/greenchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "63"
+      },
+      "apply": {
+        "model": "roost:block/chicken/gunpowderchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "63"
+      },
+      "apply": {
+        "model": "roost:block/chicken/gunpowderchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "63"
+      },
+      "apply": {
+        "model": "roost:block/chicken/gunpowderchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "63"
+      },
+      "apply": {
+        "model": "roost:block/chicken/gunpowderchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "64"
+      },
+      "apply": {
+        "model": "roost:block/chicken/improvedprocessorchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "64"
+      },
+      "apply": {
+        "model": "roost:block/chicken/improvedprocessorchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "64"
+      },
+      "apply": {
+        "model": "roost:block/chicken/improvedprocessorchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "64"
+      },
+      "apply": {
+        "model": "roost:block/chicken/improvedprocessorchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "65"
+      },
+      "apply": {
+        "model": "roost:block/chicken/invarchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "65"
+      },
+      "apply": {
+        "model": "roost:block/chicken/invarchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "65"
+      },
+      "apply": {
+        "model": "roost:block/chicken/invarchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "65"
+      },
+      "apply": {
+        "model": "roost:block/chicken/invarchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "66"
+      },
+      "apply": {
+        "model": "roost:block/chicken/iridiumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "66"
+      },
+      "apply": {
+        "model": "roost:block/chicken/iridiumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "66"
+      },
+      "apply": {
+        "model": "roost:block/chicken/iridiumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "66"
+      },
+      "apply": {
+        "model": "roost:block/chicken/iridiumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "67"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ironchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "67"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ironchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "67"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ironchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "67"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ironchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "68"
+      },
+      "apply": {
+        "model": "roost:block/chicken/knightslimechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "68"
+      },
+      "apply": {
+        "model": "roost:block/chicken/knightslimechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "68"
+      },
+      "apply": {
+        "model": "roost:block/chicken/knightslimechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "68"
+      },
+      "apply": {
+        "model": "roost:block/chicken/knightslimechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "69"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lavachicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "69"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lavachicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "69"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lavachicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "69"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lavachicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "70"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leadchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "70"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leadchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "70"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leadchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "70"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leadchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "71"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leatherchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "71"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leatherchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "71"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leatherchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "71"
+      },
+      "apply": {
+        "model": "roost:block/chicken/leatherchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "72"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lightbluechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "72"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lightbluechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "72"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lightbluechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "72"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lightbluechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "73"
+      },
+      "apply": {
+        "model": "roost:block/chicken/limechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "73"
+      },
+      "apply": {
+        "model": "roost:block/chicken/limechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "73"
+      },
+      "apply": {
+        "model": "roost:block/chicken/limechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "73"
+      },
+      "apply": {
+        "model": "roost:block/chicken/limechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "74"
+      },
+      "apply": {
+        "model": "roost:block/chicken/logchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "74"
+      },
+      "apply": {
+        "model": "roost:block/chicken/logchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "74"
+      },
+      "apply": {
+        "model": "roost:block/chicken/logchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "74"
+      },
+      "apply": {
+        "model": "roost:block/chicken/logchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "75"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ludicritechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "75"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ludicritechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "75"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ludicritechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "75"
+      },
+      "apply": {
+        "model": "roost:block/chicken/ludicritechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "76"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lumiumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "76"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lumiumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "76"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lumiumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "76"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lumiumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "77"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lunarreactivedustchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "77"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lunarreactivedustchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "77"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lunarreactivedustchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "77"
+      },
+      "apply": {
+        "model": "roost:block/chicken/lunarreactivedustchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "78"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magentachicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "78"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magentachicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "78"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magentachicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "78"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magentachicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "79"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magicalwoodchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "79"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magicalwoodchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "79"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magicalwoodchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "79"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magicalwoodchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "80"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmachicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "80"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmachicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "80"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmachicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "80"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmachicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "81"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmaslime"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "81"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmaslime",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "81"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmaslime",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "81"
+      },
+      "apply": {
+        "model": "roost:block/chicken/magmaslime",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "82"
+      },
+      "apply": {
+        "model": "roost:block/chicken/malachitechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "82"
+      },
+      "apply": {
+        "model": "roost:block/chicken/malachitechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "82"
+      },
+      "apply": {
+        "model": "roost:block/chicken/malachitechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "82"
+      },
+      "apply": {
+        "model": "roost:block/chicken/malachitechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "83"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manasteelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "83"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manasteelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "83"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manasteelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "83"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manasteelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "84"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manyullynchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "84"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manyullynchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "84"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manyullynchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "84"
+      },
+      "apply": {
+        "model": "roost:block/chicken/manyullynchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "85"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mithrilchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "85"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mithrilchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "85"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mithrilchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "85"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mithrilchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "86"
+      },
+      "apply": {
+        "model": "roost:block/chicken/moonstonechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "86"
+      },
+      "apply": {
+        "model": "roost:block/chicken/moonstonechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "86"
+      },
+      "apply": {
+        "model": "roost:block/chicken/moonstonechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "86"
+      },
+      "apply": {
+        "model": "roost:block/chicken/moonstonechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "87"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mramericanchick"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "87"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mramericanchick",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "87"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mramericanchick",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "87"
+      },
+      "apply": {
+        "model": "roost:block/chicken/mramericanchick",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "88"
+      },
+      "apply": {
+        "model": "roost:block/chicken/netherwartchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "88"
+      },
+      "apply": {
+        "model": "roost:block/chicken/netherwartchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "88"
+      },
+      "apply": {
+        "model": "roost:block/chicken/netherwartchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "88"
+      },
+      "apply": {
+        "model": "roost:block/chicken/netherwartchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "89"
+      },
+      "apply": {
+        "model": "roost:block/chicken/nickelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "89"
+      },
+      "apply": {
+        "model": "roost:block/chicken/nickelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "89"
+      },
+      "apply": {
+        "model": "roost:block/chicken/nickelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "89"
+      },
+      "apply": {
+        "model": "roost:block/chicken/nickelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "90"
+      },
+      "apply": {
+        "model": "roost:block/chicken/obsidianchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "90"
+      },
+      "apply": {
+        "model": "roost:block/chicken/obsidianchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "90"
+      },
+      "apply": {
+        "model": "roost:block/chicken/obsidianchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "90"
+      },
+      "apply": {
+        "model": "roost:block/chicken/obsidianchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "91"
+      },
+      "apply": {
+        "model": "roost:block/chicken/orangechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "91"
+      },
+      "apply": {
+        "model": "roost:block/chicken/orangechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "91"
+      },
+      "apply": {
+        "model": "roost:block/chicken/orangechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "91"
+      },
+      "apply": {
+        "model": "roost:block/chicken/orangechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "92"
+      },
+      "apply": {
+        "model": "roost:block/chicken/osmiumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "92"
+      },
+      "apply": {
+        "model": "roost:block/chicken/osmiumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "92"
+      },
+      "apply": {
+        "model": "roost:block/chicken/osmiumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "92"
+      },
+      "apply": {
+        "model": "roost:block/chicken/osmiumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "93"
+      },
+      "apply": {
+        "model": "roost:block/chicken/paliscrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "93"
+      },
+      "apply": {
+        "model": "roost:block/chicken/paliscrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "93"
+      },
+      "apply": {
+        "model": "roost:block/chicken/paliscrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "93"
+      },
+      "apply": {
+        "model": "roost:block/chicken/paliscrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "94"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pcrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "94"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pcrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "94"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pcrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "94"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pcrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "95"
+      },
+      "apply": {
+        "model": "roost:block/chicken/peridotchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "95"
+      },
+      "apply": {
+        "model": "roost:block/chicken/peridotchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "95"
+      },
+      "apply": {
+        "model": "roost:block/chicken/peridotchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "95"
+      },
+      "apply": {
+        "model": "roost:block/chicken/peridotchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "96"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pigironchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "96"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pigironchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "96"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pigironchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "96"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pigironchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "97"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "97"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "97"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "97"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "98"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkslimechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "98"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkslimechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "98"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkslimechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "98"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pinkslimechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "99"
+      },
+      "apply": {
+        "model": "roost:block/chicken/platinumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "99"
+      },
+      "apply": {
+        "model": "roost:block/chicken/platinumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "99"
+      },
+      "apply": {
+        "model": "roost:block/chicken/platinumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "99"
+      },
+      "apply": {
+        "model": "roost:block/chicken/platinumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "100"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pshardchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "100"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pshardchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "100"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pshardchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "100"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pshardchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "101"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pulsatingironchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "101"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pulsatingironchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "101"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pulsatingironchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "101"
+      },
+      "apply": {
+        "model": "roost:block/chicken/pulsatingironchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "102"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purplechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "102"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purplechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "102"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purplechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "102"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purplechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "103"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purpleslime"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "103"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purpleslime",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "103"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purpleslime",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "103"
+      },
+      "apply": {
+        "model": "roost:block/chicken/purpleslime",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "104"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "104"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "104"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "104"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "105"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzenrichedironchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "105"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzenrichedironchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "105"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzenrichedironchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "105"
+      },
+      "apply": {
+        "model": "roost:block/chicken/quartzenrichedironchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "106"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "106"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "106"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "106"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "107"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonealloychicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "107"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonealloychicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "107"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonealloychicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "107"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonealloychicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "108"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "108"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "108"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "108"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "109"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonecrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "109"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonecrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "109"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonecrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "109"
+      },
+      "apply": {
+        "model": "roost:block/chicken/redstonecrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "110"
+      },
+      "apply": {
+        "model": "roost:block/chicken/refinedironchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "110"
+      },
+      "apply": {
+        "model": "roost:block/chicken/refinedironchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "110"
+      },
+      "apply": {
+        "model": "roost:block/chicken/refinedironchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "110"
+      },
+      "apply": {
+        "model": "roost:block/chicken/refinedironchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "111"
+      },
+      "apply": {
+        "model": "roost:block/chicken/restoniacrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "111"
+      },
+      "apply": {
+        "model": "roost:block/chicken/restoniacrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "111"
+      },
+      "apply": {
+        "model": "roost:block/chicken/restoniacrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "111"
+      },
+      "apply": {
+        "model": "roost:block/chicken/restoniacrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "112"
+      },
+      "apply": {
+        "model": "roost:block/chicken/richslagchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "112"
+      },
+      "apply": {
+        "model": "roost:block/chicken/richslagchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "112"
+      },
+      "apply": {
+        "model": "roost:block/chicken/richslagchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "112"
+      },
+      "apply": {
+        "model": "roost:block/chicken/richslagchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "113"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubberchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "113"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubberchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "113"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubberchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "113"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubberchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "114"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubychicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "114"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubychicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "114"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubychicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "114"
+      },
+      "apply": {
+        "model": "roost:block/chicken/rubychicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "115"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "115"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "115"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "115"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "116"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltpeterchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "116"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltpeterchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "116"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltpeterchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "116"
+      },
+      "apply": {
+        "model": "roost:block/chicken/saltpeterchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "117"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sandchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "117"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sandchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "117"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sandchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "117"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sandchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "118"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sapphirechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "118"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sapphirechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "118"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sapphirechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "118"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sapphirechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "119"
+      },
+      "apply": {
+        "model": "roost:block/chicken/signalumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "119"
+      },
+      "apply": {
+        "model": "roost:block/chicken/signalumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "119"
+      },
+      "apply": {
+        "model": "roost:block/chicken/signalumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "119"
+      },
+      "apply": {
+        "model": "roost:block/chicken/signalumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "120"
+      },
+      "apply": {
+        "model": "roost:block/chicken/siliconchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "120"
+      },
+      "apply": {
+        "model": "roost:block/chicken/siliconchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "120"
+      },
+      "apply": {
+        "model": "roost:block/chicken/siliconchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "120"
+      },
+      "apply": {
+        "model": "roost:block/chicken/siliconchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "121"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverdyechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "121"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverdyechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "121"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverdyechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "121"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverdyechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "122"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverorechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "122"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverorechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "122"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverorechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "122"
+      },
+      "apply": {
+        "model": "roost:block/chicken/silverorechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "123"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slagchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "123"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slagchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "123"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slagchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "123"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slagchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "124"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slimechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "124"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slimechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "124"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slimechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "124"
+      },
+      "apply": {
+        "model": "roost:block/chicken/slimechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "125"
+      },
+      "apply": {
+        "model": "roost:block/chicken/smartchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "125"
+      },
+      "apply": {
+        "model": "roost:block/chicken/smartchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "125"
+      },
+      "apply": {
+        "model": "roost:block/chicken/smartchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "125"
+      },
+      "apply": {
+        "model": "roost:block/chicken/smartchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "126"
+      },
+      "apply": {
+        "model": "roost:block/chicken/snowballchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "126"
+      },
+      "apply": {
+        "model": "roost:block/chicken/snowballchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "126"
+      },
+      "apply": {
+        "model": "roost:block/chicken/snowballchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "126"
+      },
+      "apply": {
+        "model": "roost:block/chicken/snowballchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "127"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulariumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "127"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulariumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "127"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulariumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "127"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulariumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "128"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulsandchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "128"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulsandchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "128"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulsandchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "128"
+      },
+      "apply": {
+        "model": "roost:block/chicken/soulsandchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "129"
+      },
+      "apply": {
+        "model": "roost:block/chicken/steelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "129"
+      },
+      "apply": {
+        "model": "roost:block/chicken/steelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "129"
+      },
+      "apply": {
+        "model": "roost:block/chicken/steelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "129"
+      },
+      "apply": {
+        "model": "roost:block/chicken/steelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "130"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stoneburntchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "130"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stoneburntchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "130"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stoneburntchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "130"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stoneburntchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "131"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stringchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "131"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stringchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "131"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stringchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "131"
+      },
+      "apply": {
+        "model": "roost:block/chicken/stringchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "132"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sulfurchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "132"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sulfurchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "132"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sulfurchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "132"
+      },
+      "apply": {
+        "model": "roost:block/chicken/sulfurchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "133"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tanzanitechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "133"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tanzanitechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "133"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tanzanitechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "133"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tanzanitechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "134"
+      },
+      "apply": {
+        "model": "roost:block/chicken/terrasteelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "134"
+      },
+      "apply": {
+        "model": "roost:block/chicken/terrasteelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "134"
+      },
+      "apply": {
+        "model": "roost:block/chicken/terrasteelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "134"
+      },
+      "apply": {
+        "model": "roost:block/chicken/terrasteelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "135"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tinchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "135"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tinchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "135"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tinchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "135"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tinchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "136"
+      },
+      "apply": {
+        "model": "roost:block/chicken/titaniumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "136"
+      },
+      "apply": {
+        "model": "roost:block/chicken/titaniumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "136"
+      },
+      "apply": {
+        "model": "roost:block/chicken/titaniumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "136"
+      },
+      "apply": {
+        "model": "roost:block/chicken/titaniumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "137"
+      },
+      "apply": {
+        "model": "roost:block/chicken/topazchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "137"
+      },
+      "apply": {
+        "model": "roost:block/chicken/topazchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "137"
+      },
+      "apply": {
+        "model": "roost:block/chicken/topazchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "137"
+      },
+      "apply": {
+        "model": "roost:block/chicken/topazchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "138"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstenchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "138"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstenchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "138"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstenchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "138"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstenchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "139"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstensteelchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "139"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstensteelchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "139"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstensteelchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "139"
+      },
+      "apply": {
+        "model": "roost:block/chicken/tungstensteelchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "140"
+      },
+      "apply": {
+        "model": "roost:block/chicken/unknownchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "140"
+      },
+      "apply": {
+        "model": "roost:block/chicken/unknownchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "140"
+      },
+      "apply": {
+        "model": "roost:block/chicken/unknownchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "140"
+      },
+      "apply": {
+        "model": "roost:block/chicken/unknownchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "141"
+      },
+      "apply": {
+        "model": "roost:block/chicken/uraniumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "141"
+      },
+      "apply": {
+        "model": "roost:block/chicken/uraniumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "141"
+      },
+      "apply": {
+        "model": "roost:block/chicken/uraniumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "141"
+      },
+      "apply": {
+        "model": "roost:block/chicken/uraniumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "142"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vanilla"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "142"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vanilla",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "142"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vanilla",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "142"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vanilla",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "143"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vibrantalloychicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "143"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vibrantalloychicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "143"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vibrantalloychicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "143"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vibrantalloychicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "144"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vinteumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "144"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vinteumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "144"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vinteumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "144"
+      },
+      "apply": {
+        "model": "roost:block/chicken/vinteumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "145"
+      },
+      "apply": {
+        "model": "roost:block/chicken/voidcrystalchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "145"
+      },
+      "apply": {
+        "model": "roost:block/chicken/voidcrystalchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "145"
+      },
+      "apply": {
+        "model": "roost:block/chicken/voidcrystalchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "145"
+      },
+      "apply": {
+        "model": "roost:block/chicken/voidcrystalchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "146"
+      },
+      "apply": {
+        "model": "roost:block/chicken/waterchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "146"
+      },
+      "apply": {
+        "model": "roost:block/chicken/waterchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "146"
+      },
+      "apply": {
+        "model": "roost:block/chicken/waterchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "146"
+      },
+      "apply": {
+        "model": "roost:block/chicken/waterchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "147"
+      },
+      "apply": {
+        "model": "roost:block/chicken/whitechicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "147"
+      },
+      "apply": {
+        "model": "roost:block/chicken/whitechicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "147"
+      },
+      "apply": {
+        "model": "roost:block/chicken/whitechicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "147"
+      },
+      "apply": {
+        "model": "roost:block/chicken/whitechicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "148"
+      },
+      "apply": {
+        "model": "roost:block/chicken/xpchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "148"
+      },
+      "apply": {
+        "model": "roost:block/chicken/xpchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "148"
+      },
+      "apply": {
+        "model": "roost:block/chicken/xpchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "148"
+      },
+      "apply": {
+        "model": "roost:block/chicken/xpchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "149"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yelloriumchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "149"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yelloriumchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "149"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yelloriumchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "149"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yelloriumchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "150"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "150"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "150"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "150"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "151"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowgarnetchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "151"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowgarnetchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "151"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowgarnetchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "151"
+      },
+      "apply": {
+        "model": "roost:block/chicken/yellowgarnetchicken",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "chicken": "152"
+      },
+      "apply": {
+        "model": "roost:block/chicken/zincchicken"
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "chicken": "152"
+      },
+      "apply": {
+        "model": "roost:block/chicken/zincchicken",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "chicken": "152"
+      },
+      "apply": {
+        "model": "roost:block/chicken/zincchicken",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "chicken": "152"
+      },
+      "apply": {
+        "model": "roost:block/chicken/zincchicken",
         "y": 270
       }
     }
-  },
-  "--chicken": {
-    "empty": {
-      "model": "roost:roost"
-    },
-    "advancedprocessor": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/advancedprocessor"
-      }
-    },
-    "aluminum": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/aluminum"
-      }
-    },
-    "amber": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/amber"
-      }
-    },
-    "amethyst": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/amethyst"
-      }
-    },
-    "ardite": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/ardite"
-      }
-    },
-    "basalz_rod": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/basalz_rod"
-      }
-    },
-    "basicprocessor": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/basicprocessor"
-      }
-    },
-    "black": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/black"
-      }
-    },
-    "blackquartz": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blackquartz"
-      }
-    },
-    "blaze": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blaze"
-      }
-    },
-    "blitz_rod": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blitz_rod"
-      }
-    },
-    "blizz_rod": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blizz_rod"
-      }
-    },
-    "blood_slime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blood_slime"
-      }
-    },
-    "blue": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blue"
-      }
-    },
-    "blue_slime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blue_slime"
-      }
-    },
-    "blutonium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/blutonium"
-      }
-    },
-    "boopbeep": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/boopbeep"
-      }
-    },
-    "brass": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/brass"
-      }
-    },
-    "bronze": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/bronze"
-      }
-    },
-    "brown": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/brown"
-      }
-    },
-    "bullet": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/bullet"
-      }
-    },
-    "cable": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/cable"
-      }
-    },
-    "chrome": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/chrome"
-      }
-    },
-    "cinnabar": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/cinnabar"
-      }
-    },
-    "clay": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/clay"
-      }
-    },
-    "coal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/coal"
-      }
-    },
-    "cobalt": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/cobalt"
-      }
-    },
-    "conductive_iron": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/conductive_iron"
-      }
-    },
-    "constantan": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/constantan"
-      }
-    },
-    "constructioncore": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/constructioncore"
-      }
-    },
-    "copper": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/copper"
-      }
-    },
-    "cupronickel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/cupronickel"
-      }
-    },
-    "cyan": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/cyan"
-      }
-    },
-    "cyanite": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/cyanite"
-      }
-    },
-    "dark_steel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/dark_steel"
-      }
-    },
-    "darkgem": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/darkgem"
-      }
-    },
-    "demonmetal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/demonmetal"
-      }
-    },
-    "destructioncore": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/destructioncore"
-      }
-    },
-    "diamantinecrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/diamantinecrystal"
-      }
-    },
-    "diamond": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/diamond"
-      }
-    },
-    "draconium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/draconium"
-      }
-    },
-    "draconium_awakened": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/draconium_awakened"
-      }
-    },
-    "electrical_steel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/electrical_steel"
-      }
-    },
-    "electrum": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/electrum"
-      }
-    },
-    "elementium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/elementium"
-      }
-    },
-    "emeradiccrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/emeradiccrystal"
-      }
-    },
-    "emerald": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/emerald"
-      }
-    },
-    "ender": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/ender"
-      }
-    },
-    "enderium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/enderium"
-      }
-    },
-    "energetic_alloy": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/energetic_alloy"
-      }
-    },
-    "enoricrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/enoricrystal"
-      }
-    },
-    "flint": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/flint"
-      }
-    },
-    "funway": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/funway"
-      }
-    },
-    "garnet": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/garnet"
-      }
-    },
-    "ghast": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/ghast"
-      }
-    },
-    "glass": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/glass"
-      }
-    },
-    "glowstone": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/glowstone"
-      }
-    },
-    "gold": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/gold"
-      }
-    },
-    "graphite": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/graphite"
-      }
-    },
-    "gray": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/gray"
-      }
-    },
-    "green": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/green"
-      }
-    },
-    "gunpowder": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/gunpowder"
-      }
-    },
-    "improvedprocessor": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/improvedprocessor"
-      }
-    },
-    "invar": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/invar"
-      }
-    },
-    "iridium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/iridium"
-      }
-    },
-    "iron": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/iron"
-      }
-    },
-    "knight_slime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/knight_slime"
-      }
-    },
-    "lava": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/lava"
-      }
-    },
-    "lead": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/lead"
-      }
-    },
-    "leather": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/leather"
-      }
-    },
-    "light_blue": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/light_blue"
-      }
-    },
-    "lime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/lime"
-      }
-    },
-    "log": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/log"
-      }
-    },
-    "ludicrite": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/ludicrite"
-      }
-    },
-    "lumium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/lumium"
-      }
-    },
-    "lunarreactivedust": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/lunarreactivedust"
-      }
-    },
-    "magenta": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/magenta"
-      }
-    },
-    "magicalwood": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/magicalwood"
-      }
-    },
-    "magma": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/magma"
-      }
-    },
-    "magma_slime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/magma_slime"
-      }
-    },
-    "malachite": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/malachite"
-      }
-    },
-    "manasteel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/manasteel"
-      }
-    },
-    "manyullyn": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/manyullyn"
-      }
-    },
-    "mithril": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/mithril"
-      }
-    },
-    "moonstone": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/moonstone"
-      }
-    },
-    "mramerican": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/mramerican"
-      }
-    },
-    "netherwart": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/netherwart"
-      }
-    },
-    "nickel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/nickel"
-      }
-    },
-    "obsidian": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/obsidian"
-      }
-    },
-    "orange": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/orange"
-      }
-    },
-    "osmium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/osmium"
-      }
-    },
-    "osto": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/osto"
-      }
-    },
-    "p_crystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/p_crystal"
-      }
-    },
-    "p_shard": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/p_shard"
-      }
-    },
-    "paliscrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/paliscrystal"
-      }
-    },
-    "peridot": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/peridot"
-      }
-    },
-    "pig_iron": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/pig_iron"
-      }
-    },
-    "pink": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/pink"
-      }
-    },
-    "pinkslime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/pinkslime"
-      }
-    },
-    "platinum": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/platinum"
-      }
-    },
-    "pulsating_iron": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/pulsating_iron"
-      }
-    },
-    "purple": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/purple"
-      }
-    },
-    "purple_slime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/purple_slime"
-      }
-    },
-    "quartz": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/quartz"
-      }
-    },
-    "quartzenrichediron": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/quartzenrichediron"
-      }
-    },
-    "red": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/red"
-      }
-    },
-    "redstone": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/redstone"
-      }
-    },
-    "redstone_alloy": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/redstone_alloy"
-      }
-    },
-    "redstonecrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/redstonecrystal"
-      }
-    },
-    "refinediron": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/refinediron"
-      }
-    },
-    "restoniacrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/restoniacrystal"
-      }
-    },
-    "rich_slag": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/rich_slag"
-      }
-    },
-    "rubber": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/rubber"
-      }
-    },
-    "ruby": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/ruby"
-      }
-    },
-    "salt": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/salt"
-      }
-    },
-    "saltpeter": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/saltpeter"
-      }
-    },
-    "sand": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/sand"
-      }
-    },
-    "sapphire": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/sapphire"
-      }
-    },
-    "signalum": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/signalum"
-      }
-    },
-    "silicon": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/silicon"
-      }
-    },
-    "silver_dye": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/silver_dye"
-      }
-    },
-    "silverore": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/silverore"
-      }
-    },
-    "slag": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/slag"
-      }
-    },
-    "slime": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/slime"
-      }
-    },
-    "smart": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/smart"
-      }
-    },
-    "snowball": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/snowball"
-      }
-    },
-    "soul_sand": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/soul_sand"
-      }
-    },
-    "soularium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/soularium"
-      }
-    },
-    "steel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/steel"
-      }
-    },
-    "stoneburnt": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/stoneburnt"
-      }
-    },
-    "string": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/string"
-      }
-    },
-    "sulfur": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/sulfur"
-      }
-    },
-    "tanzanite": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/tanzanite"
-      }
-    },
-    "terrasteel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/terrasteel"
-      }
-    },
-    "tin": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/tin"
-      }
-    },
-    "titanium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/titanium"
-      }
-    },
-    "topaz": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/topaz"
-      }
-    },
-    "tungsten": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/tungsten"
-      }
-    },
-    "tungstensteel": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/tungstensteel"
-      }
-    },
-    "unknown": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/unknown"
-      }
-    },
-    "uranium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/uranium"
-      }
-    },
-    "vanilla": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/vanilla"
-      }
-    },
-    "vibrant_alloy": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/vibrant_alloy"
-      }
-    },
-    "vinteum": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/vinteum"
-      }
-    },
-    "voidcrystal": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/voidcrystal"
-      }
-    },
-    "water": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/water"
-      }
-    },
-    "white": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/white"
-      }
-    },
-    "xp": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/xp"
-      }
-    },
-    "yellorium": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/yellorium"
-      }
-    },
-    "yellow": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/yellow"
-      }
-    },
-    "yellowgarnet": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/yellowgarnet"
-      }
-    },
-    "zinc": {
-      "textures": {
-        "chicken": "roost:blocks/chicken/zinc"
-      }
-    }
-  }
+  ]
 }
-

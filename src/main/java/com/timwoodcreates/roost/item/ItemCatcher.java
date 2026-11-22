@@ -1,74 +1,67 @@
 package com.timwoodcreates.roost.item;
 
-import java.util.Random;
-
 import com.timwoodcreates.roost.data.DataChicken;
-
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ItemCatcher extends Item {
+import java.util.Random;
 
+public class ItemCatcher extends Item {
 	public ItemCatcher() {
-		super();
-		maxStackSize = 1;
-		setMaxDamage(64);
+		super(new Item.Settings().maxCount(1).maxDamage(64));
 	}
 
-	/**
-	 * Returns true if the item can be used on the given entity.
-	 */
-	// /summon chickens.ChickensChicken ~ ~ ~ {Type:201,Gain:8,Growth:9,Strength:10}
 	@Override
-	public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
+	public ActionResult useOnEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		DataChicken chickenData = DataChicken.getDataFromEntity(entity);
-		Vec3d pos = new Vec3d(entity.posX, entity.posY, entity.posZ);
-		World world = entity.getEntityWorld();
-
 		if (chickenData == null) {
-			return false;
-		} else if (entity.isChild()) {
-			if (world.isRemote) {
-				spawnParticles(pos, world, EnumParticleTypes.SMOKE_NORMAL);
-			}
-			world.playSound(player, pos.x, pos.y, pos.z, SoundEvents.ENTITY_CHICKEN_HURT, entity.getSoundCategory(), 1.0F, 1.0F);
-		} else {
-			if (world.isRemote) {
-				spawnParticles(pos, world, EnumParticleTypes.EXPLOSION_NORMAL);
-			} else {
-				EntityItem item = entity.entityDropItem(chickenData.buildChickenStack(), 1.0F);
-				item.motionX = 0;
-				item.motionY = 0.2D;
-				item.motionZ = 0;
-				entity.getEntityWorld().removeEntity(entity);
-			}
-			world.playSound(player, pos.x, pos.y, pos.z, SoundEvents.ENTITY_CHICKEN_EGG, entity.getSoundCategory(), 1.0F, 1.0F);
-			itemStack.damageItem(1, player);
+			return ActionResult.PASS;
 		}
 
-		return true;
+		World world = player.getWorld();
+
+		if (entity.isBaby()) {
+			if (world.isClient) {
+				spawnParticles(world, entity, ParticleTypes.SMOKE);
+			}
+			world.playSound(player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_CHICKEN_HURT, entity.getSoundCategory(), 1.0f, 1.0f);
+		} else {
+			if (world.isClient) {
+				spawnParticles(world, entity, ParticleTypes.EXPLOSION);
+			} else {
+				ItemEntity item = new ItemEntity(world, entity.getX(), entity.getY(), entity.getZ(),
+						chickenData.buildChickenStack(), 0.0d, 0.2d, 0.0d);
+				world.spawnEntity(item);
+				entity.discard();
+				stack.damage(1, player, EquipmentSlot.MAINHAND);
+			}
+			world.playSound(player, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_CHICKEN_EGG, entity.getSoundCategory(), 1.0f, 1.0f);
+		}
+
+		return ActionResult.SUCCESS;
 	}
 
-	private void spawnParticles(Vec3d pos, World world, EnumParticleTypes particleType) {
+	private void spawnParticles(World world, LivingEntity entity, ParticleEffect particle) {
 		Random rand = new Random();
 
-		for (int k = 0; k < 20; ++k) {
-			double xCoord = pos.x + (rand.nextDouble() * 0.6D) - 0.3D;
-			double yCoord = pos.y + (rand.nextDouble() * 0.6D);
-			double zCoord = pos.z + (rand.nextDouble() * 0.6D) - 0.3D;
-			double xSpeed = rand.nextGaussian() * 0.02D;
-			double ySpeed = rand.nextGaussian() * 0.2D;
-			double zSpeed = rand.nextGaussian() * 0.02D;
-			world.spawnParticle(particleType, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, new int[0]);
+		for (int i = 0; i < 20; ++i) {
+			double x = entity.getX() + (rand.nextDouble() * 0.6d) - 0.3d;
+			double y = entity.getY() + (rand.nextDouble() * 0.6d);
+			double z = entity.getZ() + (rand.nextDouble() * 0.6d) - 0.3d;
+			double xSpeed = rand.nextGaussian() * 0.02d;
+			double ySpeed = rand.nextGaussian() * 0.2d;
+			double zSpeed = rand.nextGaussian() * 0.02d;
+			world.addParticle(particle, x, y, z, xSpeed, ySpeed, zSpeed);
 		}
 	}
-
 }

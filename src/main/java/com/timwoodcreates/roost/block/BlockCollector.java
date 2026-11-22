@@ -1,61 +1,62 @@
 package com.timwoodcreates.roost.block;
 
-import com.timwoodcreates.roost.Roost;
-import com.timwoodcreates.roost.RoostGui;
-import com.timwoodcreates.roost.tileentity.TileEntityCollector;
-
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import com.timwoodcreates.roost.block.entity.CollectorBlockEntity;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCollector extends BlockContainer {
-
+public class BlockCollector extends Block implements BlockEntityProvider {
 	public BlockCollector() {
-		super(Material.WOOD);
-		setHardness(2.0F);
-		setResistance(5.0F);
-		setSoundType(SoundType.WOOD);
+		super(AbstractBlock.Settings.create().strength(2.0F, 5.0F).sounds(BlockSoundGroup.WOOD));
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityCollector();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new CollectorBlockEntity(pos, state);
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote) {
-			playerIn.openGui(Roost.INSTANCE, RoostGui.COLLECTOR, worldIn, pos.getX(), pos.getY(), pos.getZ());
+	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+		if (world.isClient) {
+			return ActionResult.SUCCESS;
 		}
 
-		return true;
-	}
-
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
-	}
-
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-		if (tileEntity instanceof IInventory) {
-			InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileEntity);
+		if (!(world.getBlockEntity(pos) instanceof CollectorBlockEntity collector)) {
+			return ActionResult.PASS;
 		}
 
-		super.breakBlock(worldIn, pos, state);
+		collector.openScreen(player);
+		return ActionResult.SUCCESS;
 	}
 
+	@Override
+	protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+		if (!state.isOf(newState.getBlock())) {
+			ItemScatterer.onStateReplaced(state, newState, world, pos);
+		}
+		super.onStateReplaced(state, world, pos, newState, moved);
+	}
+
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		if (world.isClient) {
+			return null;
+		}
+		return (tickWorld, tickPos, tickState, blockEntity) -> {
+			if (blockEntity instanceof CollectorBlockEntity collector) {
+				collector.tick();
+			}
+		};
+	}
 }

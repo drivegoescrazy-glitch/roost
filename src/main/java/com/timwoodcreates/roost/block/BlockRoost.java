@@ -1,172 +1,90 @@
 package com.timwoodcreates.roost.block;
 
-import com.google.common.base.Optional;
-import com.timwoodcreates.roost.Roost;
-import com.timwoodcreates.roost.RoostGui;
-import com.timwoodcreates.roost.data.DataChicken;
-import com.timwoodcreates.roost.tileentity.TileEntityRoost;
-
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.properties.PropertyHelper;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import com.timwoodcreates.roost.RoostTextures;
+import com.timwoodcreates.roost.block.entity.RoostBlockEntity;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Collection;
-
-public class BlockRoost extends BlockContainer {
-
-	public static class PropertyChickenType implements IUnlistedProperty<String> {
-
-		private final String name;
-
-		public PropertyChickenType(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public boolean isValid(String value) {
-			return true; // xxx
-		}
-
-		@Override
-		public Class<String> getType() {
-			return String.class;
-		}
-
-		@Override
-		public String valueToString(String value) {
-			return value;
-		}
-	}
-
-	public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	public static final PropertyChickenType CHICKEN = new PropertyChickenType("chicken");
+public class BlockRoost extends Block implements BlockEntityProvider {
+	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+	public static final IntProperty CHICKEN = IntProperty.of("chicken", 0, RoostTextures.MAX_MODEL_INDEX);
 
 	public BlockRoost() {
-		super(Material.WOOD);
-
-		setHardness(2.0F);
-		setResistance(5.0F);
-		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		super(AbstractBlock.Settings.create().strength(2.0F, 5.0F).sounds(BlockSoundGroup.WOOD));
+		this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH).with(CHICKEN, 0));
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer.Builder(this).add(FACING).add(CHICKEN).build();
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(FACING, CHICKEN);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-			ItemStack stack) {
-		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		Direction facing = context.getPlayer() == null
+				? Direction.NORTH
+				: context.getPlayer().getHorizontalFacing().getOpposite();
+		return this.getDefaultState().with(FACING, facing).with(CHICKEN, 0);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityRoost();
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new RoostBlockEntity(pos, state);
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (worldIn.isRemote) {
-			return true;
+	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+		if (world.isClient) {
+			return ActionResult.SUCCESS;
 		}
 
-		TileEntityRoost tileEntity = (TileEntityRoost) worldIn.getTileEntity(pos);
-
-		if (tileEntity == null) {
-			return false;
+		if (!(world.getBlockEntity(pos) instanceof RoostBlockEntity roost)) {
+			return ActionResult.PASS;
 		}
 
-		if (playerIn.isSneaking() && tileEntity.pullChickenOut(playerIn)) {
-			return true;
+		if (player.isSneaking() && roost.pullChickenOut(player)) {
+			return ActionResult.SUCCESS;
 		}
 
-		if (tileEntity.putChickenIn(playerIn.getHeldItem(hand))) {
-			return true;
+		player.openHandledScreen(roost);
+		return ActionResult.SUCCESS;
+	}
+
+	@Override
+	protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+		if (!state.isOf(newState.getBlock())) {
+			ItemScatterer.onStateReplaced(state, newState, world, pos);
 		}
-
-		playerIn.openGui(Roost.INSTANCE, RoostGui.ROOST, worldIn, pos.getX(), pos.getY(), pos.getZ());
-
-		return true;
+		super.onStateReplaced(state, world, pos, newState, moved);
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-		if (tileEntity instanceof TileEntityRoost) {
-			InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityRoost) tileEntity);
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		if (world.isClient) {
+			return null;
 		}
-
-		super.breakBlock(worldIn, pos, state);
-	}
-
-	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.MODEL;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
-
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getHorizontalIndex();
-	}
-
-	@Override
-	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		String chickenType = "roost:empty";
-		TileEntity tileEntity = world instanceof ChunkCache
-				? ((ChunkCache) world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK)
-				: world.getTileEntity(pos);
-
-		if (tileEntity instanceof TileEntityRoost) {
-			DataChicken chickenData = ((TileEntityRoost) tileEntity).createChickenData();
-			if (chickenData != null) chickenType = chickenData.getChickenType();
-		}
-
-		if (chickenType == null) chickenType = "minecraft:vanilla";
-
-		return ((IExtendedBlockState)state).withProperty(CHICKEN, chickenType);
+		return (tickWorld, tickPos, tickState, blockEntity) -> {
+			if (blockEntity instanceof RoostBlockEntity roost) {
+				roost.tick();
+			}
+		};
 	}
 }

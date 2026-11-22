@@ -1,4 +1,920 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": { "layer0": "roost:items/chicken/vanilla" }
+  "textures": {
+    "layer0": "roost:item/chicken/vanilla"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "roost:item/chicken/advancedprocessorchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "roost:item/chicken/aluminumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "roost:item/chicken/amberchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "roost:item/chicken/amethystchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "roost:item/chicken/arditechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 6
+      },
+      "model": "roost:item/chicken/basalzrodchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 7
+      },
+      "model": "roost:item/chicken/basicprocessorchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 8
+      },
+      "model": "roost:item/chicken/blackchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 9
+      },
+      "model": "roost:item/chicken/blackquartzchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 10
+      },
+      "model": "roost:item/chicken/blazechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 11
+      },
+      "model": "roost:item/chicken/blitzrodchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 12
+      },
+      "model": "roost:item/chicken/blizzrodchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 13
+      },
+      "model": "roost:item/chicken/bloodslime"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 14
+      },
+      "model": "roost:item/chicken/bluechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 15
+      },
+      "model": "roost:item/chicken/blueslime"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 16
+      },
+      "model": "roost:item/chicken/blutoniumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 17
+      },
+      "model": "roost:item/chicken/boopbeepchick"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 18
+      },
+      "model": "roost:item/chicken/brasschicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 19
+      },
+      "model": "roost:item/chicken/bronzechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 20
+      },
+      "model": "roost:item/chicken/brownchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 21
+      },
+      "model": "roost:item/chicken/bulletchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 22
+      },
+      "model": "roost:item/chicken/cablechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 23
+      },
+      "model": "roost:item/chicken/chickenosto"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 24
+      },
+      "model": "roost:item/chicken/chromechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 25
+      },
+      "model": "roost:item/chicken/cinnabarchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 26
+      },
+      "model": "roost:item/chicken/claychicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 27
+      },
+      "model": "roost:item/chicken/coalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 28
+      },
+      "model": "roost:item/chicken/cobaltchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 29
+      },
+      "model": "roost:item/chicken/conductiveironchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 30
+      },
+      "model": "roost:item/chicken/constantanchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 31
+      },
+      "model": "roost:item/chicken/constructioncorechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 32
+      },
+      "model": "roost:item/chicken/copperchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 33
+      },
+      "model": "roost:item/chicken/cupronickelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 34
+      },
+      "model": "roost:item/chicken/cyanchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 35
+      },
+      "model": "roost:item/chicken/cyanitechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 36
+      },
+      "model": "roost:item/chicken/darkgemchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 37
+      },
+      "model": "roost:item/chicken/darksteelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 38
+      },
+      "model": "roost:item/chicken/demonmetalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 39
+      },
+      "model": "roost:item/chicken/destructioncorechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 40
+      },
+      "model": "roost:item/chicken/diamantinecrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 41
+      },
+      "model": "roost:item/chicken/diamondchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 42
+      },
+      "model": "roost:item/chicken/draconiumawakenedchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 43
+      },
+      "model": "roost:item/chicken/draconiumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 44
+      },
+      "model": "roost:item/chicken/electricalsteelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 45
+      },
+      "model": "roost:item/chicken/electrumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 46
+      },
+      "model": "roost:item/chicken/elementiumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 47
+      },
+      "model": "roost:item/chicken/emeradiccrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 48
+      },
+      "model": "roost:item/chicken/emeraldchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 49
+      },
+      "model": "roost:item/chicken/enderchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 50
+      },
+      "model": "roost:item/chicken/enderiumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 51
+      },
+      "model": "roost:item/chicken/energeticalloychicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 52
+      },
+      "model": "roost:item/chicken/enoricrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 53
+      },
+      "model": "roost:item/chicken/flintchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 54
+      },
+      "model": "roost:item/chicken/funwaychick"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 55
+      },
+      "model": "roost:item/chicken/garnetchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 56
+      },
+      "model": "roost:item/chicken/ghastchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 57
+      },
+      "model": "roost:item/chicken/glasschicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 58
+      },
+      "model": "roost:item/chicken/glowstonechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 59
+      },
+      "model": "roost:item/chicken/goldchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 60
+      },
+      "model": "roost:item/chicken/graphitechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 61
+      },
+      "model": "roost:item/chicken/graychicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 62
+      },
+      "model": "roost:item/chicken/greenchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 63
+      },
+      "model": "roost:item/chicken/gunpowderchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 64
+      },
+      "model": "roost:item/chicken/improvedprocessorchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 65
+      },
+      "model": "roost:item/chicken/invarchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 66
+      },
+      "model": "roost:item/chicken/iridiumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 67
+      },
+      "model": "roost:item/chicken/ironchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 68
+      },
+      "model": "roost:item/chicken/knightslimechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 69
+      },
+      "model": "roost:item/chicken/lavachicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 70
+      },
+      "model": "roost:item/chicken/leadchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 71
+      },
+      "model": "roost:item/chicken/leatherchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 72
+      },
+      "model": "roost:item/chicken/lightbluechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 73
+      },
+      "model": "roost:item/chicken/limechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 74
+      },
+      "model": "roost:item/chicken/logchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 75
+      },
+      "model": "roost:item/chicken/ludicritechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 76
+      },
+      "model": "roost:item/chicken/lumiumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 77
+      },
+      "model": "roost:item/chicken/lunarreactivedustchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 78
+      },
+      "model": "roost:item/chicken/magentachicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 79
+      },
+      "model": "roost:item/chicken/magicalwoodchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 80
+      },
+      "model": "roost:item/chicken/magmachicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 81
+      },
+      "model": "roost:item/chicken/magmaslime"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 82
+      },
+      "model": "roost:item/chicken/malachitechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 83
+      },
+      "model": "roost:item/chicken/manasteelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 84
+      },
+      "model": "roost:item/chicken/manyullynchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 85
+      },
+      "model": "roost:item/chicken/mithrilchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 86
+      },
+      "model": "roost:item/chicken/moonstonechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 87
+      },
+      "model": "roost:item/chicken/mramericanchick"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 88
+      },
+      "model": "roost:item/chicken/netherwartchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 89
+      },
+      "model": "roost:item/chicken/nickelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 90
+      },
+      "model": "roost:item/chicken/obsidianchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 91
+      },
+      "model": "roost:item/chicken/orangechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 92
+      },
+      "model": "roost:item/chicken/osmiumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 93
+      },
+      "model": "roost:item/chicken/paliscrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 94
+      },
+      "model": "roost:item/chicken/pcrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 95
+      },
+      "model": "roost:item/chicken/peridotchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 96
+      },
+      "model": "roost:item/chicken/pigironchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 97
+      },
+      "model": "roost:item/chicken/pinkchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 98
+      },
+      "model": "roost:item/chicken/pinkslimechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 99
+      },
+      "model": "roost:item/chicken/platinumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 100
+      },
+      "model": "roost:item/chicken/pshardchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 101
+      },
+      "model": "roost:item/chicken/pulsatingironchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 102
+      },
+      "model": "roost:item/chicken/purplechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 103
+      },
+      "model": "roost:item/chicken/purpleslime"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 104
+      },
+      "model": "roost:item/chicken/quartzchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 105
+      },
+      "model": "roost:item/chicken/quartzenrichedironchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 106
+      },
+      "model": "roost:item/chicken/redchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 107
+      },
+      "model": "roost:item/chicken/redstonealloychicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 108
+      },
+      "model": "roost:item/chicken/redstonechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 109
+      },
+      "model": "roost:item/chicken/redstonecrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 110
+      },
+      "model": "roost:item/chicken/refinedironchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 111
+      },
+      "model": "roost:item/chicken/restoniacrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 112
+      },
+      "model": "roost:item/chicken/richslagchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 113
+      },
+      "model": "roost:item/chicken/rubberchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 114
+      },
+      "model": "roost:item/chicken/rubychicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 115
+      },
+      "model": "roost:item/chicken/saltchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 116
+      },
+      "model": "roost:item/chicken/saltpeterchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 117
+      },
+      "model": "roost:item/chicken/sandchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 118
+      },
+      "model": "roost:item/chicken/sapphirechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 119
+      },
+      "model": "roost:item/chicken/signalumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 120
+      },
+      "model": "roost:item/chicken/siliconchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 121
+      },
+      "model": "roost:item/chicken/silverdyechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 122
+      },
+      "model": "roost:item/chicken/silverorechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 123
+      },
+      "model": "roost:item/chicken/slagchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 124
+      },
+      "model": "roost:item/chicken/slimechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 125
+      },
+      "model": "roost:item/chicken/smartchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 126
+      },
+      "model": "roost:item/chicken/snowballchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 127
+      },
+      "model": "roost:item/chicken/soulariumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 128
+      },
+      "model": "roost:item/chicken/soulsandchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 129
+      },
+      "model": "roost:item/chicken/steelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 130
+      },
+      "model": "roost:item/chicken/stoneburntchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 131
+      },
+      "model": "roost:item/chicken/stringchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 132
+      },
+      "model": "roost:item/chicken/sulfurchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 133
+      },
+      "model": "roost:item/chicken/tanzanitechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 134
+      },
+      "model": "roost:item/chicken/terrasteelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 135
+      },
+      "model": "roost:item/chicken/tinchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 136
+      },
+      "model": "roost:item/chicken/titaniumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 137
+      },
+      "model": "roost:item/chicken/topazchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 138
+      },
+      "model": "roost:item/chicken/tungstenchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 139
+      },
+      "model": "roost:item/chicken/tungstensteelchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 140
+      },
+      "model": "roost:item/chicken/unknownchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 141
+      },
+      "model": "roost:item/chicken/uraniumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 142
+      },
+      "model": "roost:item/chicken/vanilla"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 143
+      },
+      "model": "roost:item/chicken/vibrantalloychicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 144
+      },
+      "model": "roost:item/chicken/vinteumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 145
+      },
+      "model": "roost:item/chicken/voidcrystalchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 146
+      },
+      "model": "roost:item/chicken/waterchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 147
+      },
+      "model": "roost:item/chicken/whitechicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 148
+      },
+      "model": "roost:item/chicken/xpchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 149
+      },
+      "model": "roost:item/chicken/yelloriumchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 150
+      },
+      "model": "roost:item/chicken/yellowchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 151
+      },
+      "model": "roost:item/chicken/yellowgarnetchicken"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 152
+      },
+      "model": "roost:item/chicken/zincchicken"
+    }
+  ]
 }

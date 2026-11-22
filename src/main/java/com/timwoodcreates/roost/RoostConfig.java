@@ -1,43 +1,70 @@
 package com.timwoodcreates.roost;
 
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.Config.Comment;
-import net.minecraftforge.common.config.Config.LangKey;
-import net.minecraftforge.common.config.Config.RangeDouble;
-import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import net.fabricmc.loader.api.FabricLoader;
 
-@Config(modid = Roost.MODID)
-public class RoostConfig {
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-	@Comment("The speed multiplier for the roost. Higher is faster.")
-	@LangKey("config.roost.roostSpeed")
-	@RangeDouble(min = 0.01d, max = 100d)
-	public static double roostSpeed = 1d;
+public final class RoostConfig {
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-	@Comment("The speed multiplier for the breeder. Higher is faster.")
-	@LangKey("config.roost.breederSpeed")
-	@RangeDouble(min = 0.01d, max = 100d)
-	public static double breederSpeed = 1d;
+	private static RoostConfig instance = new RoostConfig();
 
-	@Comment("Prevent vanilla chickens from laying eggs. Of interest to modpack makers only.")
-	public static boolean disableEggLaying = false;
+	/** The speed multiplier for the roost. Higher is faster. */
+	public double roostSpeed = 1.0d;
 
-	public static void sync() {
-		ConfigManager.sync(Roost.MODID, Config.Type.INSTANCE);
+	/** The speed multiplier for the breeder. Higher is faster. */
+	public double breederSpeed = 1.0d;
+
+	/** Prevent vanilla chickens from laying eggs. Of interest to modpack makers only. */
+	public boolean disableEggLaying = false;
+
+	private RoostConfig() {
 	}
 
-	@Mod.EventBusSubscriber(modid = Roost.MODID)
-	public static class SyncHandler {
+	public static RoostConfig get() {
+		return instance;
+	}
 
-		@SubscribeEvent
-		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-			if (event.getModID().equals(Roost.MODID)) {
-				RoostConfig.sync();
-				Roost.LOGGER.info("Configuration has been saved.");
+	public static void load() {
+		Path path = FabricLoader.getInstance().getConfigDir().resolve("roost.json");
+
+		if (Files.exists(path)) {
+			try (Reader reader = Files.newBufferedReader(path)) {
+				RoostConfig loaded = GSON.fromJson(reader, RoostConfig.class);
+				if (loaded != null) {
+					instance = loaded;
+				}
+			} catch (IOException | RuntimeException exception) {
+				Roost.LOGGER.warn("Could not read the Roost config, using defaults", exception);
 			}
+		}
+
+		instance.roostSpeed = clampSpeed(instance.roostSpeed);
+		instance.breederSpeed = clampSpeed(instance.breederSpeed);
+		save(path);
+	}
+
+	private static double clampSpeed(double value) {
+		if (Double.isNaN(value)) {
+			return 1.0d;
+		}
+		return Math.max(0.01d, Math.min(100.0d, value));
+	}
+
+	private static void save(Path path) {
+		try {
+			Files.createDirectories(path.getParent());
+			try (Writer writer = Files.newBufferedWriter(path)) {
+				GSON.toJson(instance, writer);
+			}
+		} catch (IOException exception) {
+			Roost.LOGGER.warn("Could not write the Roost config", exception);
 		}
 	}
 }

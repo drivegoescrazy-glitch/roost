@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "roost",
+	"version": "${version}",
+	"name": "Roost",
+	"description": "A place for chickens to rest. Roosts hold chickens and collect their drops, breeders combine two chickens, and collectors gather everything up.",
+	"authors": ["Tim Wood", "David Vierra"],
+	"license": "MIT",
+	"icon": "assets/roost/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["com.timwoodcreates.roost.Roost"],
+		"client": ["com.timwoodcreates.roost.client.RoostClient"]
+	},
+	"mixins": ["roost.mixins.json"],
+	"accessWidener": "roost.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

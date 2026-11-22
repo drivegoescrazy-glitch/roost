@@ -84,6 +84,6 @@ public class ChickenSpawnEggItem extends Item {
 		if (chicken == null) {
 			return 0xFFFFFF;
 		}
-		return tintIndex == 0 ? chicken.getBgColor() : chicken.getFgColor();
+		return 0xFF000000 | (tintIndex == 0 ? chicken.getBgColor() : chicken.getFgColor());
 	}
 }

@@ -29,6 +29,6 @@ public class ChickensClient implements ClientModInitializer {
 	private static int coloredEggColor(ItemStack stack) {
 		ChickensRegistryItem chicken = ChickensRegistry.get(
 				stack.getOrDefault(com.setycz.chickens.ChickenComponents.CHICKEN_TYPE, ""));
-		return chicken == null ? 0xFFFFFF : chicken.getFgColor();
+		return chicken == null ? 0xFFFFFFFF : 0xFF000000 | chicken.getFgColor();
 	}
 }

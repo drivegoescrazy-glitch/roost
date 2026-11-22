@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "chickens",
+	"version": "${version}",
+	"name": "Chickens",
+	"description": "Chickens... lots of chickens. Breed 46 chicken types with inheritable stats, collect their drops with the henhouse, analyze them, and throw colored eggs.",
+	"authors": [
+		"SetyCz",
+		"Wyvi",
+		"GenDeathrow",
+		"LordCazsius"
+	],
+	"license": "MIT",
+	"icon": "assets/chickens/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.setycz.chickens.ChickensMod"
+		],
+		"client": [
+			"com.setycz.chickens.client.ChickensClient"
+		]
+	},
+	"accessWidener": "chickens.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PPP",
+		"PHP",
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "minecraft:dark_oak_planks"
+		},
+		"H": {
+			"item": "minecraft:hay_block"
+		}
+	},
+	"result": {
+		"id": "chickens:henhouse_dark_oak",
+		"count": 1
+	}
+}

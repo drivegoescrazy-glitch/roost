@@ -1,6 +1,9 @@
 package com.setycz.chickens;
 
+import com.setycz.chickens.compat.RoostCatcherHandler;
+import com.setycz.chickens.compat.RoostCompat;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class ChickensMod implements ModInitializer {
 	public static final String MOD_ID = "chickens";
 	public static final String NAME = "Chickens";
-	public static final String VERSION = "7.0.5";
+	public static final String VERSION = "7.0.6";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
 	@Override
@@ -29,6 +32,11 @@ public class ChickensMod implements ModInitializer {
 		ChickenItemGroup.init();
 		ChickenTeachingHandler.init();
 		ChickenSpawns.init();
+
+		if (FabricLoader.getInstance().isModLoaded("roost")) {
+			RoostCompat.init();
+			RoostCatcherHandler.init();
+		}
 
 		LOGGER.info("Chickens {} loaded with {} kinds", VERSION, ChickensRegistry.getItems().size());
 	}

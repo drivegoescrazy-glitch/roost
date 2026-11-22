@@ -300,7 +300,7 @@ public class ChickensChickenEntity extends ChickenEntity {
 
 		if (entityData instanceof ChickenGroupData groupData) {
 			this.setChickenType(groupData.type());
-		} else {
+		} else if (this.getChickenTypeInternal().isEmpty()) {
 			SpawnType spawnType = this.getSpawnType(world);
 			List<ChickensRegistryItem> possible = ChickensRegistry.getPossibleChickensToSpawn(spawnType);
 			if (!possible.isEmpty()) {
@@ -309,6 +309,7 @@ public class ChickensChickenEntity extends ChickenEntity {
 				entityData = new ChickenGroupData(picked.getRegistryName().toString());
 			}
 		}
+		// A spawn egg, breeding or command already chose a kind: never reroll it.
 
 		if (this.random.nextInt(5) == 0) {
 			this.setBreedingAge(-24000);

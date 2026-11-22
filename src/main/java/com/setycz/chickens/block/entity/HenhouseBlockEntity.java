@@ -12,6 +12,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -25,6 +26,9 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The henhouse: 9 output slots, a hay bale fuel slot and a dirt byproduct slot.
@@ -40,6 +44,8 @@ public class HenhouseBlockEntity extends BlockEntity implements Inventory, Exten
 
 	public static final int HAY_BALE_ENERGY = 100;
 	public static final int SEARCH_RADIUS = 5;
+
+	private static final Map<RegistryKey<World>, Set<BlockPos>> HENHOUSE_INDEX = new ConcurrentHashMap<>();
 
 	private final DefaultedList<ItemStack> items = DefaultedList.ofSize(SLOT_COUNT, ItemStack.EMPTY);
 	private int energy;
@@ -64,9 +70,18 @@ public class HenhouseBlockEntity extends BlockEntity implements Inventory, Exten
 	}
 
 	private static List<HenhouseBlockEntity> findHenhouses(World world, BlockPos origin) {
+		// Look through the henhouses that exist in this world instead of scanning
+		// every position in an 11x11x11 box. A farm of laying chickens used to do
+		// thousands of world lookups per tick, which stalls the server thread.
+		Set<BlockPos> candidates = HENHOUSE_INDEX.get(world.getRegistryKey());
+		if (candidates == null || candidates.isEmpty()) {
+			return List.of();
+		}
 		List<HenhouseBlockEntity> found = new ArrayList<>();
-		for (BlockPos pos : BlockPos.iterate(origin.add(-SEARCH_RADIUS, -SEARCH_RADIUS, -SEARCH_RADIUS),
-				origin.add(SEARCH_RADIUS, SEARCH_RADIUS, SEARCH_RADIUS))) {
+		for (BlockPos pos : candidates) {
+			if (!pos.isWithinDistance(origin, SEARCH_RADIUS + 1.0D)) {
+				continue;
+			}
 			// Never touch an unloaded chunk from an entity tick: getBlockEntity
 			// asks the world for a FULL chunk and will load and generate it on
 			// the server thread, which freezes the game with nothing in the log.
@@ -79,6 +94,26 @@ public class HenhouseBlockEntity extends BlockEntity implements Inventory, Exten
 		}
 		found.sort(Comparator.comparingDouble(henhouse -> henhouse.getPos().getSquaredDistance(origin)));
 		return found;
+	}
+
+	@Override
+	public void setWorld(World world) {
+		super.setWorld(world);
+		if (world != null && !world.isClient()) {
+			HENHOUSE_INDEX.computeIfAbsent(world.getRegistryKey(), key -> ConcurrentHashMap.newKeySet())
+					.add(this.pos.toImmutable());
+		}
+	}
+
+	@Override
+	public void markRemoved() {
+		if (this.world != null) {
+			Set<BlockPos> positions = HENHOUSE_INDEX.get(this.world.getRegistryKey());
+			if (positions != null) {
+				positions.remove(this.pos);
+			}
+		}
+		super.markRemoved();
 	}
 
 	private ItemStack pushItemStack(ItemStack stack) {

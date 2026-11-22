@@ -67,6 +67,12 @@ public class HenhouseBlockEntity extends BlockEntity implements Inventory, Exten
 		List<HenhouseBlockEntity> found = new ArrayList<>();
 		for (BlockPos pos : BlockPos.iterate(origin.add(-SEARCH_RADIUS, -SEARCH_RADIUS, -SEARCH_RADIUS),
 				origin.add(SEARCH_RADIUS, SEARCH_RADIUS, SEARCH_RADIUS))) {
+			// Never touch an unloaded chunk from an entity tick: getBlockEntity
+			// asks the world for a FULL chunk and will load and generate it on
+			// the server thread, which freezes the game with nothing in the log.
+			if (!world.isChunkLoaded(pos.getX() >> 4, pos.getZ() >> 4)) {
+				continue;
+			}
 			if (world.getBlockEntity(pos) instanceof HenhouseBlockEntity henhouse) {
 				found.add(henhouse);
 			}

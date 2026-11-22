@@ -260,7 +260,6 @@ public class HenhouseBlockEntity extends BlockEntity implements Inventory, Exten
 	@Override
 	protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
 		super.readNbt(nbt, registries);
-		this.items.clear();
 		Inventories.readNbt(nbt, this.items, registries);
 		this.energy = nbt.getInt("energy");
 	}

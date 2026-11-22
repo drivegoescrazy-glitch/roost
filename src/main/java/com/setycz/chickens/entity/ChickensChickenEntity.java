@@ -1,6 +1,7 @@
 package com.setycz.chickens.entity;
 
 import com.setycz.chickens.ChickensEntities;
+import com.setycz.chickens.ChickensMod;
 import com.setycz.chickens.ChickensRegistry;
 import com.setycz.chickens.ChickensRegistryItem;
 import com.setycz.chickens.SpawnType;
@@ -70,10 +71,22 @@ public class ChickensChickenEntity extends ChickenEntity {
 
 	public ChickensRegistryItem getChickenDescription() {
 		ChickensRegistryItem description = ChickensRegistry.get(this.getChickenTypeInternal());
-		if (description == null || !description.isEnabled()) {
-			description = ChickensRegistry.getSmartChicken();
+		if (description != null && description.isEnabled()) {
+			return description;
 		}
-		return description;
+		ChickensRegistryItem smart = ChickensRegistry.getSmartChicken();
+		if (smart != null) {
+			return smart;
+		}
+		for (ChickensRegistryItem item : ChickensRegistry.all()) {
+			if (item.isEnabled()) {
+				return item;
+			}
+		}
+		for (ChickensRegistryItem item : ChickensRegistry.all()) {
+			return item;
+		}
+		return null;
 	}
 
 	public String getChickenTypeInternal() {
@@ -86,11 +99,18 @@ public class ChickensChickenEntity extends ChickenEntity {
 	}
 
 	public Identifier getTexture() {
-		return this.getChickenDescription().getTexture();
+		ChickensRegistryItem description = this.getChickenDescription();
+		if (description != null) {
+			return description.getTexture();
+		}
+		ChickensRegistryItem smart = ChickensRegistry.getSmartChicken();
+		return smart != null ? smart.getTexture()
+				: Identifier.of(ChickensMod.MOD_ID, "textures/entity/smart_chicken.png");
 	}
 
 	public int getTier() {
-		return this.getChickenDescription().getTier();
+		ChickensRegistryItem description = this.getChickenDescription();
+		return description == null ? 1 : description.getTier();
 	}
 
 	public boolean getStatsAnalyzed() {
@@ -138,12 +158,15 @@ public class ChickensChickenEntity extends ChickenEntity {
 		if (this.hasCustomName()) {
 			return super.getName();
 		}
-		return Text.translatable("entity." + this.getChickenDescription().getEntityName() + ".name");
+		ChickensRegistryItem description = this.getChickenDescription();
+		return description == null ? super.getName()
+				: Text.translatable("entity." + description.getEntityName() + ".name");
 	}
 
 	@Override
 	public boolean isFireImmune() {
-		return this.getChickenDescription().isImmuneToFire() || super.isFireImmune();
+		ChickensRegistryItem description = this.getChickenDescription();
+		return (description != null && description.isImmuneToFire()) || super.isFireImmune();
 	}
 
 	@Override
@@ -152,9 +175,18 @@ public class ChickensChickenEntity extends ChickenEntity {
 		// their own item through the timer below instead of vanilla eggs.
 		this.eggLayTime = 6000;
 		if (!this.getWorld().isClient() && this.isAlive() && !this.isBaby() && !this.hasJockey()) {
-			this.layTimer--;
-			if (this.layTimer <= 1) {
-				this.layEgg();
+			if (this.layTimer > 1) {
+				this.layTimer--;
+			} else {
+				// A stale or broken timer from old save data must never make a
+				// chicken lay every tick: the henhouse scan would stall the server.
+				this.layTimer = 0;
+				try {
+					this.layEgg();
+				} catch (Throwable throwable) {
+					ChickensMod.LOGGER.warn("Chicken {} could not lay its item",
+							this.getChickenTypeInternal(), throwable);
+				}
 				this.resetTimeUntilNextEgg();
 			}
 		}
@@ -163,6 +195,9 @@ public class ChickensChickenEntity extends ChickenEntity {
 
 	private void layEgg() {
 		ChickensRegistryItem description = this.getChickenDescription();
+		if (description == null) {
+			return;
+		}
 		ItemStack stack = description.createLayItem();
 		int gain = this.getGain();
 		if (gain >= 5) {
@@ -191,7 +226,7 @@ public class ChickensChickenEntity extends ChickenEntity {
 		int max = Math.max(description.getMaxLayTime(), min + 1);
 		int base = min + this.random.nextInt(max - min);
 		int timer = (int) Math.max(1.0F, base * (10.0F - this.getGrowth() + 1.0F) / 10.0F);
-		this.layTimer = timer * 2;
+		this.layTimer = Math.max(20, timer * 2);
 		this.setLayProgress(this.layTimer / 2400);
 	}
 
@@ -216,6 +251,9 @@ public class ChickensChickenEntity extends ChickenEntity {
 
 		ChickensRegistryItem parent1 = this.getChickenDescription();
 		ChickensRegistryItem parent2 = mate.getChickenDescription();
+		if (parent1 == null || parent2 == null) {
+			return null;
+		}
 		ChickensRegistryItem child = ChickensRegistry.getRandomChild(parent1, parent2);
 		if (child == null) {
 			return null;
@@ -289,8 +327,9 @@ public class ChickensChickenEntity extends ChickenEntity {
 	@Override
 	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
 		ChickensRegistryItem description = this.getChickenDescription();
-		ItemStack drop = description.createDropItem();
-		this.dropStack(drop);
+		if (description != null) {
+			this.dropStack(description.createDropItem());
+		}
 
 		if (this.isOnFire()) {
 			this.dropStack(new ItemStack(Items.COOKED_CHICKEN));

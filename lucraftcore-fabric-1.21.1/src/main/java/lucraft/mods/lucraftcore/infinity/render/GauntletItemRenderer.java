@@ -50,12 +50,23 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
             return;
 
         matrices.push();
+        try {
+            // A failing renderer would otherwise take the whole client down and
+            // leave the matrix stack and the GL state broken.
+            LucraftCore.guard("gauntlet item render", () ->
+                    renderGauntlet(stack, mode, matrices, vertexConsumers, light, overlay));
+        } finally {
+            matrices.pop();
+        }
+    }
 
+    /** Draws the model or the icon. The caller owns the matrix push. */
+    private static void renderGauntlet(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices,
+                                       VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (mode == ModelTransformationMode.GUI) {
             // In the inventory the gauntlet is the original 2D sprite of the mod,
             // not the 3D model.
             renderIcon(stack, matrices, vertexConsumers, light, overlay);
-            matrices.pop();
             return;
         }
 
@@ -82,25 +93,26 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
                 continue;
 
             matrices.push();
-            translateToStone(matrices, InventoryInfinityGauntlet.SLOTS[i]);
-            matrices.scale(0.35F, 0.35F, 0.35F);
-            matrices.translate(-0.5D, -0.5D, -0.5D);
-            // Whenever the gauntlet's transform mirrors the model (the off hand
-            // and the ground use a positive display scale on top of the
-            // renderer's -1) every triangle's winding is reversed, and a stone
-            // draw that culls back faces loses its top and sides. Mirroring the
-            // stone about its own centre puts the winding back without moving
-            // it: the stone cube is centred on x = 0.5 in this frame.
-            if (matrices.peek().getPositionMatrix().determinant() < 0.0F) {
-                matrices.translate(0.5D, 0.0D, 0.0D);
-                matrices.scale(-1.0F, 1.0F, 1.0F);
-                matrices.translate(-0.5D, 0.0D, 0.0D);
+            try {
+                translateToStone(matrices, InventoryInfinityGauntlet.SLOTS[i]);
+                matrices.scale(0.35F, 0.35F, 0.35F);
+                matrices.translate(-0.5D, -0.5D, -0.5D);
+                // Whenever the gauntlet's transform mirrors the model (the off
+                // hand and the ground use a positive display scale on top of the
+                // renderer's -1) every triangle's winding is reversed, and a
+                // stone draw that culls back faces loses its top and sides.
+                // Mirroring the stone about its own centre puts the winding back
+                // without moving it: the stone cube is centred on x = 0.5 here.
+                if (matrices.peek().getPositionMatrix().determinant() < 0.0F) {
+                    matrices.translate(0.5D, 0.0D, 0.0D);
+                    matrices.scale(-1.0F, 1.0F, 1.0F);
+                    matrices.translate(-0.5D, 0.0D, 0.0D);
+                }
+                renderer.render(stone, mode, matrices, vertexConsumers, light, overlay);
+            } finally {
+                matrices.pop();
             }
-            renderer.render(stone, mode, matrices, vertexConsumers, light, overlay);
-            matrices.pop();
         }
-
-        matrices.pop();
     }
 
     /**

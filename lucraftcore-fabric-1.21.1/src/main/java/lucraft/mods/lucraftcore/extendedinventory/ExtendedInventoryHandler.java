@@ -25,7 +25,8 @@ public final class ExtendedInventoryHandler {
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList())
-                tick(player);
+                LucraftCore.guard("extended inventory tick of " + player.getName().getString(),
+                        () -> tick(player));
         });
     }
 

@@ -50,10 +50,21 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
         if (stack.isEmpty() || !(stack.getItem() instanceof ItemInfinityStone stone))
             return;
 
+        matrices.push();
+        try {
+            renderCube(stone, matrices, vertexConsumers);
+        } catch (Exception e) {
+            Infinity.LOGGER.error("Error rendering an infinity stone", e);
+        } finally {
+            matrices.pop();
+        }
+    }
+
+    private static void renderCube(ItemInfinityStone stone, MatrixStack matrices,
+                                   VertexConsumerProvider vertexConsumers) {
         int color = InfinityConfig.color(stone.getType());
         int shine = InfinityConfig.shine(stone.getType());
 
-        matrices.push();
         matrices.translate(0.5D, -0.1D, 0.5D);
         matrices.scale(0.4F, 0.4F, 0.4F);
 
@@ -72,7 +83,5 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
                     LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV,
                     (shine & 0xFFFFFF) | 0x80000000);
         }
-
-        matrices.pop();
     }
 }

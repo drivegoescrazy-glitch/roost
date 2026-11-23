@@ -49,10 +49,12 @@ public final class InfinityWorldGenerator {
             Queue<ChunkPos> queue = PENDING.get(world.getRegistryKey());
             if (queue == null || queue.isEmpty())
                 return;
-            int budget = 32;
-            ChunkPos pos;
-            while (budget-- > 0 && (pos = queue.poll()) != null)
-                generate(world, pos.x, pos.z);
+            lucraft.mods.lucraftcore.LucraftCore.guard("infinity stone worldgen", () -> {
+                int budget = 32;
+                ChunkPos pos;
+                while (budget-- > 0 && (pos = queue.poll()) != null)
+                    generate(world, pos.x, pos.z);
+            });
         });
     }
 

@@ -1,3 +1,28 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.28)
+
+## What was actually crashing
+A real Fabric 1.21.1 dedicated server was set up with both jars and driven by a
+bot through the paths a player hits: joining, holding the gauntlet, inserting a
+power stone, opening the gauntlet screen, granting/using/revoking abilities
+(flight, speed, strength, immortality, energy blast, punch, stop time), the
+`/lucraftcore` self tests, and reloading the saved player. **No server exception
+happened in any of it** — so the session loss comes from the client side, and a
+client exception during rendering is exactly what leaves the black screen,
+glowing buttons and unusable world list afterwards (in single player the client
+going down also reports the world as closed).
+
+## Fixed in 2.4.28
+- **Every custom render path is exception safe.** The gauntlet item renderer,
+  the infinity stone renderer, the ability bar HUD and the energy beam now run
+  inside a guard with the matrix stack pushed/popped in `try/finally`. A draw
+  failure is logged once and the frame continues, instead of unwinding mid-frame
+  and leaving the matrix or blend state broken for the main menu.
+- **Two more server tick handlers are guarded**: the extended inventory tick
+  (worn necklace/mantle/wrist items) and the infinity stone worldgen queue. A
+  failure there is logged instead of stopping the server.
+- 2.4.27's attachment fix is confirmed by the reload test: granting, using and
+  revoking abilities on a player loaded from disk no longer throws.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.27)
 
 ## Fixed in 2.4.27

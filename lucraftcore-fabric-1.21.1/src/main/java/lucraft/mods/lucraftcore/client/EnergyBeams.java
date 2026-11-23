@@ -149,6 +149,9 @@ public final class EnergyBeams {
                     quad(buffer, entry, start, end, across, halfWidth, r, g, b, a);
                 }
             }
+        } catch (Exception e) {
+            // Never let a bad shot take the frame (and the client) down.
+            lucraft.mods.lucraftcore.LucraftCore.reportError("energy beam render", e);
         } finally {
             matrices.pop();
         }

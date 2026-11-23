@@ -47,13 +47,18 @@ public class LucraftCore implements ModInitializer {
         try {
             action.run();
         } catch (Exception e) {
-            int seen;
-            synchronized (GUARDED_ERRORS) {
-                seen = GUARDED_ERRORS.merge(what, 1, Integer::sum);
-            }
-            if (seen <= 5)
-                LOGGER.error("Error in {} (seen {} time(s); the game keeps running)", what, seen, e);
+            reportError(what, e);
         }
+    }
+
+    /** Logs a failure once per place, so a broken frame cannot flood the log. */
+    public static void reportError(String what, Throwable error) {
+        int seen;
+        synchronized (GUARDED_ERRORS) {
+            seen = GUARDED_ERRORS.merge(what, 1, Integer::sum);
+        }
+        if (seen <= 5)
+            LOGGER.error("Error in {} (seen {} time(s); the game keeps running)", what, seen, error);
     }
 
     @Override

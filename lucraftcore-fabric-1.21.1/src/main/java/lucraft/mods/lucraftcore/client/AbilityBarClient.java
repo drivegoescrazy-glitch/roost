@@ -79,6 +79,13 @@ public final class AbilityBarClient {
     }
 
     private static void render(DrawContext context) {
+        // Drawing must never throw out of the HUD hook: an exception here leaves
+        // the blend state behind, which is what shows up as the black screen with
+        // glowing buttons after a crash.
+        LucraftCore.guard("ability bar hud", () -> renderBar(context));
+    }
+
+    private static void renderBar(DrawContext context) {
         if (ENTRIES.isEmpty())
             return;
         MinecraftClient client = MinecraftClient.getInstance();

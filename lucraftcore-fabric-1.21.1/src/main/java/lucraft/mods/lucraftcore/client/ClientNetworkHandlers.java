@@ -1,5 +1,6 @@
 package lucraft.mods.lucraftcore.client;
 
+import lucraft.mods.lucraftcore.util.network.EnergyBeamPayload;
 import lucraft.mods.lucraftcore.util.network.SpawnParticlePayload;
 import lucraft.mods.lucraftcore.util.network.SwingHandPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -18,6 +19,8 @@ public final class ClientNetworkHandlers {
     }
 
     public static void register() {
+        ClientPlayNetworking.registerGlobalReceiver(EnergyBeamPayload.ID,
+                (payload, context) -> EnergyBeams.add(payload));
         ClientPlayNetworking.registerGlobalReceiver(SpawnParticlePayload.ID, (payload, context) -> {
             ClientWorld world = context.client().world;
             if (world == null)

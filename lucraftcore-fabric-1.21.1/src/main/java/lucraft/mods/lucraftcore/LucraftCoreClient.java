@@ -2,6 +2,7 @@ package lucraft.mods.lucraftcore;
 
 import lucraft.mods.lucraftcore.client.AbilityBarClient;
 import lucraft.mods.lucraftcore.client.ClientNetworkHandlers;
+import lucraft.mods.lucraftcore.client.EnergyBeams;
 import lucraft.mods.lucraftcore.client.ExtendedInventoryClient;
 import lucraft.mods.lucraftcore.client.LCColoredParticle;
 import lucraft.mods.lucraftcore.infinity.ModuleInfinity;
@@ -19,6 +20,7 @@ public class LucraftCoreClient implements ClientModInitializer {
     public void onInitializeClient() {
         ClientNetworkHandlers.register();
         AbilityBarClient.register();
+        EnergyBeams.register();
         ExtendedInventoryClient.register();
 
         // The gauntlet is a 3D model, not a flat sprite, and has its own screen.

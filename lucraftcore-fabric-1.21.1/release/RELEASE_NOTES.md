@@ -1,3 +1,24 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.25)
+
+## Fixed in 2.4.25
+- **The stones render whole in the off hand.** Wherever the gauntlet's transform
+  mirrors the model — the left hand and the ground, whose display scale is
+  positive on top of the renderer's own `-1` — the winding of every triangle is
+  reversed, so a stone drawn with back-face culling lost its top and sides. The
+  gauntlet renderer now checks the sign of the current matrix' determinant and,
+  when it is mirrored, flips each stone about its own centre: the winding is
+  restored without moving the stone, and it works with any stone renderer.
+- **The energy blast fires the original laser bolt.** 1.12 spawned an
+  `EntityEnergyBlast`, a throwable travelling at 1.5 blocks per tick whose
+  renderer drew a one block glowing line with ten additive glow layers and a
+  white core (`LCRenderHelper.drawGlowingLine`). The port used a particle trail
+  instead; now the server resolves the hit and damage as before, plays the blast
+  sound, and sends the shot to every player in range, whose clients fly the
+  glowing bolt from the shooter's eyes to the impact point at the original
+  speed, with cloud particles at the impact. The colour comes from the
+  ability's `color` setting — red by default, the power stone's purple
+  (`0x9900FF`) for the stone blasts such as `infinity_blast`.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.24)
 
 ## Fixed in 2.4.24

@@ -27,6 +27,7 @@ public final class LCNetworking {
 
     public static void registerPayloads() {
         PayloadTypeRegistry.playS2C().register(SpawnParticlePayload.ID, SpawnParticlePayload.CODEC);
+        PayloadTypeRegistry.playS2C().register(EnergyBeamPayload.ID, EnergyBeamPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(SwingHandPayload.ID, SwingHandPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(AbilityBarPayload.ID, AbilityBarPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(UseAbilityPayload.ID, UseAbilityPayload.CODEC);
@@ -62,6 +63,16 @@ public final class LCNetworking {
         for (ServerPlayerEntity player : world.getPlayers()) {
             if (player.squaredDistanceTo(position) <= PARTICLE_RANGE * PARTICLE_RANGE)
                 sendParticle(player, effect, position, velocity, count);
+        }
+    }
+
+    /** Draws an energy blast bolt for every player within range of the shot. */
+    public static void sendBeam(ServerWorld world, Vec3d from, Vec3d to, int color) {
+        EnergyBeamPayload payload = EnergyBeamPayload.create(from, to, color);
+        for (ServerPlayerEntity player : world.getPlayers()) {
+            if (player.squaredDistanceTo(from) <= PARTICLE_RANGE * PARTICLE_RANGE
+                    && ServerPlayNetworking.canSend(player, EnergyBeamPayload.ID))
+                ServerPlayNetworking.send(player, payload);
         }
     }
 

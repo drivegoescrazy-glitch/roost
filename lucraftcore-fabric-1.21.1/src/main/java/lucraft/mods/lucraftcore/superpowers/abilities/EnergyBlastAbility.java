@@ -15,8 +15,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
 /**
- * Energy blast: a hitscan beam that damages the first entity in the player's
- * line of sight and draws a particle trail. Costs energy per shot.
+ * Energy blast: the original laser shot. It damages the first entity in the
+ * player's line of sight and sends the glowing bolt the 1.12 mod drew with
+ * {@code EntityEnergyBlast} to nearby clients. Costs energy per shot.
  */
 public class EnergyBlastAbility extends Ability {
 
@@ -62,11 +63,11 @@ public class EnergyBlastAbility extends Ability {
         else
             hitPos = blockHit.getPos();
 
-        Vec3d delta = hitPos.subtract(eye);
-        int steps = (int) Math.max(2, Math.min(80, delta.length() * 2));
-        for (int step = 1; step <= steps; step++)
-            LCNetworking.sendParticle(world, eye.add(delta.multiply(step / (double) steps)),
-                    LCParticles.COLORED_CLOUD, Vec3d.ZERO, 1);
+        // The bolt itself: the original's default blast colour is red, the stone
+        // blasts use the power stone's purple.
+        int color = config.getInt("color", getId().startsWith("infinity_") ? 0x9900FF : 0xFF0000);
+        LCNetworking.sendBeam(world, eye, hitPos, color);
+        LCNetworking.sendParticle(world, hitPos, LCParticles.COLORED_CLOUD, Vec3d.ZERO, 6);
 
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 LCSounds.ENERGY_BLAST, SoundCategory.PLAYERS, 1.0F, 1.0F);

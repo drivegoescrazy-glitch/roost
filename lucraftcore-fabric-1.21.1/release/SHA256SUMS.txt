@@ -1,5 +1,5 @@
-99d9d9f8898ed98f817f80005fe10a9da2fef81574c06cf67b4605a57b60041a  LucraftCore-Fabric-1.21.1-2.4.24.jar
-d0d2f4bdfd49037edee275e0cc048d7c4ec4befcbfd470279391e583e8630fa1  LucraftCore-Fabric-1.21.1-2.4.24-sources.jar
+eb457dcefa490b82b5c219dd33d7ba3aec4438b8b5e9d41c35ab3d0262878f37  LucraftCore-Fabric-1.21.1-2.4.25.jar
+580a3408825a888b271c09a0ec5f3b6b8d241dd0e716669c9fca747577e2a4a5  LucraftCore-Fabric-1.21.1-2.4.25-sources.jar
 f5214567caf759991bde42a955440cf53121ae60e79724536e1c110fbb1b2490  Infinity-Fabric-1.21.1-1.12.2.jar
-679aa58c48fe502de3cc3f4eba9a08d8ce18780306eae6f91858c437b5a3aa05  Infinity-Fabric-1.21.1-1.12.2-sources.jar
-b2d95cded2fab8aa080417045a592635fe1350b815f696c24e904eb1e707a6e4  RELEASE_NOTES.md
+f093b4c15fc3ca471d21bc3a8423e788cd3a59671a8992ff5c2ffff566b6ce68  Infinity-Fabric-1.21.1-1.12.2-sources.jar
+92a83cbc6c171ed1f7c0e7037b9658d06a1683fc272970f18ad091f9f387e6ca  RELEASE_NOTES.md

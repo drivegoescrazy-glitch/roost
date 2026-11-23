@@ -85,6 +85,17 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
             translateToStone(matrices, InventoryInfinityGauntlet.SLOTS[i]);
             matrices.scale(0.35F, 0.35F, 0.35F);
             matrices.translate(-0.5D, -0.5D, -0.5D);
+            // Whenever the gauntlet's transform mirrors the model (the off hand
+            // and the ground use a positive display scale on top of the
+            // renderer's -1) every triangle's winding is reversed, and a stone
+            // draw that culls back faces loses its top and sides. Mirroring the
+            // stone about its own centre puts the winding back without moving
+            // it: the stone cube is centred on x = 0.5 in this frame.
+            if (matrices.peek().getPositionMatrix().determinant() < 0.0F) {
+                matrices.translate(0.5D, 0.0D, 0.0D);
+                matrices.scale(-1.0F, 1.0F, 1.0F);
+                matrices.translate(-0.5D, 0.0D, 0.0D);
+            }
             renderer.render(stone, mode, matrices, vertexConsumers, light, overlay);
             matrices.pop();
         }

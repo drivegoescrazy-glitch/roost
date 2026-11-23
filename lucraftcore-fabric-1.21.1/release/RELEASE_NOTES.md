@@ -1,3 +1,29 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.22)
+
+## Fixed in 2.4.22
+- **The gauntlet is the fingerless model again.** The renderer now always uses
+  the original's fingerless variant (the 1.12 `LCConfig.fingersOnGauntlet = false`
+  build): the five separate finger parts and their tips are hidden, leaving the
+  glove, wrist cuff, knuckle plate and the six stone positions.
+- **The gauntlet is worn around the hand.** Placement no longer comes from the
+  old 1.12 `display` block, which stacked on top of the removed
+  `TileEntityItemStackRenderer` transform and left the gauntlet tipped end-on and
+  off the hand. The renderer now places it itself, per camera mode: while held,
+  the wrist cuff straddles the item origin so the hand goes into the gauntlet,
+  with the glove and knuckles projecting out of it, and the
+  `(-0.5, -0.5, -0.5)` translate that 1.21 applies to built-in item renderers is
+  cancelled. GUI, item frame, ground and head keep the whole gauntlet centred.
+  First person 0.62 scale at -15 degrees pitch, third person 0.60 at -28 degrees.
+- **The ability bar is the original HUD again.** It is a vertical column of
+  22x22 frames from `textures/gui/ability_bar.png` (the original white frame,
+  UV 0,36) hanging from the top left at y = 12 with 21 px steps, showing up to
+  five entries starting at the selected one — the 1.12 geometry. Each frame
+  holds the ability glyph, the green enabled bar and the cooldown shading in the
+  original 14 px inner strip, the selected ability's name is shown beside its
+  frame ("Fire Resistance" for `fire_resistance`), and the scroll/use key names
+  sit at the bottom of the column. The previous letter boxes drawn along the
+  bottom of the screen, on top of the hotbar area, are gone.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.21)
 
 ## Fixed in 2.4.21

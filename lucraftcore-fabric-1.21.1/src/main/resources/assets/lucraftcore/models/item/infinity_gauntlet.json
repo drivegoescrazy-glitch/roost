@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "lucraftcore:item/infinity_gauntlet"
-  }
+  "parent": "lucraftcore:item/infinity_gauntlet_3d"
 }

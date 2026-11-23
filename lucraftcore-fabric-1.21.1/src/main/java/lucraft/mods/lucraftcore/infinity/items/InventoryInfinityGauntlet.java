@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Six stone slots stored in the gauntlet's data component. */
+/** Six stone slots stored in the gauntlet's data component, in original order. */
 public class InventoryInfinityGauntlet extends SimpleInventory {
 
     public static final EnumInfinityStone[] SLOTS = {
@@ -19,19 +19,14 @@ public class InventoryInfinityGauntlet extends SimpleInventory {
             EnumInfinityStone.TIME
     };
 
-    /** Chest screens require a multiple of nine slots; the last three stay locked. */
-    public static final int SCREEN_SIZE = 9;
-
     private final ItemStack gauntlet;
 
     public InventoryInfinityGauntlet(ItemStack gauntlet) {
-        super(SCREEN_SIZE);
+        super(SLOTS.length);
         this.gauntlet = gauntlet;
         List<ItemStack> stored = ItemInfinityGauntlet.getStones(gauntlet);
         for (int i = 0; i < SLOTS.length; i++)
             super.setStack(i, i < stored.size() ? stored.get(i) : ItemStack.EMPTY);
-        for (int i = SLOTS.length; i < SCREEN_SIZE; i++)
-            super.setStack(i, ItemStack.EMPTY);
         addListener(inventory -> save());
     }
 
@@ -55,7 +50,10 @@ public class InventoryInfinityGauntlet extends SimpleInventory {
         return false;
     }
 
-    private void save() {
+    /** Writes the slots back into the gauntlet's component. */
+    public void save() {
+        if (!(gauntlet.getItem() instanceof ItemInfinityGauntlet))
+            return;
         List<ItemStack> list = new ArrayList<>(SLOTS.length);
         for (int i = 0; i < SLOTS.length; i++)
             list.add(getStack(i));

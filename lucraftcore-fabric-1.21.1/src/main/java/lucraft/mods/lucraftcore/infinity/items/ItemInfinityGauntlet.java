@@ -3,20 +3,20 @@ package lucraft.mods.lucraftcore.infinity.items;
 import com.mojang.serialization.Codec;
 import lucraft.mods.lucraftcore.LucraftCore;
 import lucraft.mods.lucraftcore.infinity.EnumInfinityStone;
+import lucraft.mods.lucraftcore.infinity.screen.InfinityGauntletScreenHandler;
 import lucraft.mods.lucraftcore.util.sounds.LCSounds;
 import net.minecraft.component.ComponentType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -25,13 +25,31 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Holds six infinity stones and opens a stone inventory on right-click. */
+/** Holds six infinity stones and opens the original stone screen on right-click. */
 public class ItemInfinityGauntlet extends ItemIndestructible {
 
     /** Stone stacks by slot; empty entries are absent from the component. */
     public static final ComponentType<List<ItemStack>> STONES = Registry.register(Registries.DATA_COMPONENT_TYPE,
             LucraftCore.id("infinity_stones"),
-            ComponentType.<List<ItemStack>>builder().codec(Codec.list(ItemStack.OPTIONAL_CODEC)).build());
+            ComponentType.<List<ItemStack>>builder()
+                    .codec(Codec.list(ItemStack.OPTIONAL_CODEC))
+                    // Without this the gauntlet cannot be sent to the client and
+                    // the whole stack fails to sync, which drops the connection
+                    // as soon as a player carries one.
+                    .packetCodec(PacketCodec.<RegistryByteBuf, List<ItemStack>>of(
+                            (stacks, buf) -> {
+                                buf.writeVarInt(stacks.size());
+                                for (ItemStack stack : stacks)
+                                    ItemStack.OPTIONAL_PACKET_CODEC.encode(buf, stack);
+                            },
+                            buf -> {
+                                int size = buf.readVarInt();
+                                List<ItemStack> stacks = new ArrayList<>(size);
+                                for (int i = 0; i < size; i++)
+                                    stacks.add(ItemStack.OPTIONAL_PACKET_CODEC.decode(buf));
+                                return stacks;
+                            }))
+                    .build());
 
     public ItemInfinityGauntlet() {
         super();
@@ -73,9 +91,10 @@ public class ItemInfinityGauntlet extends ItemIndestructible {
 
         if (!world.isClient) {
             InventoryInfinityGauntlet inventory = new InventoryInfinityGauntlet(gauntlet);
-            player.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, playerEntity) ->
-                    new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X1, syncId, playerInventory,
-                            inventory, 1), Text.translatable("container.lucraftcore.infinity_gauntlet")));
+            player.openHandledScreen(new SimpleNamedScreenHandlerFactory(
+                    (syncId, playerInventory, playerEntity) ->
+                            new InfinityGauntletScreenHandler(syncId, playerInventory, inventory),
+                    Text.translatable("container.lucraftcore.infinity_gauntlet")));
         }
         return TypedActionResult.success(gauntlet);
     }

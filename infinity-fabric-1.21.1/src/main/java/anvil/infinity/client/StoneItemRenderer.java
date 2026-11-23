@@ -18,7 +18,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
 
 /**
  * The original stones were not flat textures: Lucraft drew a small rotating 3D
@@ -30,7 +29,6 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
 
     // Lucraft ships the stone texture; the original renderer used it too.
     private static final Identifier STONE_TEXTURE = Identifier.of("lucraftcore", "textures/models/stone.png");
-    private static final Identifier GLINT_TEXTURE = Identifier.ofVanilla("textures/misc/enchanted_glint_item.png");
 
     private static ModelPart cube;
 
@@ -55,11 +53,6 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
         int color = InfinityConfig.color(stone.getType());
         int shine = InfinityConfig.shine(stone.getType());
 
-        float tick = 0.0F;
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.player != null)
-            tick = client.player.age + client.getRenderTickCounter().getTickDelta(false);
-
         matrices.push();
         matrices.translate(0.5D, -0.1D, 0.5D);
         matrices.scale(0.4F, 0.4F, 0.4F);
@@ -67,15 +60,14 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
         cube().render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(STONE_TEXTURE)),
                 LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV, color | 0xFF000000);
 
-        // Two additive glint passes, rotated around Z and drifting upwards.
+        // Two additive glint passes. In the original these were drawn with the
+        // drift and the 1/3 scale on the *texture* matrix: only the shine moved,
+        // never the cube. The glint layer owns that animation here, so the cube
+        // is drawn in place and the layer scrolls the glint over it.
         for (int pass = 0; pass < 2; pass++) {
-            matrices.push();
-            matrices.scale(1.0F / 3.0F, 1.0F / 3.0F, 1.0F / 3.0F);
-            matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(30.0F - pass * 60.0F));
-            matrices.translate(0.0D, tick * (0.001F + pass * 0.003F) * 20.0F, 0.0D);
-            cube().render(matrices, vertexConsumers.getBuffer(RenderLayer.getEyes(GLINT_TEXTURE)),
-                    LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV, (shine & 0xFFFFFF) | 0x80000000);
-            matrices.pop();
+            cube().render(matrices, vertexConsumers.getBuffer(RenderLayer.getGlint()),
+                    LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV,
+                    (shine & 0xFFFFFF) | 0x80000000);
         }
 
         matrices.pop();

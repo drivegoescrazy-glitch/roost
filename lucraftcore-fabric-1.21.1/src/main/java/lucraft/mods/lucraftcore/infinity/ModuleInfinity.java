@@ -5,6 +5,7 @@ import lucraft.mods.lucraftcore.infinity.blocks.InfinityGeneratorBlock;
 import lucraft.mods.lucraftcore.infinity.blocks.InfinityGeneratorBlockEntity;
 import lucraft.mods.lucraftcore.infinity.items.ItemInfinityGauntlet;
 import lucraft.mods.lucraftcore.infinity.items.ItemLCCast;
+import lucraft.mods.lucraftcore.infinity.screen.InfinityGauntletScreenHandler;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,6 +13,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.screen.ScreenHandlerType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ public final class ModuleInfinity {
     public static Item INFINITY_GAUNTLET_CAST;
     public static Block INFINITY_GENERATOR;
     public static BlockEntityType<InfinityGeneratorBlockEntity> INFINITY_GENERATOR_ENTITY;
+    public static ScreenHandlerType<InfinityGauntletScreenHandler> GAUNTLET_SCREEN_HANDLER;
 
     private ModuleInfinity() {
     }
@@ -32,6 +36,10 @@ public final class ModuleInfinity {
     public static void register() {
         INFINITY_GAUNTLET = registerItem("infinity_gauntlet", new ItemInfinityGauntlet());
         INFINITY_GAUNTLET_CAST = registerItem("infinity_gauntlet_cast", new ItemLCCast());
+
+        GAUNTLET_SCREEN_HANDLER = Registry.register(Registries.SCREEN_HANDLER,
+                LucraftCore.id("infinity_gauntlet"),
+                new ScreenHandlerType<>(InfinityGauntletScreenHandler::new, FeatureFlags.VANILLA_FEATURES));
 
         INFINITY_GENERATOR = Registry.register(Registries.BLOCK, LucraftCore.id("infinity_generator"),
                 new InfinityGeneratorBlock(AbstractBlock.Settings.create().strength(5.0F, 10.0F).requiresTool().nonOpaque()));

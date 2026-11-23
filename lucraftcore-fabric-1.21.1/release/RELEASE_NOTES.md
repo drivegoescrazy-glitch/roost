@@ -1,3 +1,29 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.21)
+
+## Fixed in 2.4.21
+- **The infinity gauntlet has its original 3D model again.** The 19-part
+  `ModelInfinityGauntlet` (hand, four two-part fingers, thumb and six stone
+  blocks) is rebuilt for 1.21 and drawn by a built-in item renderer with the
+  1.12 `models/infinity_gauntlet.png` texture, in the original position and
+  scale. It closes into the original fist pose while held and opens when it
+  lies on the ground, and inserted stones are drawn as the same 3D cubes at
+  the original knuckle offsets.
+- **The gauntlet screen is the original GUI.** It replaces the chest-style
+  screen with a 176x211 panel drawn from `textures/gui/infinity_gauntlet.png`
+  and the six stone slots at their 1.12 coordinates (soul 38/28, reality 59/28,
+  space 80/28, power 101/28, mind 69/58, time 129/38), the player inventory at
+  its original offsets, the held gauntlet's hotbar slot locked, the original
+  quick-move rules and the stone equip sound played from the slot.
+- **Fixed the disconnect when carrying a gauntlet.** The `infinity_stones`
+  data component had no packet codec, and 1.21's `ComponentChanges.encode`
+  dereferences the codec without a null check, so syncing a gauntlet threw on
+  the server thread and dropped the connection ("Server closed") on every
+  inventory update. The component now has a packet codec, and a full gauntlet
+  with all six stones encodes and decodes correctly.
+- The gauntlet inventory is six slots again instead of a nine-slot chest
+  inventory with three locked slots, and the stone slots only accept their own
+  stone type.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.20)
 
 Community port of Lucraft: Core 2.4.17 to Minecraft 1.21.1 / Fabric.

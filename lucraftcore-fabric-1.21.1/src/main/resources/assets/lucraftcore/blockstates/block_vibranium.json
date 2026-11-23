@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "lucraftcore:block_vibranium"
+      "model": "lucraftcore:block/block_vibranium"
     }
   }
 }

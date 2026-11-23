@@ -92,6 +92,12 @@ Original mod by Lucraft/Nictogen (Apache-2.0).
   hoppers can insert/extract, blocks drop their contents when broken, and the
   infinity generator feeds neighbouring energy machines.
 
+- **Asset fixes** — every material ore and storage block now has an item model
+  (previously all 31 block items rendered as missing models in inventories), the
+  vibranium ore and block use the glow-layer model again with their emissive
+  overlay, invalid Forge CTM metadata was removed, orphan wiring models and
+  duplicated nested texture folders were cleaned up.
+
 ## Not included in this build
 - Custom suit armor models, glow overlays and openable armor visuals.
 - Custom suit armour models/overlays, skin/flicker/vibrating effects, stone readers and

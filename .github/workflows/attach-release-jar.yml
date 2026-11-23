@@ -1,4 +1,4 @@
-name: Attach release jar
+name: Publish release jar
 
 on:
   push:
@@ -10,11 +10,18 @@ permissions:
   contents: write
 
 jobs:
-  attach:
+  publish:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Upload jar to the v2.4.19 release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh release upload v2.4.19 lucraftcore-fabric-1.21.1/release/LucraftCore-Fabric-1.21.1-2.4.19.jar --clobber
+      - name: Create the release when it does not exist
+        run: |
+          gh release view v2.4.20 >/dev/null 2>&1 || \
+            gh release create v2.4.20 \
+              --target infinity \
+              --title "LucraftCore Fabric 1.21.1 2.4.20" \
+              --notes-file lucraftcore-fabric-1.21.1/release/RELEASE_NOTES.md
+      - name: Upload the release jars
+        run: gh release upload v2.4.20 lucraftcore-fabric-1.21.1/release/LucraftCore-Fabric-1.21.1-2.4.20.jar lucraftcore-fabric-1.21.1/release/LucraftCore-Fabric-1.21.1-2.4.20-sources.jar --clobber

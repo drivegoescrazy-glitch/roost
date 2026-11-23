@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:nuggets/nickel"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:ingot_nickel"
+  },
+  "group": "lucraftcore:nuggets_to_ingot"
+}

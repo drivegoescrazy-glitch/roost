@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PCP",
+    "BXB",
+    "PKP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/iron"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "X": {
+      "item": "lucraftcore:lv_capacitor"
+    },
+    "K": {
+      "item": "minecraft:cauldron"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:boiler"
+  },
+  "group": "lucraftcore:machines"
+}

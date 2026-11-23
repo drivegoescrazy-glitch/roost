@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:ingots/uru"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:block_uru"
+  },
+  "group": "lucraftcore:ingots_to_block"
+}

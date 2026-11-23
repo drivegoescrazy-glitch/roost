@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "lucraftcore:ore_vibranium",
+    "lucraftcore:block_vibranium",
+    "lucraftcore:ore_iridium",
+    "lucraftcore:block_iridium",
+    "lucraftcore:block_adamantium",
+    "lucraftcore:ore_uru",
+    "lucraftcore:block_uru"
+  ]
+}

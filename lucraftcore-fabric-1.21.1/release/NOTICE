@@ -1,0 +1,14 @@
+Lucraft: Core — Fabric 1.21.1 port
+=================================
+
+This project is a community port of Lucraft: Core by Lucraft/Nictogen
+(https://gitlab.com/threetag/legacy/LucraftCore, originally for Minecraft
+1.12.2 with Forge).
+
+The original source is licensed under the Apache License, Version 2.0.
+Portions of the original code, assets, textures, language files and recipes
+are used and/or adapted here under that license. See LICENSE.
+
+Changes for this port: Minecraft 1.21.1 / Fabric APIs, registries, data
+components, item groups, data-driven recipes/tags/loot/worldgen, status
+effects, attachments, commands, menus and mixins.

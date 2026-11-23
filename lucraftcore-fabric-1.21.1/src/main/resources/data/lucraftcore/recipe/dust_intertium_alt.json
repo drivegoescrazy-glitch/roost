@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/iron"
+    },
+    {
+      "tag": "c:dusts/iron"
+    },
+    {
+      "tag": "c:dusts/osmium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:dust_intertium",
+    "count": 3
+  },
+  "group": "lucraftcore:alloys"
+}

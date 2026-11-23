@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/intertium"
+    },
+    {
+      "item": "lucraftcore:ingot_intertium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_intertium"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

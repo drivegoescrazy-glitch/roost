@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/titanium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:dust_titanium"
+  },
+  "group": "lucraftcore:ingot_to_dust"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:ingots/lead"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:block_lead"
+  },
+  "group": "lucraftcore:ingots_to_block"
+}

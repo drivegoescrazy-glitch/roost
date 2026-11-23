@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/adamantium"
+    },
+    {
+      "item": "lucraftcore:ingot_adamantium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_adamantium"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

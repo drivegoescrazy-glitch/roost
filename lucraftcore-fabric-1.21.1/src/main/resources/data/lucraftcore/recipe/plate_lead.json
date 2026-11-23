@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/lead"
+    },
+    {
+      "item": "lucraftcore:ingot_lead"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_lead"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

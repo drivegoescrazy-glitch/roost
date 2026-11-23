@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/bronze"
+    },
+    {
+      "item": "lucraftcore:ingot_bronze"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_bronze"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

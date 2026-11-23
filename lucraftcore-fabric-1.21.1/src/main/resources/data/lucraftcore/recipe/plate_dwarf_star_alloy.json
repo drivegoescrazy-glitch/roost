@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/dwarf_star_alloy"
+    },
+    {
+      "item": "lucraftcore:ingot_dwarf_star_alloy"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_dwarf_star_alloy"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

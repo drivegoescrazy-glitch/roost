@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "lucraftcore:ore_lead",
+    "lucraftcore:block_lead",
+    "lucraftcore:ore_silver",
+    "lucraftcore:block_silver",
+    "lucraftcore:ore_palladium",
+    "lucraftcore:block_palladium",
+    "lucraftcore:ore_titanium",
+    "lucraftcore:block_titanium",
+    "lucraftcore:ore_dwarf_star_alloy",
+    "lucraftcore:block_dwarf_star_alloy",
+    "lucraftcore:block_gold_titanium_alloy",
+    "lucraftcore:block_steel"
+  ]
+}

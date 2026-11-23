@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PIP",
+    "BCB",
+    "PXP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/iron"
+    },
+    "I": {
+      "item": "lucraftcore:injection"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "X": {
+      "item": "lucraftcore:lv_capacitor"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:extractor"
+  },
+  "group": "lucraftcore:machines"
+}

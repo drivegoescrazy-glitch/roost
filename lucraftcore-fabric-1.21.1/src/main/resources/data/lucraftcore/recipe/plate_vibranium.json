@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/vibranium"
+    },
+    {
+      "item": "lucraftcore:ingot_vibranium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_vibranium"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

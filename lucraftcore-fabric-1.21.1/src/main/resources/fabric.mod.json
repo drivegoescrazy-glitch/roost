@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "lucraftcore",
+	"version": "${version}",
+	"name": "Lucraft: Core",
+	"description": "Core mod for all Lucraft mods. Fabric 1.21.1 port.",
+	"authors": [
+		"Lucraft",
+		"Nictogen"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/lucraft-core",
+		"sources": "https://gitlab.com/threetag/legacy/LucraftCore"
+	},
+	"license": "Apache-2.0",
+	"environment": "*",
+	"mixins": [
+		"lucraftcore.mixins.json"
+	],
+	"entrypoints": {
+		"main": [
+			"lucraft.mods.lucraftcore.LucraftCore"
+		],
+		"client": [
+			"lucraft.mods.lucraftcore.LucraftCoreClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:ingots/dwarf_star_alloy"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:nugget_dwarf_star_alloy",
+    "count": 9
+  },
+  "group": "lucraftcore:ingot_to_nuggets"
+}

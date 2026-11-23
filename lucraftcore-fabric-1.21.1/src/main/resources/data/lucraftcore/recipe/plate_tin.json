@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/tin"
+    },
+    {
+      "item": "lucraftcore:ingot_tin"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_tin"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

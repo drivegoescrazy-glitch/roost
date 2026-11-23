@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:storage_blocks/intertium"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:ingot_intertium",
+    "count": 9
+  },
+  "group": "lucraftcore:block_to_ingots"
+}

@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "lucraftcore:ore_copper",
+    "lucraftcore:block_copper",
+    "lucraftcore:ore_tin",
+    "lucraftcore:block_tin",
+    "lucraftcore:ore_nickel",
+    "lucraftcore:block_nickel",
+    "lucraftcore:ore_osmium",
+    "lucraftcore:block_osmium",
+    "lucraftcore:block_bronze",
+    "lucraftcore:block_intertium",
+    "lucraftcore:ore_uranium",
+    "lucraftcore:block_uranium"
+  ]
+}

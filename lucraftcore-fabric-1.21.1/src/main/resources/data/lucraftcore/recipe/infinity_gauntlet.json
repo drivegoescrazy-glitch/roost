@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/gold_titanium_alloy"
+    },
+    "C": {
+      "item": "lucraftcore:infinity_gauntlet_cast"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:infinity_gauntlet"
+  }
+}

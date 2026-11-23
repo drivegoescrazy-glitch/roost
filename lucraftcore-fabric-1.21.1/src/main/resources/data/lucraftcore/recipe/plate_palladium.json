@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/palladium"
+    },
+    {
+      "item": "lucraftcore:ingot_palladium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_palladium"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

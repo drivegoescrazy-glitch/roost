@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/uranium"
+    },
+    {
+      "item": "lucraftcore:ingot_uranium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_uranium"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

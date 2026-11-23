@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:nuggets/vibranium"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:ingot_vibranium"
+  },
+  "group": "lucraftcore:nuggets_to_ingot"
+}

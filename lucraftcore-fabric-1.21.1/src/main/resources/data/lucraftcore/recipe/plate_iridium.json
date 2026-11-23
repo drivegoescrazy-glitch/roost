@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lucraftcore:hammer"
+    },
+    {
+      "tag": "c:ingots/iridium"
+    },
+    {
+      "item": "lucraftcore:ingot_iridium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:plate_iridium"
+  },
+  "group": "lucraftcore:ingots_to_plate"
+}

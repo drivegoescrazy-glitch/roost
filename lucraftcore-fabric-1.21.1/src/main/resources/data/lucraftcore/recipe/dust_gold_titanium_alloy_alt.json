@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:dusts/gold"
+    },
+    {
+      "tag": "c:dusts/titanium"
+    },
+    {
+      "tag": "c:dusts/titanium"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:dust_gold_titanium_alloy",
+    "count": 3
+  },
+  "group": "lucraftcore:alloys"
+}

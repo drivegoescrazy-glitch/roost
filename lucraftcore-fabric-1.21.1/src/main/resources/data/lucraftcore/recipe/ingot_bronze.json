@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:storage_blocks/bronze"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:ingot_bronze",
+    "count": 9
+  },
+  "group": "lucraftcore:block_to_ingots"
+}

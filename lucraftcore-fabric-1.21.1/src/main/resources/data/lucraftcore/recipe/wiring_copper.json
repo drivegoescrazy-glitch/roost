@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:plates/copper"
+    },
+    {
+      "item": "lucraftcore:wire_cutter"
+    }
+  ],
+  "result": {
+    "id": "lucraftcore:wiring_copper",
+    "count": 4
+  }
+}

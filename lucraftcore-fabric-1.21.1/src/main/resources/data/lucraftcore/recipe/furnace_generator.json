@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CRC",
+    "IBI",
+    "IFI"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:ingots/copper"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "B": {
+      "item": "lucraftcore:lv_capacitor"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:furnace_generator"
+  },
+  "group": "lucraftcore:machines"
+}

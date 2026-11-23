@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PCP",
+    "SNS",
+    "PAP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/dwarf_star_alloy"
+    },
+    "C": {
+      "tag": "c:circuits/advanced"
+    },
+    "S": {
+      "tag": "c:storage_blocks/steel"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "A": {
+      "item": "lucraftcore:hv_capacitor"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:infinity_generator"
+  },
+  "group": "lucraftcore:machines"
+}

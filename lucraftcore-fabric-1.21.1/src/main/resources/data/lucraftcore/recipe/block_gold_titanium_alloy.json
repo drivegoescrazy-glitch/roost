@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:ingots/gold_titanium_alloy"
+    }
+  },
+  "result": {
+    "id": "lucraftcore:block_gold_titanium_alloy"
+  },
+  "group": "lucraftcore:ingots_to_block"
+}

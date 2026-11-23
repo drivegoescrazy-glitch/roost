@@ -1,3 +1,30 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.24)
+
+## Fixed in 2.4.24
+- **The off-hand gauntlet faces the right way in third person.** 1.21 mirrors
+  the Y and Z axes of left-hand display rotations, so the `[-90, -90, 0]` entry
+  added in 2.4.23 was applied as `[-90, 90, 0]` and turned the knuckles and
+  stones towards the player. The original `[-90, 90, 0]` is restored, which is
+  applied as `[-90, -90, 0]` and puts the stones away from the player, as in the
+  right hand.
+- **The inventory icon is no longer dark.** A `builtin/entity` model defaults to
+  `gui_light: "side"`, which told the GUI to keep its directional shading on the
+  flat sprite. The model is marked `gui_light: "front"` now, so the GUI draws it
+  flat-lit and the icon shows at full brightness.
+- **The icon shows the stones the gauntlet holds.** The original icon art is the
+  bare gauntlet plus one coloured pixel per stone, stored in
+  `textures/items/infinity_gauntlet_<stone>.png`: soul (4,7) orange, reality
+  (6,7) red, space (8,7) cyan, power (10,7) purple, mind (7,10) yellow, time
+  (12,8) green. Those six textures ship with the mod again and the renderer
+  draws the pixel for every stone in the gauntlet, so the sprite changes as
+  stones are put in or taken out.
+- **Stones no longer lose faces in the off-hand.** The gauntlet's display
+  transform mirrors the model in first and third person, which reverses the
+  winding of every triangle. The stone cube renderer used a back-face culled
+  layer, so parts of the stone disappeared; it now renders without culling.
+  This fix is in the Infinity addon, which is attached to this release as
+  1.12.2.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.23)
 
 ## Fixed in 2.4.23

@@ -15,6 +15,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * The original 3D gauntlet item renderer: the gauntlet model with the texture
@@ -38,6 +40,8 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
     public static final Identifier TEXTURE = LucraftCore.id("textures/models/infinity_gauntlet.png");
     /** The original 1.12 item icon, used for the inventory and only there. */
     public static final Identifier ICON_TEXTURE = LucraftCore.id("textures/item/infinity_gauntlet.png");
+    /** Side of the original item icon, in texels. */
+    private static final int ICON_SIZE = 16;
 
     @Override
     public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices,
@@ -50,7 +54,7 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
         if (mode == ModelTransformationMode.GUI) {
             // In the inventory the gauntlet is the original 2D sprite of the mod,
             // not the 3D model.
-            renderIcon(matrices, vertexConsumers, light, overlay);
+            renderIcon(stack, matrices, vertexConsumers, light, overlay);
             matrices.pop();
             return;
         }
@@ -89,20 +93,66 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
     }
 
     /**
-     * Draws the original 16x16 item icon as a flat quad filling the item cube.
-     * The item cube is the 0..1 box the GUI hands to builtin renderers, and the
-     * GUI matrix flips Y, so the texture rows are reversed to keep the sprite
-     * upright.
+     * Draws the original 16x16 item icon as a flat quad filling the item cube,
+     * then the pixel each inserted stone adds to it. In 1.12 the icon was the
+     * bare gauntlet plus one coloured pixel per stone from
+     * {@code textures/items/infinity_gauntlet_<stone>.png}, at the positions
+     * those textures store, so the icon shows what the gauntlet holds.
+     *
+     * <p>The item cube is the 0..1 box the GUI hands to builtin renderers, and
+     * the GUI matrix flips Y, so both the sprite rows and the stone pixels are
+     * mirrored vertically.</p>
      */
-    private static void renderIcon(MatrixStack matrices, VertexConsumerProvider vertexConsumers,
+    private static void renderIcon(ItemStack stack, MatrixStack matrices, VertexConsumerProvider vertexConsumers,
                                    int light, int overlay) {
+        drawIconQuad(matrices, vertexConsumers, light, overlay, ICON_TEXTURE,
+                0, 0, ICON_SIZE, 0.5F);
+
+        for (EnumInfinityStone type : InventoryInfinityGauntlet.SLOTS) {
+            if (!ItemInfinityGauntlet.hasStone(stack, type))
+                continue;
+            int[] marker = STONE_MARKERS.get(type);
+            drawIconQuad(matrices, vertexConsumers, light, overlay, stoneIcon(type),
+                    marker[0], marker[1], 1, 0.52F);
+        }
+    }
+
+    /** The 1x1 icon pixel each stone adds, as {@code {x, y}} in the 16x16 icon. */
+    private static final Map<EnumInfinityStone, int[]> STONE_MARKERS = Map.of(
+            EnumInfinityStone.SOUL, new int[]{4, 7},
+            EnumInfinityStone.REALITY, new int[]{6, 7},
+            EnumInfinityStone.SPACE, new int[]{8, 7},
+            EnumInfinityStone.POWER, new int[]{10, 7},
+            EnumInfinityStone.MIND, new int[]{7, 10},
+            EnumInfinityStone.TIME, new int[]{12, 8});
+
+    /** The original per-stone icon overlay of the 1.12 jar. */
+    private static Identifier stoneIcon(EnumInfinityStone type) {
+        return LucraftCore.id("textures/item/infinity_gauntlet_" + type.name().toLowerCase(Locale.ROOT) + ".png");
+    }
+
+    /**
+     * Draws one {@code size x size} texel block of the icon sheet placed over
+     * the matching area of the item cube.
+     */
+    private static void drawIconQuad(MatrixStack matrices, VertexConsumerProvider vertexConsumers,
+                                     int light, int overlay, Identifier texture,
+                                     int texelX, int texelY, int size, float z) {
+        float x0 = texelX / (float) ICON_SIZE;
+        float x1 = (texelX + size) / (float) ICON_SIZE;
+        float y0 = 1.0F - (texelY + size) / (float) ICON_SIZE;
+        float y1 = 1.0F - texelY / (float) ICON_SIZE;
+        float u0 = x0;
+        float u1 = x1;
+        float v0 = texelY / (float) ICON_SIZE;
+        float v1 = (texelY + size) / (float) ICON_SIZE;
+
+        VertexConsumer buffer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(texture));
         MatrixStack.Entry entry = matrices.peek();
-        VertexConsumer buffer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ICON_TEXTURE));
-        float z = 0.5F;
-        iconVertex(buffer, entry, light, overlay, 0.0F, 0.0F, z, 0.0F, 1.0F);
-        iconVertex(buffer, entry, light, overlay, 1.0F, 0.0F, z, 1.0F, 1.0F);
-        iconVertex(buffer, entry, light, overlay, 1.0F, 1.0F, z, 1.0F, 0.0F);
-        iconVertex(buffer, entry, light, overlay, 0.0F, 1.0F, z, 0.0F, 0.0F);
+        iconVertex(buffer, entry, light, overlay, x0, y0, z, u0, v1);
+        iconVertex(buffer, entry, light, overlay, x1, y0, z, u1, v1);
+        iconVertex(buffer, entry, light, overlay, x1, y1, z, u1, v0);
+        iconVertex(buffer, entry, light, overlay, x0, y1, z, u0, v0);
     }
 
     private static void iconVertex(VertexConsumer buffer, MatrixStack.Entry entry, int light, int overlay,

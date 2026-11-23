@@ -57,7 +57,10 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
         matrices.translate(0.5D, -0.1D, 0.5D);
         matrices.scale(0.4F, 0.4F, 0.4F);
 
-        cube().render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(STONE_TEXTURE)),
+        // Drawn without back-face culling: the gauntlet's own transform mirrors
+        // the model in first and third person, which reverses the winding of the
+        // cube's faces and would otherwise leave parts of the stone missing.
+        cube().render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(STONE_TEXTURE)),
                 LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV, color | 0xFF000000);
 
         // Two additive glint passes. In the original these were drawn with the

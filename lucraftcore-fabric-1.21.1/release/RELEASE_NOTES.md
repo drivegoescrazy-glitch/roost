@@ -1,3 +1,24 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.27)
+
+## Fixed in 2.4.27
+- **"Connection lost / Disconnected" when playing in a saved world.** The granted
+  abilities and karma attachments are maps decoded from NBT by
+  `Codec.unboundedMap`, and that codec hands back an **immutable** map. The
+  first session is fine because the default is a mutable `LinkedHashMap`, but
+  once the player has been saved and reloaded, the next write — using a granted
+  ability, `/lc grant`, `/lc revoke`, or any karma change — threw
+  `UnsupportedOperationException` on the server thread and closed the
+  connection. Both accessors now return a mutable copy that is stored back.
+- **A single faulty ability can no longer end the session.** The per-player
+  ability tick, effect tick, ability bar sync and ability use are guarded: a
+  failure is logged once with its stack trace and the game keeps running
+  instead of dropping to the main menu. If anything else still goes wrong, the
+  log now names it.
+- **The energy beam is one clean ribbon.** It was drawn as two perpendicular
+  ribbons, which read as an X where they crossed and vanished edge-on from some
+  angles; it is now a single quad that turns to face the camera, so it looks the
+  same from every direction.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.26)
 
 ## Fixed in 2.4.26

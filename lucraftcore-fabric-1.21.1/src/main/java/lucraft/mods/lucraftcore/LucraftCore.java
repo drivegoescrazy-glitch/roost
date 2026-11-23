@@ -21,6 +21,9 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LucraftCore implements ModInitializer {
 
     public static final String MODID = "lucraftcore";
@@ -31,6 +34,26 @@ public class LucraftCore implements ModInitializer {
 
     public static Identifier id(String path) {
         return Identifier.of(MODID, path);
+    }
+
+    private static final Map<String, Integer> GUARDED_ERRORS = new HashMap<>();
+
+    /**
+     * Runs a gameplay step so that a failure inside one ability, effect or handler
+     * is reported in the log instead of killing the server thread (which drops the
+     * player back to the main menu with "Connection lost").
+     */
+    public static void guard(String what, Runnable action) {
+        try {
+            action.run();
+        } catch (Exception e) {
+            int seen;
+            synchronized (GUARDED_ERRORS) {
+                seen = GUARDED_ERRORS.merge(what, 1, Integer::sum);
+            }
+            if (seen <= 5)
+                LOGGER.error("Error in {} (seen {} time(s); the game keeps running)", what, seen, e);
+        }
     }
 
     @Override

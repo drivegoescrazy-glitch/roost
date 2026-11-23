@@ -21,7 +21,10 @@ public class KarmaHandler {
             LucraftCore.id("karma"), Codec.unboundedMap(Codec.STRING, Codec.INT));
 
     public static Map<String, Integer> getStats(PlayerEntity player) {
-        return player.getAttachedOrCreate(KARMA, HashMap::new);
+        // Codec-decoded maps are immutable, so hand out a mutable copy and let the
+        // callers that change it store it back.
+        Map<String, Integer> attached = player.getAttachedOrCreate(KARMA, HashMap::new);
+        return new HashMap<>(attached);
     }
 
     public static int getKarmaStat(PlayerEntity player, KarmaStat stat) {

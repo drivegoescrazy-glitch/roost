@@ -36,7 +36,11 @@ public class PlayerAbilities {
     private static final Map<UUID, String> GAUNTLET_KEY = new HashMap<>();
 
     public static Map<String, Boolean> getGranted(ServerPlayerEntity player) {
-        return player.getAttachedOrCreate(GRANTED, LinkedHashMap::new);
+        // Codecs decode maps into an ImmutableMap, so the map handed back after a
+        // world reload cannot be modified. Always work on a mutable copy; the
+        // callers that change it store the copy back with setAttached.
+        Map<String, Boolean> attached = player.getAttachedOrCreate(GRANTED, LinkedHashMap::new);
+        return new LinkedHashMap<>(attached);
     }
 
     public static boolean grant(ServerPlayerEntity player, String id) {

@@ -14,18 +14,24 @@ public class ModuleSuperpowers {
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                PlayerAbilities.tickSuit(player);
-                PlayerAbilities.tickPower(player);
-                PlayerAbilities.tick(player);
-                PlayerAbilities.tickGauntlet(player);
+                String who = player.getName().getString();
 
-                SuitSet worn = SuitSet.getWornSuit(player);
-                EffectHandler.tick(player, "suit", worn == null ? List.of() : worn.getEffects());
-                Superpower power = SuperpowerHandler.getPower(player);
-                EffectHandler.tick(player, "power", power == null ? List.of() : power.getEffects());
+                LucraftCore.guard("ability tick of " + who, () -> {
+                    PlayerAbilities.tickSuit(player);
+                    PlayerAbilities.tickPower(player);
+                    PlayerAbilities.tick(player);
+                    PlayerAbilities.tickGauntlet(player);
+                });
+
+                LucraftCore.guard("effect tick of " + who, () -> {
+                    SuitSet worn = SuitSet.getWornSuit(player);
+                    EffectHandler.tick(player, "suit", worn == null ? List.of() : worn.getEffects());
+                    Superpower power = SuperpowerHandler.getPower(player);
+                    EffectHandler.tick(player, "power", power == null ? List.of() : power.getEffects());
+                });
 
                 if (player.age % 20 == 0)
-                    AbilityBarSync.send(player);
+                    LucraftCore.guard("ability bar of " + who, () -> AbilityBarSync.send(player));
             }
         });
 

@@ -130,9 +130,10 @@ public final class EnergyBeams {
                 if (!(axis.lengthSquared() > 1.0E-6D))
                     continue;
                 axis = axis.normalize();
-                // Two perpendicular ribbons make the bolt visible from any angle.
+                // A single ribbon turned to face the camera. Two crossed ribbons
+                // would be edge-on (and so invisible) from most angles and show
+                // as an X where they overlap, so the bolt is one billboarded quad.
                 Vec3d across = perpendicular(axis, camera.subtract(start));
-                Vec3d other = axis.crossProduct(across).normalize();
 
                 float red = ((beam.color >> 16) & 0xFF) / 255.0F;
                 float green = ((beam.color >> 8) & 0xFF) / 255.0F;
@@ -146,7 +147,6 @@ public final class EnergyBeams {
                     float a = LAYERS[layer][1] * (core ? 1.0F : 0.55F);
                     double halfWidth = CORE_HALF_WIDTH * LAYERS[layer][0];
                     quad(buffer, entry, start, end, across, halfWidth, r, g, b, a);
-                    quad(buffer, entry, start, end, other, halfWidth, r, g, b, a);
                 }
             }
         } finally {

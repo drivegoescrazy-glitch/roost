@@ -38,10 +38,10 @@ public final class LCNetworking {
     public static void registerServerReceivers() {
         ServerPlayNetworking.registerGlobalReceiver(UseAbilityPayload.ID, (payload, context) -> {
             ServerPlayerEntity player = context.player();
-            player.getServer().execute(() -> {
+            player.getServer().execute(() -> LucraftCore.guard("ability " + payload.abilityId(), () -> {
                 PlayerAbilities.use(player, payload.abilityId());
                 AbilityBarSync.send(player);
-            });
+            }));
         });
         ServerPlayNetworking.registerGlobalReceiver(OpenExtendedInventoryPayload.ID, (payload, context) -> {
             ServerPlayerEntity player = context.player();

@@ -75,7 +75,11 @@ public class PlayerAbilities {
         if (ability == null)
             return false;
         boolean result = ability.use();
-        saveState(player, id, ability);
+        // Only granted abilities keep their on/off state; suit, power and gauntlet
+        // abilities are rebuilt from their source and must not leak into the
+        // player's granted map.
+        if (getGranted(player).containsKey(id))
+            saveState(player, id, ability);
         if (result) {
             LCriteria.ABILITY_USED.trigger(player, id);
             AbilityBarSync.send(player);
@@ -99,7 +103,17 @@ public class PlayerAbilities {
             if (ability.isEnabled())
                 ability.onGrant();
         }
-        return ability;
+        if (ability != null)
+            return ability;
+        // Abilities from a suit, a superpower or the infinity gauntlet live in
+        // their own caches; the ability bar lists those too, so they must be
+        // usable from the bar.
+        for (Map<UUID, Map<String, Ability>> source : java.util.List.of(SUIT_CACHE, POWER_CACHE, GAUNTLET_CACHE)) {
+            Map<String, Ability> entries = source.get(player.getUuid());
+            if (entries != null && entries.get(id) != null)
+                return entries.get(id);
+        }
+        return null;
     }
 
     public static void tick(ServerPlayerEntity player) {

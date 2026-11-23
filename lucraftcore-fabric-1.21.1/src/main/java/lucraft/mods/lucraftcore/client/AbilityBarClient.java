@@ -16,7 +16,6 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * HUD ability bar, laid out like the original 1.12 one: a vertical column of
@@ -96,9 +95,8 @@ public final class AbilityBarClient {
             context.drawTexture(BAR_TEXTURE, x, frameY, FRAME_U, FRAME_V, FRAME_SIZE, FRAME_SIZE,
                     256, 256);
 
-            // Ability glyph: the frame is 22x22, the icon area inside it is 16x16.
-            String glyph = entry.id().isEmpty() ? "?" : entry.id().substring(0, 1).toUpperCase(Locale.ROOT);
-            context.drawText(client.textRenderer, glyph, x + 8, frameY + 7, 0xFFFFFFFF, true);
+            // Ability icon: the original 16x16 sprite drawn inside the 22x22 frame.
+            AbilityIcons.draw(context, entry.id(), x + 3, frameY + 3);
 
             if (entry.enabled())
                 context.fill(x + 4, frameY + 18, x + 18, frameY + 19, 0xFF00FF88);

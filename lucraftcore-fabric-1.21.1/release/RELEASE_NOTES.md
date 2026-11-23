@@ -1,3 +1,43 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.23)
+
+## Fixed in 2.4.23
+- **The gauntlet is worn around the hand again.** Placement now comes from the
+  original mod in both halves of the item pipeline: the 1.12 `display` block is
+  back on the `builtin/entity` model, so first person, third person, ground,
+  item frame and head all get the transforms the original chose, and the
+  renderer repeats the body of the original `TileEntityItemStackRenderer` —
+  `translate(0.5, 1.8, 0.5)` and `scale(-1, -1, -1)` — inside that cube. The
+  hand-tuned per-mode offsets of 2.4.22 are gone, and so is the extra
+  `translate(0.5, 0.5, 0.5)` that pushed the model half a cube out of place.
+  The left-hand third-person rotation is written as `[-90, -90, 0]` because
+  1.21 mirrors left-hand display rotations, which restores the original
+  `[-90, 90, 0]` pose.
+- **The inventory icon is no longer offset.** The 2D sprite is drawn flat over
+  the whole item cube (0..1, z 0.5), which is the box the GUI hands to built-in
+  item renderers; the texture's V axis is reversed to match the GUI's flipped Y
+  axis. Previously the sprite was drawn after a half-cube translate, so the icon
+  sat 8 px down and to the right, half of it outside its slot.
+- **The ability bar has the original ability icons.** A new `AbilityIcons` maps
+  each ability to the 16x16 cell it drew in 1.12 from
+  `textures/gui/icons.png` (`LCRenderHelper.drawIcon`: u = column * 16,
+  v = row * 16) — flight, strength, punch, speed, resistance, fire resistance,
+  step assist, fall resistance, size change, health, knockback resistance,
+  energy blast, water breathing, invisibility and healing — and the Infinityraft
+  stone abilities (`infinity_flight`, `infinity_blast`, `infinity_healing`,
+  `infinity_strength`, `infinity_resistance`, `infinity_punch`,
+  `infinity_invisibility`, `infinity_size`). Abilities that drew an item in the
+  original draw that item (snap → gauntlet, kill → soul stone, changesnap → mind
+  stone, stop_time → time stone, fast_forward → clock, teleport → ender pearl,
+  the command abilities → command block), and anything without an icon of its
+  own falls back to the same default cell `Ability.drawIcon` used (row 0,
+  column 4) instead of a letter. Icons sit at +3,+3 inside the 22x22 frame, as
+  in the original.
+- **Abilities listed in the bar can be used.** `PlayerAbilities.ability()` only
+  looked in the granted cache, so suit, superpower and gauntlet abilities — the
+  ones the bar lists while wearing the gauntlet — resolved to nothing and the
+  use key did nothing. It now falls back to the suit, power and gauntlet
+  caches, and only granted abilities write their on/off state back.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.22)
 
 ## Fixed in 2.4.22

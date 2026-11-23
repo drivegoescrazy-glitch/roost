@@ -6,6 +6,7 @@ import lucraft.mods.lucraftcore.infinity.items.InventoryInfinityGauntlet;
 import lucraft.mods.lucraftcore.infinity.items.ItemInfinityGauntlet;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
@@ -21,18 +22,22 @@ import java.util.List;
  * and every inserted stone drawn as the same small cube the stones use
  * elsewhere, at the knuckle positions the original renderer defined.
  *
- * <p>The 1.12 mod put the 3D model behind a {@code builtin/entity} model whose
- * {@code display} block described the old {@code TileEntityItemStackRenderer}
- * pipeline, where it stacked on top of the renderer's own translate/scale.
- * Those numbers do not carry over to the 1.21 item pipeline as-is, so the
- * gauntlet is placed here, per camera mode, in the item's own frame: the model
- * is turned so the knuckle stones face the viewer ({@code +Z}), the wrist
- * points down ({@code -Y}) and the fist is hand sized, which is how the
- * gauntlet read in the original mod.</p>
+ * <p>The placement is the original one. The 1.12 mod described the item with a
+ * {@code builtin/entity} model whose {@code display} block positioned the item
+ * cube per camera mode, and its {@code TileEntityItemStackRenderer} then moved
+ * the model inside that cube with {@code translate(0.5, 1.8, 0.5)} and
+ * {@code scale(-1, -1, -1)}. Both halves are reproduced here unchanged, so the
+ * cuff ends up around the player's hand in first and third person exactly as it
+ * did in the original mod.</p>
+ *
+ * <p>In the inventory the item is the original 2D icon instead of the model,
+ * drawn flat over the whole slot.</p>
  */
 public class GauntletItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
     public static final Identifier TEXTURE = LucraftCore.id("textures/models/infinity_gauntlet.png");
+    /** The original 1.12 item icon, used for the inventory and only there. */
+    public static final Identifier ICON_TEXTURE = LucraftCore.id("textures/item/infinity_gauntlet.png");
 
     @Override
     public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices,
@@ -40,24 +45,24 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
         if (stack.isEmpty() || !(stack.getItem() instanceof ItemInfinityGauntlet))
             return;
 
+        matrices.push();
+
+        if (mode == ModelTransformationMode.GUI) {
+            // In the inventory the gauntlet is the original 2D sprite of the mod,
+            // not the 3D model.
+            renderIcon(matrices, vertexConsumers, light, overlay);
+            matrices.pop();
+            return;
+        }
+
         GauntletModel.Built model = GauntletModel.create();
         // The gauntlet is worn over the hand: the original ships the version
         // without the separate finger parts (LCConfig.fingersOnGauntlet = false).
         GauntletModel.setFingersVisible(model, false);
 
-        matrices.push();
-        // 1.21 hands builtin item renderers a stack that has already been moved
-        // into the 0..1 item cube; undo that so the gauntlet can be placed around
-        // the item's own origin.
-        matrices.translate(0.5D, 0.5D, 0.5D);
-        applyMode(matrices, mode);
+        // The body of the original TileEntityItemStackRenderer.
+        matrices.translate(0.5D, 1.8D, 0.5D);
         matrices.scale(-1.0F, -1.0F, -1.0F);
-        // The model's own coordinates run from y = 0.875 (wrist end) to
-        // y = 1.5 (knuckles). While worn, the wrist cuff is what the hand goes
-        // into, so the cuff straddles the item origin; everywhere else the whole
-        // gauntlet is centred on it.
-        double yOffset = isHand(mode) ? -1.375D : -1.19D;
-        matrices.translate(0.0D, yOffset, 0.0D);
         model.root().render(matrices,
                 vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TEXTURE)),
                 light, overlay, 0xFFFFFFFF);
@@ -84,67 +89,30 @@ public class GauntletItemRenderer implements BuiltinItemRendererRegistry.Dynamic
     }
 
     /**
-     * Places the gauntlet for a camera mode. The model frame handed to this
-     * method has the knuckle stones towards {@code +Z}, the fingers towards
-     * {@code +Y} and the wrist towards {@code -Y}; every mode only tilts,
-     * mirrors and sizes it from there.
+     * Draws the original 16x16 item icon as a flat quad filling the item cube.
+     * The item cube is the 0..1 box the GUI hands to builtin renderers, and the
+     * GUI matrix flips Y, so the texture rows are reversed to keep the sprite
+     * upright.
      */
-    private static void applyMode(MatrixStack matrices, ModelTransformationMode mode) {
-        switch (mode) {
-            case GUI -> {
-                matrices.scale(0.90F, 0.90F, 0.90F);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(18.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-25.0F));
-                matrices.translate(0.0D, -0.02D, 0.0D);
-            }
-            case FIXED -> {
-                matrices.scale(0.70F, 0.70F, 0.70F);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(10.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-20.0F));
-            }
-            case GROUND -> {
-                matrices.scale(0.55F, 0.55F, 0.55F);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-20.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(25.0F));
-                matrices.translate(0.0D, -0.15D, 0.0D);
-            }
-            case HEAD -> {
-                matrices.scale(0.50F, 0.50F, 0.50F);
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
-                matrices.translate(0.0D, 0.10D, 0.0D);
-            }
-            case FIRST_PERSON_RIGHT_HAND -> {
-                matrices.translate(0.06D, -0.02D, 0.02D);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-15.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-22.0F));
-                matrices.scale(0.62F, 0.62F, 0.62F);
-            }
-            case FIRST_PERSON_LEFT_HAND -> {
-                matrices.translate(-0.06D, -0.02D, 0.02D);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-15.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(22.0F));
-                matrices.scale(0.62F, 0.62F, 0.62F);
-            }
-            case THIRD_PERSON_RIGHT_HAND -> {
-                matrices.translate(0.0D, -0.02D, 0.0D);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-28.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-35.0F));
-                matrices.scale(0.60F, 0.60F, 0.60F);
-            }
-            case THIRD_PERSON_LEFT_HAND -> {
-                matrices.translate(0.0D, -0.02D, 0.0D);
-                matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-28.0F));
-                matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(35.0F));
-                matrices.scale(0.60F, 0.60F, 0.60F);
-            }
-        }
+    private static void renderIcon(MatrixStack matrices, VertexConsumerProvider vertexConsumers,
+                                   int light, int overlay) {
+        MatrixStack.Entry entry = matrices.peek();
+        VertexConsumer buffer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ICON_TEXTURE));
+        float z = 0.5F;
+        iconVertex(buffer, entry, light, overlay, 0.0F, 0.0F, z, 0.0F, 1.0F);
+        iconVertex(buffer, entry, light, overlay, 1.0F, 0.0F, z, 1.0F, 1.0F);
+        iconVertex(buffer, entry, light, overlay, 1.0F, 1.0F, z, 1.0F, 0.0F);
+        iconVertex(buffer, entry, light, overlay, 0.0F, 1.0F, z, 0.0F, 0.0F);
     }
 
-    private static boolean isHand(ModelTransformationMode mode) {
-        return mode == ModelTransformationMode.FIRST_PERSON_LEFT_HAND
-                || mode == ModelTransformationMode.FIRST_PERSON_RIGHT_HAND
-                || mode == ModelTransformationMode.THIRD_PERSON_LEFT_HAND
-                || mode == ModelTransformationMode.THIRD_PERSON_RIGHT_HAND;
+    private static void iconVertex(VertexConsumer buffer, MatrixStack.Entry entry, int light, int overlay,
+                                   float x, float y, float z, float u, float v) {
+        buffer.vertex(entry.getPositionMatrix(), x, y, z)
+                .color(0xFFFFFFFF)
+                .texture(u, v)
+                .overlay(overlay)
+                .light(light)
+                .normal(entry, 0.0F, 0.0F, 1.0F);
     }
 
     /** The original per-stone placement on the gauntlet. */

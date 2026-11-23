@@ -1,0 +1,29 @@
+{
+  "parent": "infinity:infinity/root",
+  "display": {
+    "icon": {
+      "id": "infinity:time_stone"
+    },
+    "title": {
+      "translate": "infinity.advancements.infinity.time_stone.title"
+    },
+    "description": {
+      "translate": "infinity.advancements.infinity.time_stone.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "infinity:time_stone"
+          }
+        ]
+      }
+    }
+  }
+}

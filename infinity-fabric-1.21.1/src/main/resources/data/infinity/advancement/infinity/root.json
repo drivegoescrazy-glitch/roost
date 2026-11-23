@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "id": "lucraftcore:infinity_gauntlet"
+    },
+    "title": {
+      "translate": "infinity.advancements.infinity.root.title"
+    },
+    "description": {
+      "translate": "infinity.advancements.infinity.root.description"
+    },
+    "background": "lucraftcore:textures/gui/infinity_background.png",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "lucraftcore:infinity_gauntlet"
+          }
+        ]
+      }
+    }
+  }
+}

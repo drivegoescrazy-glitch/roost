@@ -1,0 +1,20 @@
+{
+  "infinity.advancements.infinity.mind_stone.description": "Finde den Gedankenstein",
+  "infinity.advancements.infinity.mind_stone.title": "Gedanke",
+  "infinity.advancements.infinity.power_stone.description": "Finde den Stein der Macht",
+  "infinity.advancements.infinity.power_stone.title": "Macht",
+  "infinity.advancements.infinity.reality_stone.description": "Finde den Realitätsstein",
+  "infinity.advancements.infinity.reality_stone.title": "Realität",
+  "infinity.advancements.infinity.soul_stone.description": "Finde den Seelenstein",
+  "infinity.advancements.infinity.soul_stone.title": "Seele",
+  "infinity.advancements.infinity.time_stone.description": "Finde den Zeitstein",
+  "infinity.advancements.infinity.time_stone.title": "Zeit",
+  "infinity.snap.death": "zerfiel zu Staub",
+  "infinity.snap.text": "Du hättest auf den Kopf zielen sollen.",
+  "item.infinity.mind_stone": "Gedankenstein",
+  "item.infinity.power_stone": "Stein der Macht",
+  "item.infinity.reality_stone": "Realitätsstein",
+  "item.infinity.soul_stone": "Seelenstein",
+  "item.infinity.space_stone": "Raumstein",
+  "item.infinity.time_stone": "Zeitstein"
+}

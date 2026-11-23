@@ -1,4 +1,4 @@
-# Lucraft: Core — Fabric 1.21.1 port (2.4.17-alpha)
+# Lucraft: Core — Fabric 1.21.1 port (2.4.20)
 
 Community port of Lucraft: Core 2.4.17 to Minecraft 1.21.1 / Fabric.
 Original mod by Lucraft/Nictogen (Apache-2.0).

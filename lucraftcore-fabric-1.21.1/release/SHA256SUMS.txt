@@ -1,3 +1,3 @@
 2cee268db6113a766f76784d067d9000c370f381253ec4a6d4b93c4c5eaedeee  LucraftCore-Fabric-1.21.1-2.4.20.jar
 52fb6e8fe9dd625417c419b19f7cfccd56a9558ae0e16d0fdd55506d0db7b44c  LucraftCore-Fabric-1.21.1-2.4.20-sources.jar
-9851483158a564d52f079af019f5df9a32ee58d34ddad00e30becf83017df67d  RELEASE_NOTES.md
+1ab16a68eee1d9a37cfa1c60a0989ab662672d615adfccf0c688a3160aafb7a5  RELEASE_NOTES.md

@@ -56,16 +56,16 @@ public final class AbilityBarClient {
         // renders, so the update has to happen on the client thread: mutating it
         // from the network thread is a concurrent-modification crash.
         ClientPlayNetworking.registerGlobalReceiver(AbilityBarPayload.ID, (payload, context) ->
-                context.client().execute(() -> {
+                context.client().execute(() -> LucraftCore.guard("ability bar sync", () -> {
                     ENTRIES.clear();
                     ENTRIES.addAll(payload.entries());
                     if (selected >= ENTRIES.size())
                         selected = 0;
-                }));
+                })));
 
         HudRenderCallback.EVENT.register((context, tickCounter) -> render(context));
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> LucraftCore.guard("ability bar input", () -> {
             while (nextKey.wasPressed())
                 if (!ENTRIES.isEmpty())
                     selected = (selected + 1) % ENTRIES.size();
@@ -74,8 +74,9 @@ public final class AbilityBarClient {
                     selected = (selected - 1 + ENTRIES.size()) % ENTRIES.size();
             while (useKey.wasPressed())
                 if (!ENTRIES.isEmpty())
-                    ClientPlayNetworking.send(new UseAbilityPayload(ENTRIES.get(selected).id()));
-        });
+                    ClientPlayNetworking.send(new UseAbilityPayload(ENTRIES.get(Math.min(selected,
+                            ENTRIES.size() - 1)).id()));
+        }));
     }
 
     private static void render(DrawContext context) {

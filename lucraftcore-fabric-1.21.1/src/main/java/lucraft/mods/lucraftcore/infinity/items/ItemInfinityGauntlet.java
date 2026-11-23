@@ -74,29 +74,36 @@ public class ItemInfinityGauntlet extends ItemIndestructible {
         if (!(gauntlet.getItem() instanceof ItemInfinityGauntlet))
             return TypedActionResult.pass(gauntlet);
 
-        if (player.isSneaking()) {
-            ItemStack other = player.getStackInHand(hand == Hand.MAIN_HAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
-            if (!world.isClient && other.getItem() instanceof ItemInfinityStone stone && !stone.isContainer()) {
-                InventoryInfinityGauntlet inventory = new InventoryInfinityGauntlet(gauntlet);
-                if (inventory.insert(other)) {
-                    other.decrement(1);
-                    world.playSound(null, player.getBlockPos(), LCSounds.INFINITY_STONE_EQUIP,
-                            SoundCategory.PLAYERS, 1.0F, 1.0F);
-                } else {
-                    player.sendMessage(Text.translatable("lucraftcore.info.gauntlet_slot_taken"), true);
+        // The whole interaction is guarded: this runs on the server thread, so a
+        // throw here would drop the player out of the world ("Server closed").
+        try {
+            if (player.isSneaking()) {
+                ItemStack other = player.getStackInHand(hand == Hand.MAIN_HAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
+                if (!world.isClient && other.getItem() instanceof ItemInfinityStone stone && !stone.isContainer()) {
+                    InventoryInfinityGauntlet inventory = new InventoryInfinityGauntlet(gauntlet);
+                    if (inventory.insert(other)) {
+                        other.decrement(1);
+                        world.playSound(null, player.getBlockPos(), LCSounds.INFINITY_STONE_EQUIP,
+                                SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    } else {
+                        player.sendMessage(Text.translatable("lucraftcore.info.gauntlet_slot_taken"), true);
+                    }
                 }
+                return TypedActionResult.success(gauntlet);
+            }
+
+            if (!world.isClient) {
+                InventoryInfinityGauntlet inventory = new InventoryInfinityGauntlet(gauntlet);
+                player.openHandledScreen(new SimpleNamedScreenHandlerFactory(
+                        (syncId, playerInventory, playerEntity) ->
+                                new InfinityGauntletScreenHandler(syncId, playerInventory, inventory),
+                        Text.translatable("container.lucraftcore.infinity_gauntlet")));
             }
             return TypedActionResult.success(gauntlet);
+        } catch (Throwable t) {
+            LucraftCore.reportError("using the infinity gauntlet", t);
+            return TypedActionResult.pass(gauntlet);
         }
-
-        if (!world.isClient) {
-            InventoryInfinityGauntlet inventory = new InventoryInfinityGauntlet(gauntlet);
-            player.openHandledScreen(new SimpleNamedScreenHandlerFactory(
-                    (syncId, playerInventory, playerEntity) ->
-                            new InfinityGauntletScreenHandler(syncId, playerInventory, inventory),
-                    Text.translatable("container.lucraftcore.infinity_gauntlet")));
-        }
-        return TypedActionResult.success(gauntlet);
     }
 
     @Override

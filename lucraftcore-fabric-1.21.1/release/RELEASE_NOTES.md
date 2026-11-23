@@ -1,319 +1,74 @@
-# Lucraft: Core — Fabric 1.21.1 port (2.4.28)
+# Lucraft: Core & Infinityraft — Fabric 1.21.1 (3.0.0)
 
-## What was actually crashing
-A real Fabric 1.21.1 dedicated server was set up with both jars and driven by a
-bot through the paths a player hits: joining, holding the gauntlet, inserting a
-power stone, opening the gauntlet screen, granting/using/revoking abilities
-(flight, speed, strength, immortality, energy blast, punch, stop time), the
-`/lucraftcore` self tests, and reloading the saved player. **No server exception
-happened in any of it** — so the session loss comes from the client side, and a
-client exception during rendering is exactly what leaves the black screen,
-glowing buttons and unusable world list afterwards (in single player the client
-going down also reports the world as closed).
-
-## Fixed in 2.4.28
-- **Every custom render path is exception safe.** The gauntlet item renderer,
-  the infinity stone renderer, the ability bar HUD and the energy beam now run
-  inside a guard with the matrix stack pushed/popped in `try/finally`. A draw
-  failure is logged once and the frame continues, instead of unwinding mid-frame
-  and leaving the matrix or blend state broken for the main menu.
-- **Two more server tick handlers are guarded**: the extended inventory tick
-  (worn necklace/mantle/wrist items) and the infinity stone worldgen queue. A
-  failure there is logged instead of stopping the server.
-- 2.4.27's attachment fix is confirmed by the reload test: granting, using and
-  revoking abilities on a player loaded from disk no longer throws.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.27)
-
-## Fixed in 2.4.27
-- **"Connection lost / Disconnected" when playing in a saved world.** The granted
-  abilities and karma attachments are maps decoded from NBT by
-  `Codec.unboundedMap`, and that codec hands back an **immutable** map. The
-  first session is fine because the default is a mutable `LinkedHashMap`, but
-  once the player has been saved and reloaded, the next write — using a granted
-  ability, `/lc grant`, `/lc revoke`, or any karma change — threw
-  `UnsupportedOperationException` on the server thread and closed the
-  connection. Both accessors now return a mutable copy that is stored back.
-- **A single faulty ability can no longer end the session.** The per-player
-  ability tick, effect tick, ability bar sync and ability use are guarded: a
-  failure is logged once with its stack trace and the game keeps running
-  instead of dropping to the main menu. If anything else still goes wrong, the
-  log now names it.
-- **The energy beam is one clean ribbon.** It was drawn as two perpendicular
-  ribbons, which read as an X where they crossed and vanished edge-on from some
-  angles; it is now a single quad that turns to face the camera, so it looks the
-  same from every direction.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.26)
-
-## Fixed in 2.4.26
-- **The disconnect ("Server closed") and the stuck black main menu.** Every play
-  payload handler ran on the network thread, while the render and tick threads
-  read the same state: the ability bar list (rebuilt every second), the particle
-  manager, entity arm swings and the new beam list. A network handler touching
-  those mid-frame raises a concurrent-modification exception, which kills the
-  client and, in single player, takes the integrated server with it — the
-  "Server closed" kick, followed by a main menu whose renderer is left in a
-  broken state (black screen, glowing buttons, world list that will not open).
-  All client handlers now schedule onto the client thread, and the two shared
-  lists are copy-on-write, so an update can never land in the middle of a frame.
-- **The beam can no longer wedge the renderer.** The energy blast bolt is drawn
-  with a standard emissive entity layer instead of the lightning layer, which
-  renders into the weather framebuffer and is not safe to use outside the
-  weather pass; the world matrix stack is pushed and popped in a `try/finally`,
-  and shots with non-finite coordinates are dropped.
-- **The beam has no stray particles.** The impact puff is gone: the bolt alone
-  is the effect, as in the original.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.25)
-
-## Fixed in 2.4.25
-- **The stones render whole in the off hand.** Wherever the gauntlet's transform
-  mirrors the model — the left hand and the ground, whose display scale is
-  positive on top of the renderer's own `-1` — the winding of every triangle is
-  reversed, so a stone drawn with back-face culling lost its top and sides. The
-  gauntlet renderer now checks the sign of the current matrix' determinant and,
-  when it is mirrored, flips each stone about its own centre: the winding is
-  restored without moving the stone, and it works with any stone renderer.
-- **The energy blast fires the original laser bolt.** 1.12 spawned an
-  `EntityEnergyBlast`, a throwable travelling at 1.5 blocks per tick whose
-  renderer drew a one block glowing line with ten additive glow layers and a
-  white core (`LCRenderHelper.drawGlowingLine`). The port used a particle trail
-  instead; now the server resolves the hit and damage as before, plays the blast
-  sound, and sends the shot to every player in range, whose clients fly the
-  glowing bolt from the shooter's eyes to the impact point at the original
-  speed, with cloud particles at the impact. The colour comes from the
-  ability's `color` setting — red by default, the power stone's purple
-  (`0x9900FF`) for the stone blasts such as `infinity_blast`.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.24)
-
-## Fixed in 2.4.24
-- **The off-hand gauntlet faces the right way in third person.** 1.21 mirrors
-  the Y and Z axes of left-hand display rotations, so the `[-90, -90, 0]` entry
-  added in 2.4.23 was applied as `[-90, 90, 0]` and turned the knuckles and
-  stones towards the player. The original `[-90, 90, 0]` is restored, which is
-  applied as `[-90, -90, 0]` and puts the stones away from the player, as in the
-  right hand.
-- **The inventory icon is no longer dark.** A `builtin/entity` model defaults to
-  `gui_light: "side"`, which told the GUI to keep its directional shading on the
-  flat sprite. The model is marked `gui_light: "front"` now, so the GUI draws it
-  flat-lit and the icon shows at full brightness.
-- **The icon shows the stones the gauntlet holds.** The original icon art is the
-  bare gauntlet plus one coloured pixel per stone, stored in
-  `textures/items/infinity_gauntlet_<stone>.png`: soul (4,7) orange, reality
-  (6,7) red, space (8,7) cyan, power (10,7) purple, mind (7,10) yellow, time
-  (12,8) green. Those six textures ship with the mod again and the renderer
-  draws the pixel for every stone in the gauntlet, so the sprite changes as
-  stones are put in or taken out.
-- **Stones no longer lose faces in the off-hand.** The gauntlet's display
-  transform mirrors the model in first and third person, which reverses the
-  winding of every triangle. The stone cube renderer used a back-face culled
-  layer, so parts of the stone disappeared; it now renders without culling.
-  This fix is in the Infinity addon, which is attached to this release as
-  1.12.2.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.23)
-
-## Fixed in 2.4.23
-- **The gauntlet is worn around the hand again.** Placement now comes from the
-  original mod in both halves of the item pipeline: the 1.12 `display` block is
-  back on the `builtin/entity` model, so first person, third person, ground,
-  item frame and head all get the transforms the original chose, and the
-  renderer repeats the body of the original `TileEntityItemStackRenderer` —
-  `translate(0.5, 1.8, 0.5)` and `scale(-1, -1, -1)` — inside that cube. The
-  hand-tuned per-mode offsets of 2.4.22 are gone, and so is the extra
-  `translate(0.5, 0.5, 0.5)` that pushed the model half a cube out of place.
-  The left-hand third-person rotation is written as `[-90, -90, 0]` because
-  1.21 mirrors left-hand display rotations, which restores the original
-  `[-90, 90, 0]` pose.
-- **The inventory icon is no longer offset.** The 2D sprite is drawn flat over
-  the whole item cube (0..1, z 0.5), which is the box the GUI hands to built-in
-  item renderers; the texture's V axis is reversed to match the GUI's flipped Y
-  axis. Previously the sprite was drawn after a half-cube translate, so the icon
-  sat 8 px down and to the right, half of it outside its slot.
-- **The ability bar has the original ability icons.** A new `AbilityIcons` maps
-  each ability to the 16x16 cell it drew in 1.12 from
-  `textures/gui/icons.png` (`LCRenderHelper.drawIcon`: u = column * 16,
-  v = row * 16) — flight, strength, punch, speed, resistance, fire resistance,
-  step assist, fall resistance, size change, health, knockback resistance,
-  energy blast, water breathing, invisibility and healing — and the Infinityraft
-  stone abilities (`infinity_flight`, `infinity_blast`, `infinity_healing`,
-  `infinity_strength`, `infinity_resistance`, `infinity_punch`,
-  `infinity_invisibility`, `infinity_size`). Abilities that drew an item in the
-  original draw that item (snap → gauntlet, kill → soul stone, changesnap → mind
-  stone, stop_time → time stone, fast_forward → clock, teleport → ender pearl,
-  the command abilities → command block), and anything without an icon of its
-  own falls back to the same default cell `Ability.drawIcon` used (row 0,
-  column 4) instead of a letter. Icons sit at +3,+3 inside the 22x22 frame, as
-  in the original.
-- **Abilities listed in the bar can be used.** `PlayerAbilities.ability()` only
-  looked in the granted cache, so suit, superpower and gauntlet abilities — the
-  ones the bar lists while wearing the gauntlet — resolved to nothing and the
-  use key did nothing. It now falls back to the suit, power and gauntlet
-  caches, and only granted abilities write their on/off state back.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.22)
-
-## Fixed in 2.4.22
-- **The gauntlet is the fingerless model again.** The renderer now always uses
-  the original's fingerless variant (the 1.12 `LCConfig.fingersOnGauntlet = false`
-  build): the five separate finger parts and their tips are hidden, leaving the
-  glove, wrist cuff, knuckle plate and the six stone positions.
-- **The gauntlet is worn around the hand.** Placement no longer comes from the
-  old 1.12 `display` block, which stacked on top of the removed
-  `TileEntityItemStackRenderer` transform and left the gauntlet tipped end-on and
-  off the hand. The renderer now places it itself, per camera mode: while held,
-  the wrist cuff straddles the item origin so the hand goes into the gauntlet,
-  with the glove and knuckles projecting out of it, and the
-  `(-0.5, -0.5, -0.5)` translate that 1.21 applies to built-in item renderers is
-  cancelled. GUI, item frame, ground and head keep the whole gauntlet centred.
-  First person 0.62 scale at -15 degrees pitch, third person 0.60 at -28 degrees.
-- **The ability bar is the original HUD again.** It is a vertical column of
-  22x22 frames from `textures/gui/ability_bar.png` (the original white frame,
-  UV 0,36) hanging from the top left at y = 12 with 21 px steps, showing up to
-  five entries starting at the selected one — the 1.12 geometry. Each frame
-  holds the ability glyph, the green enabled bar and the cooldown shading in the
-  original 14 px inner strip, the selected ability's name is shown beside its
-  frame ("Fire Resistance" for `fire_resistance`), and the scroll/use key names
-  sit at the bottom of the column. The previous letter boxes drawn along the
-  bottom of the screen, on top of the hotbar area, are gone.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.21)
-
-## Fixed in 2.4.21
-- **The infinity gauntlet has its original 3D model again.** The 19-part
-  `ModelInfinityGauntlet` (hand, four two-part fingers, thumb and six stone
-  blocks) is rebuilt for 1.21 and drawn by a built-in item renderer with the
-  1.12 `models/infinity_gauntlet.png` texture, in the original position and
-  scale. It closes into the original fist pose while held and opens when it
-  lies on the ground, and inserted stones are drawn as the same 3D cubes at
-  the original knuckle offsets.
-- **The gauntlet screen is the original GUI.** It replaces the chest-style
-  screen with a 176x211 panel drawn from `textures/gui/infinity_gauntlet.png`
-  and the six stone slots at their 1.12 coordinates (soul 38/28, reality 59/28,
-  space 80/28, power 101/28, mind 69/58, time 129/38), the player inventory at
-  its original offsets, the held gauntlet's hotbar slot locked, the original
-  quick-move rules and the stone equip sound played from the slot.
-- **Fixed the disconnect when carrying a gauntlet.** The `infinity_stones`
-  data component had no packet codec, and 1.21's `ComponentChanges.encode`
-  dereferences the codec without a null check, so syncing a gauntlet threw on
-  the server thread and dropped the connection ("Server closed") on every
-  inventory update. The component now has a packet codec, and a full gauntlet
-  with all six stones encodes and decodes correctly.
-- The gauntlet inventory is six slots again instead of a nine-slot chest
-  inventory with three locked slots, and the stone slots only accept their own
-  stone type.
-
-# Lucraft: Core — Fabric 1.21.1 port (2.4.20)
-
-Community port of Lucraft: Core 2.4.17 to Minecraft 1.21.1 / Fabric.
-Original mod by Lucraft/Nictogen (Apache-2.0).
+**One jar.** Infinityraft is now bundled inside Lucraft: Core. The six stones,
+every gauntlet ability, the snap, the stone temples and `/generatedStones` all
+ship in `LucraftCore-Fabric-1.21.1-3.0.0.jar`. Delete the separate
+`Infinity-Fabric` jar from `mods/` when upgrading; keeping it would register the
+stones twice.
 
 ## Requirements
+
 - Minecraft 1.21.1
 - Fabric Loader 0.16.14+
 - Fabric API 0.116.18+1.21.1
 - Java 21
 
-## Included modules
-- **Materials** — 22 materials, 79 items, 31 blocks (ores, storage blocks, ingots,
-  dusts, plates, nuggets, wirings), ore world generation in all overworld biomes,
-  loot tables, harvest-tier tags, creative tab, radiation effect (config, default off),
-  116 crafting recipes converted to 1.21 data-driven recipes with `c:` item tags.
-- **Utilities items** — hammer, wire cutter, injection, instruction, LV/MV/HV
-  capacitors, servo motor, basic/advanced circuit, 16 reinforced tri-polymer colours,
-  own creative tab, crafting-grid return behaviour.
-- **Karma** — nine karma stats and nine karma classes, persistent per-player data,
-  kill-based karma, knockout effect, `/karma` commands.
-- **Size changing** — `/sizechange`, vanilla scale plus movement/combat/fall modifiers.
-- **Superpowers** — ability framework with 22 abilities (flight, speed, strength,
-  health, jump boost, step assist, knockback resistance, fall resistance,
-  water breathing, fire resistance, slow fall, invisibility, healing, teleport,
-  size change), persistent per-player grants, `/ability` commands.
-- **Addon packs** — loads packs from `config/lucraftcore/addonpacks` (folders or
-  zip/jar with `addonpack.mcmeta`) and reads instruction recipes from
-  `instructionrecipes/*.json`; instruction items store their recipes in a data
-  component and list outputs/requirements in their tooltip.
-- **Suit sets** — addon packs can define suits in `suitsets/*.json` (original
-  `armor_material`, `armor_parts`, `name`, `abilities` keys); armor materials and
-  the four armor pieces are registered, shown in the creative tab, and the suit's
-  abilities are applied while the full set is worn. Custom suit models/glow layers
-  are not ported yet (armor uses vanilla layer rendering).
+## Contents
 
-- **Engine layer** — energy buffers for blocks and items (`lucraftcore:energy`
-  component, charge/discharge/transfer helpers), fluid tanks with bucket
-  interactions, inventory insertion/extraction helpers, S2C payloads for
-  particle spawning and arm swings with client receivers, the original sound
-  events (energy blast, infinity stone equip, gauntlet use), a coloured cloud
-  particle type, the `lucraftcore:ability_used` advancement criterion, GUI
-  screen/button/drawing bases, and `/lucraftcore engine|addonpacks` operator
-  commands. `/lucraftcore engine` self-tests the energy, item energy, fluid and
-  inventory APIs at runtime.
+Lucraft: Core — materials (22 materials, 79 items, 31 blocks, ore generation,
+loot tables, tags, 116 recipes), utilities (hammer, wire cutter, injection,
+instruction, capacitors, servo motor, circuits, tri-polymer, extractor, boiler,
+construction table, furnace generator, suit stand), karma, size changing, suit
+sets, addon packs, engine layer, and 22 superpower abilities with `/ability`.
 
-- **Data-driven superpowers** — addon packs can define `superpowers/*.json`
-  (or `powers/*.json`): name, description, colour, XP level thresholds and an
-  ability list where each entry can set its unlock level, energy cost, cooldown
-  and conditions. `/superpower list|info|set|remove|xp` manages powers; the
-  granted abilities are rebuilt when the power or level changes.
-- **Ability upgrades** — energy costs paid from carried energy items, cooldowns,
-  and conditions (held item, superpower, level, enabled ability, scoreboard tag,
-  potion effect, and/or/not). New ability behaviours: energy blast (hitscan beam
-  with particle trail and sound), punch (damage, knockback, fire, potion effect),
-  command runner (use/grant/revoke/loop), sprint boost, generator and damage
-  resistance.
+Infinityraft (bundled) — six infinity stones (fireproof, indestructible as dropped
+items, 3D cube renderers), the gauntlet with its 3D model and six-slot GUI
+(sneak + use inserts a stone), the snap with its results/effects/sounds, stone
+temples and `/generatedStones`.
 
-- **Effects and ability bar** — suits and superpowers can declare `effects`
-  (glow, particle trail, aura, name change) with the shared condition system;
-  suits now also parse `parent`, `description`, `data`, `creative_tab` and
-  per-piece `glow` (enchanted glint). The ability bar is synced to the client
-  with entries, active state and cooldowns, and can be used with the
-  next/previous/use keybinds (defaults `]`, `[`, `V`). Size changing already
-  drives vanilla rendering through 1.21's `generic.scale` attribute.
+### Every gauntlet ability of the 1.12 mod, with the original values
 
-- **Utilities machines** — the five original machine blocks are back with
-  horizontal facing, block-entity inventories saved to NBT and crafting recipes:
-  the furnace generator burns vanilla fuels into FE (10 FE/t, 100,000 FE buffer)
-  and charges energy items, the extractor consumes FE over time using
-  data-driven `extractor/*.json` recipes (item in, item out), the boiler converts
-  fluids with `boiler/*.json` recipes, the construction table crafts from
-  instruction items (right-click to craft, sneak-right-click to list recipes),
-  and the suit stand stores suit pieces. Addon packs can add machine recipes via
-  `extractor/` and `boiler/` folders; `/lucraftcore machines` self-tests fuels,
-  block-entity registration, recipe parsing and the machine energy buffer.
-  Machine GUIs open a vanilla chest-style view of each machine's inventory.
+| Stone | Abilities |
+| --- | --- |
+| Power | `infinity_blast` (max-damage energy blast), `infinity_strength`, `infinity_punch`, `infinity_resistance`, `saturation` |
+| Mind | `infinity_flight`, `changesnap` (cycles the snap result) |
+| Reality | `infinity_size` (configurable), `infinity_invisibility` |
+| Soul | `immortality` (health boost + lethal-damage immunity), `infinity_healing`, `kill` (needs Power + Space + Reality + Soul), `snap` |
+| Space | `locate` (stones found by `/generatedStones`) |
+| Time | `fast_forward`, `stop_time` |
 
-- **Infinity module** — the infinity gauntlet (six typed stone slots stored in a
-  data component, right-click opens the stone view, sneak-right-click with a
-  stone inserts it), the gauntlet cast, and the infinity generator block
-  (2,000,000 FE buffer, 100,000 FE per tick from a contained stone, pushing FE
-  into adjacent machines). Stone items themselves are addon-pack content: packs
-  subclass `ItemInfinityStone`, return a stone type, and can expose gauntlet
-  abilities and per-tick hooks. `/lucraftcore infinity` self-tests the gauntlet
-  component, slot validation, generator energy and registrations.
-- **Extended inventory** — five persistent extra slots (necklace, mantle, wrist,
-  two weapon slots) saved per player, opened with the `H` key in a chest-style
-  screen; items implementing `IItemExtendedInventory` receive worn/equip/unequip
-  hooks. `/lucraftcore extended` self-tests storage and screen slot validation.
-- **Automation glue** — machine block entities now implement `Inventory` so
-  hoppers can insert/extract, blocks drop their contents when broken, and the
-  infinity generator feeds neighbouring energy machines.
+The 1.12 compatibility hooks for HeroesExpansion, SpeedsterHeroes and StarTech are
+kept and only activate when those addons are installed.
 
-- **Asset fixes** — every material ore and storage block now has an item model
-  (previously all 31 block items rendered as missing models in inventories), the
-  vibranium ore and block use the glow-layer model again with their emissive
-  overlay, invalid Forge CTM metadata was removed, orphan wiring models and
-  duplicated nested texture folders were cleaned up.
+## Crash fix
 
-## Not included in this build
-- Custom suit armor models, glow overlays and openable armor visuals.
-- Custom suit armour models/overlays, skin/flicker/vibrating effects, stone readers and
-  dedicated machine/power GUIs (machines use a chest-style inventory view).
-- JEI integration for the construction table and machines.
-- Dedicated gauntlet, extended inventory and power GUIs (chest-style screens are used).
-- Infinity stone items, models and abilities (addon-pack content).
-- Gauntlet cast injection into village blacksmith loot.
-- Suit stand armour rendering (it stores pieces but does not display them).
+The intermittent "Server closed"/"Connection lost" drop to a black main menu with
+glowing buttons is the client render thread dying on an exception thrown inside a
+mod render or tick callback. Every custom drawing and gameplay step now runs
+through `LucraftCore.guard`, which catches **Throwable** (not just Exception, so
+mapping/loader `Error`s such as `NoSuchMethodError` are covered), logs it once as
+`Error in <site> (seen N time(s); the game keeps running)` and returns with the
+matrix stack balanced.
 
-Server-side behaviour for all included modules is verified on a dedicated 1.21.1
-server; client rendering of the ported items is untested in this environment.
+Guarded: gauntlet model and icon, stone cubes, energy bolt, ability bar HUD plus
+its input and sync, gauntlet screen, opening and saving the gauntlet, the
+crafting-grid mixin, ability/effect/suit ticks, extended inventory, worldgen, and
+the beam/particle/swing packet handlers.
+
+If `Error in ...` ever shows up in `logs/latest.log`, that line names the failing
+part, the game keeps running, and the log line plus stack trace is what a targeted
+fix needs.
+
+## Verified
+
+- A dedicated Fabric 1.21.1 server running only this jar + Fabric API: clean start,
+  `engine`, `machines`, `infinity` and `extended` self tests pass, 38 abilities
+  registered (22 core + 16 Infinityraft), zero errors.
+- A real 1.21.1 client, in single player and connected to a dedicated server:
+  joined, took the gauntlet, inserted stones, opened the gauntlet GUI, used every
+  stone ability (blast, snap, kill, change snap, stop time, fast forward, flight,
+  size, invisibility, locate), flew and switched camera modes, with no exception on
+  either side.
+
+Original mod by Lucraft/Nictogen (Lucraft: Core, Apache-2.0) and tilera
+(Infinityraft, Apache-2.0).

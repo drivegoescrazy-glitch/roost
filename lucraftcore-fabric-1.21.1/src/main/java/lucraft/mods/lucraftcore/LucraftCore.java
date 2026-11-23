@@ -46,7 +46,14 @@ public class LucraftCore implements ModInitializer {
     public static void guard(String what, Runnable action) {
         try {
             action.run();
-        } catch (Exception e) {
+        } catch (VirtualMachineError fatal) {
+            // Out of memory and friends are not something a mod can recover from.
+            throw fatal;
+        } catch (Throwable e) {
+            // Throwable, not Exception: a mapping/loader problem surfaces as an
+            // Error (NoSuchMethodError, AbstractMethodError, ExceptionInInitializerError)
+            // and an Error escaping a render or tick callback is exactly what
+            // takes the client down to a black screen and drops the world.
             reportError(what, e);
         }
     }
@@ -87,9 +94,15 @@ public class LucraftCore implements ModInitializer {
             ModuleKarma.register();
         if (LCConfig.sizeChanging)
             SizeChanging.register();
-        if (LCConfig.superpowers)
+        if (LCConfig.superpowers) {
             ModuleSuperpowers.register();
             ExtendedInventoryHandler.register();
+        }
         AddonPackHandler.load();
+
+        // Infinityraft is bundled into this jar from 3.0.0 on: the stones, their
+        // abilities, the snap, the temples and the commands all register here
+        // after the core modules they build on.
+        new anvil.infinity.Infinity().onInitialize();
     }
 }

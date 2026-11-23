@@ -9,6 +9,7 @@ import lucraft.mods.lucraftcore.infinity.ModuleInfinity;
 import lucraft.mods.lucraftcore.infinity.render.GauntletItemRenderer;
 import lucraft.mods.lucraftcore.infinity.screen.InfinityGauntletScreen;
 import lucraft.mods.lucraftcore.util.particles.LCParticles;
+import anvil.infinity.InfinityClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
@@ -32,5 +33,9 @@ public class LucraftCoreClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(LCParticles.COLORED_CLOUD, provider ->
                 (type, world, x, y, z, velocityX, velocityY, velocityZ) ->
                         new LCColoredParticle(world, x, y, z, velocityX, velocityY, velocityZ, provider, 0xFFFFFF));
+
+        // Infinityraft's own client half (the 3D stone renderers), now part of
+        // this jar instead of a separate mod.
+        new InfinityClient().onInitializeClient();
     }
 }

@@ -25,7 +25,11 @@ public class InfinityGauntletScreen extends HandledScreen<InfinityGauntletScreen
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        // A throw while a screen draws leaves the GUI render state broken for the
+        // rest of the session (black screen, buttons without their background),
+        // so the panel draw is exception safe like the rest of the mod's drawing.
+        LucraftCore.guard("infinity gauntlet screen", () ->
+                context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight));
     }
 
     @Override

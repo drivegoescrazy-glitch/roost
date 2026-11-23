@@ -115,7 +115,9 @@ public class InfinityGauntletScreenHandler extends ScreenHandler {
     @Override
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
-        if (inventory instanceof InventoryInfinityGauntlet gauntletInventory)
-            gauntletInventory.save();
+        lucraft.mods.lucraftcore.LucraftCore.guard("saving the infinity gauntlet", () -> {
+            if (inventory instanceof InventoryInfinityGauntlet gauntletInventory)
+                gauntletInventory.save();
+        });
     }
 }

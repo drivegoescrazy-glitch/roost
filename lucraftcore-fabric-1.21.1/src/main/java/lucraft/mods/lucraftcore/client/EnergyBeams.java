@@ -74,13 +74,13 @@ public final class EnergyBeams {
     }
 
     public static void register() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> LucraftCore.guard("energy beam tick", () -> {
             for (Beam beam : BEAMS) {
                 beam.travelled += SPEED;
                 if (beam.finished())
                     BEAMS.remove(beam);
             }
-        });
+        }));
         WorldRenderEvents.AFTER_TRANSLUCENT.register(EnergyBeams::render);
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> BEAMS.clear());
     }

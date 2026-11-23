@@ -1,5 +1,6 @@
 package lucraft.mods.lucraftcore.mixin;
 
+import lucraft.mods.lucraftcore.LucraftCore;
 import lucraft.mods.lucraftcore.utilities.ItemHammer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.RecipeInputInventory;
@@ -28,24 +29,30 @@ public class CraftingResultSlotMixin {
 
     @Inject(method = "onTakeItem", at = @At("HEAD"))
     private void lucraftcore$collectTools(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
-        lucraftcore$tools.clear();
-        for (int i = 0; i < input.size(); i++) {
-            ItemStack slot = input.getStack(i);
-            if (!slot.isEmpty() && slot.getItem() instanceof ItemHammer)
-                lucraftcore$tools.add(new ItemStack(slot.getItem()));
-        }
+        // A throw from a mixin is not caught by anything and would kill the
+        // server thread, so the crafting-grid bookkeeping is exception safe.
+        LucraftCore.guard("crafting tool collection", () -> {
+            lucraftcore$tools.clear();
+            for (int i = 0; i < input.size(); i++) {
+                ItemStack slot = input.getStack(i);
+                if (!slot.isEmpty() && slot.getItem() instanceof ItemHammer)
+                    lucraftcore$tools.add(new ItemStack(slot.getItem()));
+            }
+        });
     }
 
     @Inject(method = "onTakeItem", at = @At("RETURN"))
     private void lucraftcore$restoreTools(PlayerEntity player, ItemStack stack, CallbackInfo ci) {
-        for (ItemStack tool : lucraftcore$tools) {
-            for (int i = 0; i < input.size(); i++) {
-                if (input.getStack(i).isEmpty()) {
-                    input.setStack(i, tool);
-                    break;
+        LucraftCore.guard("crafting tool restore", () -> {
+            for (ItemStack tool : lucraftcore$tools) {
+                for (int i = 0; i < input.size(); i++) {
+                    if (input.getStack(i).isEmpty()) {
+                        input.setStack(i, tool);
+                        break;
+                    }
                 }
             }
-        }
-        lucraftcore$tools.clear();
+            lucraftcore$tools.clear();
+        });
     }
 }

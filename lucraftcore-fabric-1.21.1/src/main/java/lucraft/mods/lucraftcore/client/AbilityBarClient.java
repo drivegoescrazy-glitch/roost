@@ -14,8 +14,8 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * HUD ability bar, laid out like the original 1.12 one: a vertical column of
@@ -34,7 +34,7 @@ public final class AbilityBarClient {
     /** How many entries the bar shows at once, as in the original. */
     private static final int ENTRY_SHOW_AMOUNT = 5;
 
-    private static final List<AbilityBarPayload.Entry> ENTRIES = new ArrayList<>();
+    private static final List<AbilityBarPayload.Entry> ENTRIES = new CopyOnWriteArrayList<>();
     private static int selected;
 
     private static KeyBinding nextKey;
@@ -52,12 +52,16 @@ public final class AbilityBarClient {
         useKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.lucraftcore.ability_use",
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, "category.lucraftcore"));
 
-        ClientPlayNetworking.registerGlobalReceiver(AbilityBarPayload.ID, (payload, context) -> {
-            ENTRIES.clear();
-            ENTRIES.addAll(payload.entries());
-            if (selected >= ENTRIES.size())
-                selected = 0;
-        });
+        // The bar is rebuilt every second and the HUD reads this list while it
+        // renders, so the update has to happen on the client thread: mutating it
+        // from the network thread is a concurrent-modification crash.
+        ClientPlayNetworking.registerGlobalReceiver(AbilityBarPayload.ID, (payload, context) ->
+                context.client().execute(() -> {
+                    ENTRIES.clear();
+                    ENTRIES.addAll(payload.entries());
+                    if (selected >= ENTRIES.size())
+                        selected = 0;
+                }));
 
         HudRenderCallback.EVENT.register((context, tickCounter) -> render(context));
 

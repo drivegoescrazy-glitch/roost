@@ -1,3 +1,24 @@
+# Lucraft: Core — Fabric 1.21.1 port (2.4.26)
+
+## Fixed in 2.4.26
+- **The disconnect ("Server closed") and the stuck black main menu.** Every play
+  payload handler ran on the network thread, while the render and tick threads
+  read the same state: the ability bar list (rebuilt every second), the particle
+  manager, entity arm swings and the new beam list. A network handler touching
+  those mid-frame raises a concurrent-modification exception, which kills the
+  client and, in single player, takes the integrated server with it — the
+  "Server closed" kick, followed by a main menu whose renderer is left in a
+  broken state (black screen, glowing buttons, world list that will not open).
+  All client handlers now schedule onto the client thread, and the two shared
+  lists are copy-on-write, so an update can never land in the middle of a frame.
+- **The beam can no longer wedge the renderer.** The energy blast bolt is drawn
+  with a standard emissive entity layer instead of the lightning layer, which
+  renders into the weather framebuffer and is not safe to use outside the
+  weather pass; the world matrix stack is pushed and popped in a `try/finally`,
+  and shots with non-finite coordinates are dropped.
+- **The beam has no stray particles.** The impact puff is gone: the bolt alone
+  is the effect, as in the original.
+
 # Lucraft: Core — Fabric 1.21.1 port (2.4.25)
 
 ## Fixed in 2.4.25

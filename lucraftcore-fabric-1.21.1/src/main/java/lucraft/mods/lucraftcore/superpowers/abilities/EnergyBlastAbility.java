@@ -3,7 +3,6 @@ package lucraft.mods.lucraftcore.superpowers.abilities;
 import lucraft.mods.lucraftcore.superpowers.Ability;
 import lucraft.mods.lucraftcore.superpowers.AbilityType;
 import lucraft.mods.lucraftcore.util.network.LCNetworking;
-import lucraft.mods.lucraftcore.util.particles.LCParticles;
 import lucraft.mods.lucraftcore.util.sounds.LCSounds;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -66,8 +65,8 @@ public class EnergyBlastAbility extends Ability {
         // The bolt itself: the original's default blast colour is red, the stone
         // blasts use the power stone's purple.
         int color = config.getInt("color", getId().startsWith("infinity_") ? 0x9900FF : 0xFF0000);
+        // The bolt is the effect; the original spawned no trail particles.
         LCNetworking.sendBeam(world, eye, hitPos, color);
-        LCNetworking.sendParticle(world, hitPos, LCParticles.COLORED_CLOUD, Vec3d.ZERO, 6);
 
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 LCSounds.ENERGY_BLAST, SoundCategory.PLAYERS, 1.0F, 1.0F);

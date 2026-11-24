@@ -9,7 +9,6 @@ import lucraft.mods.lucraftcore.superpowers.abilities.AttributeAbility;
 import lucraft.mods.lucraftcore.superpowers.abilities.EnergyBlastAbility;
 import lucraft.mods.lucraftcore.superpowers.abilities.FlightAbility;
 import lucraft.mods.lucraftcore.superpowers.abilities.HealingAbility;
-import lucraft.mods.lucraftcore.superpowers.abilities.PunchAbility;
 import lucraft.mods.lucraftcore.superpowers.abilities.SizeAbility;
 import lucraft.mods.lucraftcore.superpowers.abilities.TogglePotionAbility;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -46,21 +45,21 @@ public final class InfinityAbilities {
         // Stone passives, built from the core ability classes with the values
         // the original set on them.
         register("immortality", (player, config) -> new ImmortalityAbility(player));
-        register("infinity_healing", (player, config) -> new HealingAbility(player, 1, 1.0F) {
+        register("infinity_healing", (player, config) -> new HealingAbility(player, 1, 0.5F) {
             @Override
             public String getId() {
                 return "infinity_healing";
             }
         });
         register("infinity_strength", (player, config) -> new AttributeAbility(player, "infinity_strength",
-                EntityAttributes.GENERIC_ATTACK_DAMAGE, 1000.0D, EntityAttributeModifier.Operation.ADD_VALUE));
+                EntityAttributes.GENERIC_ATTACK_DAMAGE, Float.MAX_VALUE, EntityAttributeModifier.Operation.ADD_VALUE));
         register("infinity_resistance", (player, config) -> new AttributeAbility(player, "infinity_resistance",
-                EntityAttributes.GENERIC_ARMOR, 1000.0D, EntityAttributeModifier.Operation.ADD_VALUE));
-        register("infinity_punch", (player, config) -> new PunchAbility(player,
-                config("infinity_punch", 1000.0D, 3.5D)));
+                EntityAttributes.GENERIC_ARMOR, Float.MAX_VALUE, EntityAttributeModifier.Operation.ADD_VALUE));
+        // The 1.12 punch was a constant unarmed damage bonus, not an action.
+        register("infinity_punch", (player, config) -> new PunchAbility(player));
         register("infinity_blast", (player, config) -> new EnergyBlastAbility(player,
-                config("infinity_blast", 1000.0D, 24.0D)));
-        register("infinity_flight", (player, config) -> new FlightAbility(player, 0.2F, 0.3F) {
+                config("infinity_blast", Float.MAX_VALUE, 64.0D)));
+        register("infinity_flight", (player, config) -> new FlightAbility(player, 1.0F, 0.2F) {
             @Override
             public String getId() {
                 return "infinity_flight";
@@ -90,6 +89,8 @@ public final class InfinityAbilities {
         data.addProperty("damage", damage);
         data.addProperty("range", range);
         data.addProperty("reach", range);
+        // The Power Stone blast was magenta in the 1.12 mod.
+        data.addProperty("color", 0xFF00FF);
         return new AbilityConfig(id, 1, 0, 0, data, List.of());
     }
 

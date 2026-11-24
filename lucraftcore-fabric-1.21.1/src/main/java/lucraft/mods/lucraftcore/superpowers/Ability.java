@@ -27,6 +27,14 @@ public abstract class Ability {
         return AbilityType.CONSTANT;
     }
 
+    /**
+     * Whether the ability belongs in the ability bar. Constant abilities are
+     * passive (strength, resistance, healing, ...) and the 1.12 bar hid them.
+     */
+    public boolean showInAbilityBar() {
+        return getType() != AbilityType.CONSTANT;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }

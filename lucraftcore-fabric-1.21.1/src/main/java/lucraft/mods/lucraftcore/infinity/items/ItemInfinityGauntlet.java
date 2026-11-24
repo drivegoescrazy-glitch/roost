@@ -6,6 +6,10 @@ import lucraft.mods.lucraftcore.infinity.EnumInfinityStone;
 import lucraft.mods.lucraftcore.infinity.screen.InfinityGauntletScreenHandler;
 import lucraft.mods.lucraftcore.util.sounds.LCSounds;
 import net.minecraft.component.ComponentType;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -52,7 +56,19 @@ public class ItemInfinityGauntlet extends ItemIndestructible {
                     .build());
 
     public ItemInfinityGauntlet() {
-        super();
+        // The original gauntlet was also a main-hand weapon: +5 attack damage
+        // and -2.4 attack speed while held.
+        super(new net.minecraft.item.Item.Settings().maxCount(1).fireproof()
+                .attributeModifiers(AttributeModifiersComponent.builder()
+                        .add(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                new EntityAttributeModifier(net.minecraft.item.Item.BASE_ATTACK_DAMAGE_MODIFIER_ID,
+                                        5.0D, EntityAttributeModifier.Operation.ADD_VALUE),
+                                AttributeModifierSlot.MAINHAND)
+                        .add(EntityAttributes.GENERIC_ATTACK_SPEED,
+                                new EntityAttributeModifier(net.minecraft.item.Item.BASE_ATTACK_SPEED_MODIFIER_ID,
+                                        -2.4D, EntityAttributeModifier.Operation.ADD_VALUE),
+                                AttributeModifierSlot.MAINHAND)
+                        .build()));
     }
 
     public static List<ItemStack> getStones(ItemStack gauntlet) {
@@ -72,6 +88,10 @@ public class ItemInfinityGauntlet extends ItemIndestructible {
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         ItemStack gauntlet = player.getStackInHand(hand);
         if (!(gauntlet.getItem() instanceof ItemInfinityGauntlet))
+            return TypedActionResult.pass(gauntlet);
+        // The screen handler reads the main-hand stack, so using the offhand
+        // gauntlet would open a screen backed by the wrong item.
+        if (hand != Hand.MAIN_HAND)
             return TypedActionResult.pass(gauntlet);
 
         // The whole interaction is guarded: this runs on the server thread, so a

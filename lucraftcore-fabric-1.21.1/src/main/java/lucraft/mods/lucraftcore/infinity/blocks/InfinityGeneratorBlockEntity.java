@@ -1,5 +1,6 @@
 package lucraft.mods.lucraftcore.infinity.blocks;
 
+import lucraft.mods.lucraftcore.LucraftCore;
 import lucraft.mods.lucraftcore.infinity.ModuleInfinity;
 import lucraft.mods.lucraftcore.infinity.items.ItemInfinityStone;
 import lucraft.mods.lucraftcore.util.energy.EnergyBlock;
@@ -39,7 +40,7 @@ public class InfinityGeneratorBlockEntity extends UtilitiesBlockEntity implement
 
     public static void tick(World world, BlockPos pos, BlockState state, InfinityGeneratorBlockEntity entity) {
         if (!world.isClient)
-            entity.tickServer(world);
+            LucraftCore.guard("infinity generator tick", () -> entity.tickServer(world));
     }
 
     private void tickServer(World world) {

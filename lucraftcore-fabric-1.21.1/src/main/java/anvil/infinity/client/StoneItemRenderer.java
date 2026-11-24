@@ -53,8 +53,8 @@ public class StoneItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
         matrices.push();
         try {
             renderCube(stone, matrices, vertexConsumers);
-        } catch (Exception e) {
-            Infinity.LOGGER.error("Error rendering an infinity stone", e);
+        } catch (Throwable t) {
+            Infinity.LOGGER.error("Error rendering an infinity stone", t);
         } finally {
             matrices.pop();
         }

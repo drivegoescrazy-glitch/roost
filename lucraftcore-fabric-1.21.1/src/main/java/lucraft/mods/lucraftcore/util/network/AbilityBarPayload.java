@@ -20,7 +20,7 @@ public record AbilityBarPayload(NbtCompound data) implements CustomPayload {
             PacketCodecs.NBT_COMPOUND, AbilityBarPayload::data,
             AbilityBarPayload::new);
 
-    public record Entry(String id, boolean enabled, int cooldown, int maxCooldown) {
+    public record Entry(String id, boolean enabled, int cooldown, int maxCooldown, boolean held) {
     }
 
     public static AbilityBarPayload of(List<Entry> entries) {
@@ -31,6 +31,7 @@ public record AbilityBarPayload(NbtCompound data) implements CustomPayload {
             compound.putBoolean("enabled", entry.enabled());
             compound.putInt("cooldown", entry.cooldown());
             compound.putInt("max", entry.maxCooldown());
+            compound.putBoolean("held", entry.held());
             list.add(compound);
         }
         NbtCompound root = new NbtCompound();
@@ -44,7 +45,7 @@ public record AbilityBarPayload(NbtCompound data) implements CustomPayload {
         for (int index = 0; index < list.size(); index++) {
             NbtCompound compound = list.getCompound(index);
             entries.add(new Entry(compound.getString("id"), compound.getBoolean("enabled"),
-                    compound.getInt("cooldown"), compound.getInt("max")));
+                    compound.getInt("cooldown"), compound.getInt("max"), compound.getBoolean("held")));
         }
         return entries;
     }

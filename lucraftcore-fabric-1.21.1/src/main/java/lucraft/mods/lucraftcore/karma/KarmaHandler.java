@@ -20,6 +20,11 @@ public class KarmaHandler {
     public static final AttachmentType<Map<String, Integer>> KARMA = AttachmentRegistry.createPersistent(
             LucraftCore.id("karma"), Codec.unboundedMap(Codec.STRING, Codec.INT));
 
+    /** Forces the karma attachment to register before player data loads. */
+    public static void registerAttachments() {
+        java.util.Objects.requireNonNull(KARMA);
+    }
+
     public static Map<String, Integer> getStats(PlayerEntity player) {
         // Codec-decoded maps are immutable, so hand out a mutable copy and let the
         // callers that change it store it back.

@@ -2,9 +2,11 @@ package lucraft.mods.lucraftcore.client;
 
 import lucraft.mods.lucraftcore.LucraftCore;
 import lucraft.mods.lucraftcore.util.network.AbilityBarPayload;
+import lucraft.mods.lucraftcore.util.network.HoldAbilityPayload;
 import lucraft.mods.lucraftcore.util.network.UseAbilityPayload;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
@@ -40,6 +42,7 @@ public final class AbilityBarClient {
     private static KeyBinding nextKey;
     private static KeyBinding previousKey;
     private static KeyBinding useKey;
+    private static String heldAbility;
 
     private AbilityBarClient() {
     }
@@ -64,6 +67,7 @@ public final class AbilityBarClient {
                 })));
 
         HudRenderCallback.EVENT.register((context, tickCounter) -> render(context));
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> heldAbility = null);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> LucraftCore.guard("ability bar input", () -> {
             while (nextKey.wasPressed())
@@ -72,10 +76,23 @@ public final class AbilityBarClient {
             while (previousKey.wasPressed())
                 if (!ENTRIES.isEmpty())
                     selected = (selected - 1 + ENTRIES.size()) % ENTRIES.size();
-            while (useKey.wasPressed())
-                if (!ENTRIES.isEmpty())
-                    ClientPlayNetworking.send(new UseAbilityPayload(ENTRIES.get(Math.min(selected,
-                            ENTRIES.size() - 1)).id()));
+            while (useKey.wasPressed()) {
+                if (ENTRIES.isEmpty())
+                    continue;
+                AbilityBarPayload.Entry entry = ENTRIES.get(Math.min(selected, ENTRIES.size() - 1));
+                if (entry.held()) {
+                    heldAbility = entry.id();
+                    ClientPlayNetworking.send(new HoldAbilityPayload(entry.id(), true));
+                } else {
+                    ClientPlayNetworking.send(new UseAbilityPayload(entry.id()));
+                }
+            }
+            // A held ability ends when the key comes back up, even if the
+            // selected entry changed while it was running.
+            if (heldAbility != null && !useKey.isPressed()) {
+                ClientPlayNetworking.send(new HoldAbilityPayload(heldAbility, false));
+                heldAbility = null;
+            }
         }));
     }
 

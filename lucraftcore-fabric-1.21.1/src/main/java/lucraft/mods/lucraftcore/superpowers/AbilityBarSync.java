@@ -19,8 +19,11 @@ public final class AbilityBarSync {
         List<AbilityBarPayload.Entry> entries = new ArrayList<>();
         for (Map.Entry<String, Ability> entry : abilities.entrySet()) {
             Ability ability = entry.getValue();
+            if (!ability.showInAbilityBar())
+                continue;
             entries.add(new AbilityBarPayload.Entry(entry.getKey(), ability.isEnabled(),
-                    ability.getCooldown(), ability.getMaxCooldown()));
+                    ability.getCooldown(), ability.getMaxCooldown(),
+                    ability.getType() == AbilityType.HELD));
         }
         if (ServerPlayNetworking.canSend(player, AbilityBarPayload.ID))
             ServerPlayNetworking.send(player, AbilityBarPayload.of(entries));

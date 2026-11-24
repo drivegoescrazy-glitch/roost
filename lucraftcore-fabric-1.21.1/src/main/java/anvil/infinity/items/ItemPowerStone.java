@@ -30,6 +30,15 @@ public class ItemPowerStone extends AbstractInfinityStone {
     }
 
     @Override
+    public List<String> getDefaultAbilities() {
+        List<String> ids = abilities("infinity_blast", "infinity_strength", "infinity_punch",
+                "infinity_resistance");
+        if (CompatHandler.isStarTech() && InfinityConfig.stAbilities)
+            ids.add("star-tech:power_tendrils");
+        return withAddons(EnumInfinityStone.POWER, ids);
+    }
+
+    @Override
     public List<String> getGauntletAbilities() {
         List<String> ids = abilities("infinity_blast", "infinity_strength", "infinity_punch",
                 "infinity_resistance", "saturation");

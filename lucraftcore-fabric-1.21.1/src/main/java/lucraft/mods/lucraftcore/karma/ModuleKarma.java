@@ -25,12 +25,15 @@ public class ModuleKarma {
     public static RegistryEntry<StatusEffect> KNOCKOUT_ENTRY;
 
     public static void register() {
+        // Load the persistent karma attachment during initialization, before
+        // player data is read.
+        KarmaHandler.registerAttachments();
         KNOCKOUT = Registry.register(Registries.STATUS_EFFECT, LucraftCore.id("knock_out"), new KnockOutEffect());
         KNOCKOUT_ENTRY = Registries.STATUS_EFFECT.getEntry(KNOCKOUT);
 
         ServerLivingEntityEvents.AFTER_DEATH.register((entity, source) -> {
             if (source.getAttacker() instanceof ServerPlayerEntity player)
-                KarmaHandler.onKill(player, entity);
+                LucraftCore.guard("karma kill handling", () -> KarmaHandler.onKill(player, entity));
         });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) ->

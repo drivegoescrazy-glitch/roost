@@ -32,4 +32,9 @@ public abstract class ItemInfinityStone extends ItemIndestructible {
     public List<String> getGauntletAbilities() {
         return List.of();
     }
+
+    /** Ability ids granted while the stone itself is held, outside a gauntlet. */
+    public List<String> getDefaultAbilities() {
+        return List.of();
+    }
 }

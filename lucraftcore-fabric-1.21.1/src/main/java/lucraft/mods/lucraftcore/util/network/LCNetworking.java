@@ -31,6 +31,7 @@ public final class LCNetworking {
         PayloadTypeRegistry.playS2C().register(SwingHandPayload.ID, SwingHandPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(AbilityBarPayload.ID, AbilityBarPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(UseAbilityPayload.ID, UseAbilityPayload.CODEC);
+        PayloadTypeRegistry.playC2S().register(HoldAbilityPayload.ID, HoldAbilityPayload.CODEC);
         PayloadTypeRegistry.playC2S().register(OpenExtendedInventoryPayload.ID, OpenExtendedInventoryPayload.CODEC);
     }
 
@@ -43,9 +44,17 @@ public final class LCNetworking {
                 AbilityBarSync.send(player);
             }));
         });
+        ServerPlayNetworking.registerGlobalReceiver(HoldAbilityPayload.ID, (payload, context) -> {
+            ServerPlayerEntity player = context.player();
+            player.getServer().execute(() -> LucraftCore.guard("held ability " + payload.abilityId(), () -> {
+                PlayerAbilities.hold(player, payload.abilityId(), payload.held());
+                AbilityBarSync.send(player);
+            }));
+        });
         ServerPlayNetworking.registerGlobalReceiver(OpenExtendedInventoryPayload.ID, (payload, context) -> {
             ServerPlayerEntity player = context.player();
-            player.getServer().execute(() -> lucraft.mods.lucraftcore.extendedinventory.ExtendedInventoryHandler.open(player));
+            player.getServer().execute(() -> LucraftCore.guard("opening the extended inventory",
+                    () -> lucraft.mods.lucraftcore.extendedinventory.ExtendedInventoryHandler.open(player)));
         });
     }
 

@@ -6,6 +6,10 @@ import net.minecraft.item.Item;
 public class ItemIndestructible extends Item {
 
     public ItemIndestructible() {
-        super(new Item.Settings().maxCount(1).fireproof());
+        this(new Item.Settings().maxCount(1).fireproof());
+    }
+
+    protected ItemIndestructible(Item.Settings settings) {
+        super(settings);
     }
 }

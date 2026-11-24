@@ -5,9 +5,8 @@ import lucraft.mods.lucraftcore.superpowers.AbilityType;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 /**
- * Fast forward: advances the world by 100 ticks every tick while enabled.
- * The original was a held ability; the ported core's ability bar is press based,
- * so it is a toggle with the same effect.
+ * Fast forward: advances the world by 100 ticks every tick while the use key
+ * is held, matching the original {@code AbilityHeld} ability.
  */
 public class AbilityFastForward extends Ability {
 
@@ -22,7 +21,7 @@ public class AbilityFastForward extends Ability {
 
     @Override
     public AbilityType getType() {
-        return AbilityType.TOGGLE;
+        return AbilityType.HELD;
     }
 
     @Override

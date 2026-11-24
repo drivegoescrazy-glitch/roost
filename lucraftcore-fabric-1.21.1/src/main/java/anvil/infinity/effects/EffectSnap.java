@@ -2,6 +2,7 @@ package anvil.infinity.effects;
 
 import anvil.infinity.helpers.SnapMessageHelper;
 import anvil.infinity.registry.InfinitySounds;
+import lucraft.mods.lucraftcore.LucraftCore;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
@@ -28,13 +29,18 @@ public class EffectSnap extends StatusEffect {
 
     @Override
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        World world = entity.getWorld();
-        world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), InfinitySounds.SNAP,
-                SoundCategory.HOSTILE, 5.0F, 0.0F);
-        if (entity.hasCustomName() || entity instanceof PlayerEntity)
-            SnapMessageHelper.deathMessage(entity);
-        entity.kill();
-        return true;
+        try {
+            World world = entity.getWorld();
+            world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), InfinitySounds.SNAP,
+                    SoundCategory.HOSTILE, 5.0F, 0.0F);
+            if (entity.hasCustomName() || entity instanceof PlayerEntity)
+                SnapMessageHelper.deathMessage(entity);
+            entity.kill();
+            return true;
+        } catch (Throwable t) {
+            LucraftCore.reportError("applying the snap effect", t);
+            return false;
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package anvil.infinity.worldgen;
 import anvil.infinity.config.InfinityConfig;
 import lucraft.mods.lucraftcore.infinity.EnumInfinityStone;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryKey;
@@ -38,12 +39,16 @@ public final class InfinityWorldGenerator {
         ServerChunkEvents.CHUNK_GENERATE.register((world, chunk) -> {
             if (!InfinityConfig.worldgenEnabled)
                 return;
-            ChunkPos pos = chunk.getPos();
-            // Original condition: both coordinates outside +-1000.
-            if (pos.x <= 1000 && pos.x >= -1000 || pos.z <= 1000 && pos.z >= -1000)
-                return;
-            PENDING.computeIfAbsent(world.getRegistryKey(), key -> new ConcurrentLinkedQueue<>()).add(pos);
+            lucraft.mods.lucraftcore.LucraftCore.guard("queueing infinity stone worldgen", () -> {
+                ChunkPos pos = chunk.getPos();
+                // Original condition: both coordinates outside +-1000.
+                if (pos.x <= 1000 && pos.x >= -1000 || pos.z <= 1000 && pos.z >= -1000)
+                    return;
+                PENDING.computeIfAbsent(world.getRegistryKey(), key -> new ConcurrentLinkedQueue<>()).add(pos);
+            });
         });
+
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> PENDING.clear());
 
         ServerTickEvents.END_WORLD_TICK.register(world -> {
             Queue<ChunkPos> queue = PENDING.get(world.getRegistryKey());

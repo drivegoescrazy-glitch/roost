@@ -72,6 +72,11 @@ public final class EffectHandler {
                 entry.effect.onRemove(player);
     }
 
+    /** Drops every cached effect when the server stops. */
+    public static void clearAll() {
+        ACTIVE.clear();
+    }
+
     private static final class Active {
         private final Effect effect;
         private int ticks;

@@ -15,11 +15,12 @@ import lucraft.mods.lucraftcore.util.triggers.LCriteria;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class PlayerAbilities {
@@ -35,6 +36,12 @@ public class PlayerAbilities {
     private static final Map<UUID, Map<String, Ability>> GAUNTLET_CACHE = new HashMap<>();
     private static final Map<UUID, String> GAUNTLET_KEY = new HashMap<>();
 
+    /** Forces the attachment type above to register before player data loads. */
+    public static void registerAttachments() {
+        // The field is initialized as a side effect of loading this class.
+        java.util.Objects.requireNonNull(GRANTED);
+    }
+
     public static Map<String, Boolean> getGranted(ServerPlayerEntity player) {
         // Codecs decode maps into an ImmutableMap, so the map handed back after a
         // world reload cannot be modified. Always work on a mutable copy; the
@@ -49,11 +56,13 @@ public class PlayerAbilities {
         Map<String, Boolean> granted = getGranted(player);
         if (granted.containsKey(id))
             return false;
-        boolean defaultEnabled = AbilityRegistry.create(id, player).getType() != AbilityType.TOGGLE;
+        Ability ability = AbilityRegistry.create(id, player);
+        if (ability == null)
+            return false;
+        boolean defaultEnabled = ability.getType() != AbilityType.TOGGLE;
         granted.put(id, defaultEnabled);
         player.setAttached(GRANTED, granted);
 
-        Ability ability = AbilityRegistry.create(id, player);
         cache(player).put(id, ability);
         ability.setEnabled(defaultEnabled);
         ability.onGrant();
@@ -93,6 +102,16 @@ public class PlayerAbilities {
 
     public static void toggle(ServerPlayerEntity player, String id) {
         use(player, id);
+    }
+
+    /** Starts or stops a held ability while the use key is down. */
+    public static void hold(ServerPlayerEntity player, String id, boolean held) {
+        Ability ability = ability(player, id);
+        if (ability == null || ability.getType() != AbilityType.HELD)
+            return;
+        ability.setEnabled(held);
+        if (getGranted(player).containsKey(id))
+            saveState(player, id, ability);
     }
 
     public static Ability ability(ServerPlayerEntity player, String id) {
@@ -190,7 +209,7 @@ public class PlayerAbilities {
         ItemStack gauntlet = main.getItem() instanceof ItemInfinityGauntlet ? main
                 : off.getItem() instanceof ItemInfinityGauntlet ? off : ItemStack.EMPTY;
 
-        List<String> ids = new ArrayList<>();
+        Set<String> ids = new LinkedHashSet<>();
         if (!gauntlet.isEmpty()) {
             InventoryInfinityGauntlet inventory = new InventoryInfinityGauntlet(gauntlet);
             for (ItemStack stack : inventory.getHeldStacks()) {
@@ -199,6 +218,12 @@ public class PlayerAbilities {
                     ids.addAll(stone.getGauntletAbilities());
                 }
             }
+        }
+        // A Power Stone (or another stone) held on its own grants its default
+        // abilities, as addDefaultAbilities did in the 1.12 item.
+        for (ItemStack stack : List.of(main, off)) {
+            if (stack.getItem() instanceof ItemInfinityStone stone)
+                ids.addAll(stone.getDefaultAbilities());
         }
 
         String key = String.join(",", ids);
@@ -213,9 +238,13 @@ public class PlayerAbilities {
                 Ability ability = AbilityRegistry.create(id, player);
                 if (ability == null)
                     continue;
-                ability.onGrant();
-                ability.setEnabled(true);
+                // Put the ability in the map first so an onGrant that checks
+                // another stone ability sees the active set. onGrant enables
+                // constants; toggles, held and actions start off, exactly as
+                // they did on the 1.12 gauntlet: equipping it must not turn on
+                // flight, invisibility, time control or size.
                 map.put(id, ability);
+                ability.onGrant();
             }
             if (map.isEmpty()) {
                 GAUNTLET_KEY.remove(uuid);
@@ -319,6 +348,17 @@ public class PlayerAbilities {
             for (Ability ability : gauntlet.values())
                 ability.onRevoke();
         GAUNTLET_KEY.remove(player.getUuid());
+    }
+
+    /** Drops every cached ability when the integrated or dedicated server stops. */
+    public static void clearAll() {
+        CACHE.clear();
+        SUIT_CACHE.clear();
+        ACTIVE_SUIT.clear();
+        POWER_CACHE.clear();
+        POWER_KEY.clear();
+        GAUNTLET_CACHE.clear();
+        GAUNTLET_KEY.clear();
     }
 
     private static void saveState(ServerPlayerEntity player, String id, Ability ability) {

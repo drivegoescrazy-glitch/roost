@@ -9,7 +9,7 @@ on:
       tag:
         description: Release tag to attach the jars to
         required: true
-        default: v3.0.0-fabric
+        default: v3.0.1-fabric
 
 permissions:
   contents: write
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      TAG: ${{ inputs.tag || 'v3.0.0-fabric' }}
+      TAG: ${{ inputs.tag || 'v3.0.1-fabric' }}
     steps:
       - uses: actions/checkout@v4
       - name: Create the release when it does not exist

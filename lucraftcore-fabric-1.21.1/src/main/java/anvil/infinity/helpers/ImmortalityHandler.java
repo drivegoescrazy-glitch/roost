@@ -1,5 +1,6 @@
 package anvil.infinity.helpers;
 
+import lucraft.mods.lucraftcore.LucraftCore;
 import lucraft.mods.lucraftcore.superpowers.PlayerAbilities;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -20,14 +21,19 @@ public final class ImmortalityHandler {
 
     public static void register() {
         ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> {
-            if (!(entity instanceof ServerPlayerEntity player))
+            try {
+                if (!(entity instanceof ServerPlayerEntity player))
+                    return true;
+                if (!PlayerAbilities.isActive(player, ABILITY_ID))
+                    return true;
+                // /kill and other admin damage still works.
+                if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY))
+                    return true;
+                return amount < player.getHealth();
+            } catch (Throwable t) {
+                LucraftCore.reportError("immortality damage check", t);
                 return true;
-            if (!PlayerAbilities.isActive(player, ABILITY_ID))
-                return true;
-            // /kill and other admin damage still works.
-            if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY))
-                return true;
-            return amount < player.getHealth();
+            }
         });
     }
 }

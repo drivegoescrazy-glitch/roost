@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "lucraftcore",
 	"version": "${version}",
-	"name": "Lucraft: Core & Infinityraft",
-	"description": "Core mod for all Lucraft mods, bundled with the Infinityraft addon (stones, gauntlet abilities, snap, temples). Fabric 1.21.1 port.",
+	"name": "Lucraft: Core",
+	"description": "Core mod for all Lucraft mods. Fabric 1.21.1 port.",
 	"authors": [
 		"Lucraft",
 		"Nictogen"
@@ -30,8 +30,5 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"breaks": {
-		"infinity": "*"
 	}
 }

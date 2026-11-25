@@ -160,6 +160,26 @@ public final class AbilityBarClient {
     private static String displayName(String id) {
         if (id.isEmpty())
             return "?";
+        if (id.startsWith("lucraftcore:"))
+            id = id.substring("lucraftcore:".length());
+        // The gauntlet's abilities keep their original 1.12 display names even
+        // though the port registers them under non-conflicting ids.
+        String original = switch (id) {
+            case "infinity_blast" -> "Energy Blast";
+            case "infinity_strength" -> "Strength";
+            case "infinity_punch" -> "Punch Damage";
+            case "infinity_resistance" -> "Resistance";
+            case "infinity_flight" -> "Flight";
+            case "infinity_invisibility" -> "Invisibility";
+            case "infinity_size" -> "Size Change";
+            case "infinity_healing" -> "Healing";
+            case "changesnap" -> "Change Snap";
+            case "fast_forward" -> "Fast Forward";
+            case "stop_time" -> "Stop Time";
+            default -> null;
+        };
+        if (original != null)
+            return original;
         String[] words = id.split("_");
         StringBuilder builder = new StringBuilder();
         for (String word : words) {

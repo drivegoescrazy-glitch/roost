@@ -17,6 +17,11 @@ public final class SuperpowerHandler {
     private SuperpowerHandler() {
     }
 
+    /** Forces the attachment type to register before player data is read. */
+    public static void registerAttachments() {
+        java.util.Objects.requireNonNull(SUPERPOWER);
+    }
+
     public record SuperpowerData(Identifier power, int xp, int level) {
 
         public static final Codec<SuperpowerData> CODEC = RecordCodecBuilder.create(instance -> instance.group(

@@ -4,10 +4,13 @@ import lucraft.mods.lucraftcore.addonpacks.AddonPackHandler;
 import lucraft.mods.lucraftcore.commands.CommandLucraftCore;
 import lucraft.mods.lucraftcore.infinity.ModuleInfinity;
 import lucraft.mods.lucraftcore.extendedinventory.ExtendedInventoryHandler;
+import lucraft.mods.lucraftcore.karma.KarmaHandler;
 import lucraft.mods.lucraftcore.karma.ModuleKarma;
 import lucraft.mods.lucraftcore.materials.ModuleMaterials;
 import lucraft.mods.lucraftcore.sizechanging.SizeChanging;
 import lucraft.mods.lucraftcore.superpowers.ModuleSuperpowers;
+import lucraft.mods.lucraftcore.superpowers.PlayerAbilities;
+import lucraft.mods.lucraftcore.superpowers.SuperpowerHandler;
 import lucraft.mods.lucraftcore.utilities.UtilitiesItems;
 import lucraft.mods.lucraftcore.utilities.blocks.UtilitiesBlocks;
 import lucraft.mods.lucraftcore.utilities.recipes.MachineRecipes;
@@ -28,7 +31,7 @@ public class LucraftCore implements ModInitializer {
 
     public static final String MODID = "lucraftcore";
     public static final String NAME = "Lucraft: Core";
-    public static final String VERSION = "1.21.1-3.0.1";
+    public static final String VERSION = "1.21.1-3.1.0";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
@@ -72,6 +75,12 @@ public class LucraftCore implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Lucraft: Core (Fabric 1.21.1) loading");
         LCConfig.load();
+        // Persistent attachment types must exist before a world loads player data;
+        // otherwise Fabric logs them as unknown and skips the saved values.
+        PlayerAbilities.registerAttachments();
+        SuperpowerHandler.registerAttachments();
+        ExtendedInventoryHandler.registerAttachments();
+        KarmaHandler.registerAttachments();
         LCComponents.register();
         LCSounds.register();
         LCParticles.register();
@@ -99,10 +108,5 @@ public class LucraftCore implements ModInitializer {
             ExtendedInventoryHandler.register();
         }
         AddonPackHandler.load();
-
-        // Infinityraft is bundled into this jar from 3.0.0 on: the stones, their
-        // abilities, the snap, the temples and the commands all register here
-        // after the core modules they build on.
-        new anvil.infinity.Infinity().onInitialize();
     }
 }

@@ -1,6 +1,7 @@
 package lucraft.mods.lucraftcore.superpowers;
 
 import lucraft.mods.lucraftcore.LucraftCore;
+import lucraft.mods.lucraftcore.extendedinventory.ExtendedInventoryHandler;
 import lucraft.mods.lucraftcore.superpowers.effects.EffectHandler;
 import lucraft.mods.lucraftcore.superpowers.suitsets.SuitSet;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -18,6 +19,8 @@ public class ModuleSuperpowers {
         // lazily from the tick would make Fabric skip the saved ability map
         // with "Unknown attachment type lucraftcore:abilities".
         PlayerAbilities.registerAttachments();
+        SuperpowerHandler.registerAttachments();
+        ExtendedInventoryHandler.registerAttachments();
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {

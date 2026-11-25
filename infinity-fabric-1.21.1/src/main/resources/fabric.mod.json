@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "infinity",
+  "version": "${version}",
+  "name": "Infinityraft",
+  "description": "Infinity Stones in Minecraft! Fabric 1.21.1 port of the Lucraft: Core infinity addon.",
+  "authors": [
+    "tilera"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/infinityraft",
+    "sources": "https://www.curseforge.com/minecraft/mc-mods/infinityraft"
+  },
+  "license": "Apache-2.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "anvil.infinity.Infinity"
+    ],
+    "client": [
+      "anvil.infinity.InfinityClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "lucraftcore": ">=1.21.1-3.1.0"
+  }
+}

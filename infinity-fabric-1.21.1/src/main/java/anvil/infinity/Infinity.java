@@ -34,7 +34,7 @@ public class Infinity implements ModInitializer {
 
     public static final String MOD_ID = "infinity";
     public static final String NAME = "Infinityraft";
-    public static final String VERSION = "1.12";
+    public static final String VERSION = "1.13.0";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -67,7 +67,9 @@ public class Infinity implements ModInitializer {
         TAB = Registry.register(Registries.ITEM_GROUP, id("infinity"),
                 FabricItemGroup.builder()
                         .displayName(Text.translatable("itemGroup.tabInfinity"))
-                        .icon(() -> new ItemStack(ModuleInfinity.INFINITY_GAUNTLET))
+                        .icon(() -> ModuleInfinity.INFINITY_GAUNTLET == null
+                                ? ItemStack.EMPTY
+                                : new ItemStack(ModuleInfinity.INFINITY_GAUNTLET))
                         .entries((context, entries) -> {
                             // Same order as the original tab: gauntlet, cast, generator, stones.
                             if (ModuleInfinity.INFINITY_GAUNTLET != null)

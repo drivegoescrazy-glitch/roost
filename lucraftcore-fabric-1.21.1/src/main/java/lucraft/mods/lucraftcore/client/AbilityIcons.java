@@ -56,6 +56,8 @@ public final class AbilityIcons {
         ICONS.put("fall_resistance", new Icon(0, 8));
         ICONS.put("size_change", new Icon(0, 10));
         ICONS.put("health", new Icon(0, 11));
+        // AbilityHealth's icon, inherited by the Soul Stone's immortality.
+        ICONS.put("immortality", new Icon(0, 11));
         ICONS.put("knockback_resistance", new Icon(0, 13));
         ICONS.put("energy_blast", new Icon(0, 15));
         ICONS.put("flight", new Icon(1, 0));
@@ -79,7 +81,8 @@ public final class AbilityIcons {
         ITEM_ICONS.put("command_loop", Identifier.of("minecraft", "command_block"));
         ITEM_ICONS.put("command_toggle", Identifier.of("minecraft", "command_block"));
         ITEM_ICONS.put("command_held", Identifier.of("minecraft", "command_block"));
-        ITEM_ICONS.put("snap", Identifier.of("infinity", "infinity_gauntlet"));
+        // AbilitySnap drew ModuleInfinity.INFINITY_GAUNTLET, i.e. the core item.
+        ITEM_ICONS.put("snap", Identifier.of("lucraftcore", "infinity_gauntlet"));
         ITEM_ICONS.put("kill", Identifier.of("infinity", "soul_stone"));
         ITEM_ICONS.put("changesnap", Identifier.of("infinity", "mind_stone"));
         ITEM_ICONS.put("stop_time", Identifier.of("infinity", "time_stone"));
@@ -95,6 +98,21 @@ public final class AbilityIcons {
      */
     public static boolean draw(DrawContext context, String id, int x, int y) {
         String key = normalize(id);
+        // AbilityEnergyBlast drew a coloured (0, 15) cell and then the white
+        // (0, 14) core on top. The Infinityraft Power Stone blast was magenta;
+        // the core energy blast used its configured default red.
+        if (key.equals("energy_blast") || key.equals("infinity_blast")) {
+            boolean infinity = key.equals("infinity_blast");
+            try {
+                context.setShaderColor(infinity ? 1.0F : 1.0F, infinity ? 0.0F : 0.0F,
+                        infinity ? 1.0F : 0.0F, 1.0F);
+                context.drawTexture(TEXTURE, x, y, 15 * 16, 0, 16, 16);
+            } finally {
+                context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            }
+            context.drawTexture(TEXTURE, x, y, 14 * 16, 0, 16, 16);
+            return true;
+        }
         Icon icon = ICONS.get(key);
         if (icon == null) {
             Identifier itemId = ITEM_ICONS.get(key);

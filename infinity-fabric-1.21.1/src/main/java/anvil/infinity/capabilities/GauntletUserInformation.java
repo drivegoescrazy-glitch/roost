@@ -32,6 +32,9 @@ public final class GauntletUserInformation {
     }
 
     public static void logRegistration() {
+        // Touch the field so the persistent attachment type registers during mod
+        // initialization, before a world reads saved player data.
+        java.util.Objects.requireNonNull(PLAYER_DATA);
         Infinity.LOGGER.debug("Registered infinity player data attachment");
     }
 }

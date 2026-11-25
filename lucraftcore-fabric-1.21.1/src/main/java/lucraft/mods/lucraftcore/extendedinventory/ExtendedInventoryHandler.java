@@ -22,6 +22,11 @@ public final class ExtendedInventoryHandler {
     private ExtendedInventoryHandler() {
     }
 
+    /** Forces the attachment type to register before player data is read. */
+    public static void registerAttachments() {
+        java.util.Objects.requireNonNull(EXTENDED);
+    }
+
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(server -> {
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList())
